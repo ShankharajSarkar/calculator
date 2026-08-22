@@ -264,7 +264,7 @@
           <button class="tab-btn" id="tabMonthly" onclick="setFrequency('monthly')">Monthly Deposit</button>
         </div>
 
-        <!-- Deposit Amount Input -->
+       <!-- Deposit Amount Input -->
         <div class="input-group">
           <div class="input-label-row">
             <label id="depositLabel" for="depositInput">Annual Investment</label>
@@ -273,10 +273,10 @@
               <input type="number" id="depositInput" value="150000" step="1000" min="500" max="150000">
             </div>
           </div>
-          <input type="range" id="depositSlider" class="range-slider" min="500" max="150000" step="1000" value="150000">
+          <input type="range" id="depositSlider" class="range-slider" min="1000" max="150000" step="1000" value="150000">
           <div class="word-preview" id="depositWordPreview">₹1.5 Lakh (Max 80C Limit)</div>
           <div class="preset-pills" id="presetButtons">
-            <button class="preset-pill" onclick="setDepositVal(12000)">₹12,000</button>
+            <button class="preset-pill" onclick="setDepositVal(10000)">₹10,000</button>
             <button class="preset-pill" onclick="setDepositVal(50000)">₹50,000</button>
             <button class="preset-pill" onclick="setDepositVal(100000)">₹1 Lakh</button>
             <button class="preset-pill" onclick="setDepositVal(150000)">₹1.5 Lakh</button>
@@ -464,7 +464,7 @@
       }
     }
 
-    function setFrequency(type) {
+   function setFrequency(type) {
       frequency = type;
       document.getElementById('tabYearly').classList.toggle('active', frequency === 'yearly');
       document.getElementById('tabMonthly').classList.toggle('active', frequency === 'monthly');
@@ -477,19 +477,31 @@
 
       if (frequency === 'yearly') {
         label.innerText = 'Annual Investment';
-        slider.max = '150000'; slider.step = '1000';
-        input.max = '150000'; input.value = 150000; slider.value = 150000;
+        slider.min = '1000';
+        slider.max = '150000';
+        slider.step = '1000';
+        input.min = '500';
+        input.max = '150000';
+        input.step = '1000';
+        input.value = 150000;
+        slider.value = 150000;
         fifthRow.style.display = 'none';
         presets.innerHTML = `
-          <button class="preset-pill" onclick="setDepositVal(12000)">₹12,000</button>
+          <button class="preset-pill" onclick="setDepositVal(10000)">₹10,000</button>
           <button class="preset-pill" onclick="setDepositVal(50000)">₹50,000</button>
           <button class="preset-pill" onclick="setDepositVal(100000)">₹1 Lakh</button>
           <button class="preset-pill" onclick="setDepositVal(150000)">₹1.5 Lakh</button>
         `;
       } else {
         label.innerText = 'Monthly Investment';
-        slider.max = '12500'; slider.step = '500';
-        input.max = '12500'; input.value = 12500; slider.value = 12500;
+        slider.min = '500';
+        slider.max = '12500';
+        slider.step = '500';
+        input.min = '500';
+        input.max = '12500';
+        input.step = '500';
+        input.value = 12500;
+        slider.value = 12500;
         fifthRow.style.display = 'flex';
         presets.innerHTML = `
           <button class="preset-pill" onclick="setDepositVal(1000)">₹1,000</button>
