@@ -408,36 +408,8 @@
     </article>
   </main>
 
-  <script>
-    // Theme Management (OLED Black Mode)
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      if (theme === 'dark') {
-        themeIcon.textContent = '☀️';
-        themeText.textContent = 'Light';
-      } else {
-        themeIcon.textContent = '🌙';
-        themeText.textContent = 'Dark';
-      }
-      localStorage.setItem('theme', theme);
-      if (ratioChart && growthChart) {
-        syncAndRecalculate();
-      }
-    }
-
-    applyTheme(currentTheme);
-    themeToggle.addEventListener('click', () => {
-      currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(currentTheme);
-    });
-
-    // State Management
+<script>
+    // State Variables
     let mode = 'standard';
     let ratioChart = null;
     let growthChart = null;
@@ -445,84 +417,101 @@
 
     // Currency Formatter Helpers
     function formatINR(val) {
+      if (isNaN(val) || val === null) return '₹0';
       return '₹' + Math.round(val).toLocaleString('en-IN');
     }
 
     function formatToIndianWords(num) {
+      if (isNaN(num) || num <= 0) return '₹0';
       if (num >= 10000000) return '₹' + (num / 10000000).toFixed(2) + ' Crore';
       if (num >= 100000) return '₹' + (num / 100000).toFixed(2) + ' Lakh';
       if (num >= 1000) return '₹' + (num / 1000).toFixed(1) + ' Thousand';
       return '₹' + Math.round(num);
     }
 
-    // UI Binding & Mode Switching
+    // Theme Management (Black Dark Mode)
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const themeIcon = document.getElementById('themeIcon');
+      const themeText = document.getElementById('themeText');
+      
+      if (themeIcon && themeText) {
+        if (theme === 'dark') {
+          themeIcon.textContent = '☀️';
+          themeText.textContent = 'Light';
+        } else {
+          themeIcon.textContent = '🌙';
+          themeText.textContent = 'Dark';
+        }
+      }
+      localStorage.setItem('theme', theme);
+      
+      // Update charts safely if they exist
+      if (ratioChart && growthChart && cachedSchedule.length > 0) {
+        const totalInvested = cachedSchedule[cachedSchedule.length - 1]?.totalInvested || 0;
+        const maturityValue = cachedSchedule[cachedSchedule.length - 1]?.endBalance || 0;
+        renderCharts(totalInvested, Math.max(0, maturityValue - totalInvested), cachedSchedule);
+      }
+    }
+
+    // Mode Switching
     function setMode(newMode) {
       mode = newMode;
-      document.getElementById('tabStandard').classList.toggle('active', mode === 'standard');
-      document.getElementById('tabGoal').classList.toggle('active', mode === 'goal');
+      const tabStd = document.getElementById('tabStandard');
+      const tabGoal = document.getElementById('tabGoal');
+      if (tabStd) tabStd.classList.toggle('active', mode === 'standard');
+      if (tabGoal) tabGoal.classList.toggle('active', mode === 'goal');
       
       const label = document.getElementById('primaryInputLabel');
       const input = document.getElementById('primaryInput');
       const slider = document.getElementById('primarySlider');
       const presets = document.getElementById('standardPresets');
+      const lblInvested = document.getElementById('lblInvested');
+      const lblTotal = document.getElementById('lblTotal');
 
       if (mode === 'standard') {
-        label.innerText = 'Monthly Investment';
-        slider.min = '500'; slider.max = '200000'; slider.step = '500';
-        input.value = 10000; slider.value = 10000;
-        presets.style.display = 'flex';
-        document.getElementById('lblInvested').innerText = 'Total Invested';
-        document.getElementById('lblTotal').innerText = 'Maturity Value';
+        if (label) label.innerText = 'Monthly Investment';
+        if (slider) { slider.min = '500'; slider.max = '200000'; slider.step = '500'; slider.value = '10000'; }
+        if (input) input.value = '10000';
+        if (presets) presets.style.display = 'flex';
+        if (lblInvested) lblInvested.innerText = 'Total Invested';
+        if (lblTotal) lblTotal.innerText = 'Maturity Value';
       } else {
-        label.innerText = 'Target Goal Corpus';
-        slider.min = '100000'; slider.max = '100000000'; slider.step = '100000';
-        input.value = 10000000; slider.value = 10000000;
-        presets.style.display = 'none';
-        document.getElementById('lblInvested').innerText = 'Required Monthly SIP';
-        document.getElementById('lblTotal').innerText = 'Target Corpus';
+        if (label) label.innerText = 'Target Goal Corpus';
+        if (slider) { slider.min = '100000'; slider.max = '100000000'; slider.step = '100000'; slider.value = '10000000'; }
+        if (input) input.value = '10000000';
+        if (presets) presets.style.display = 'none';
+        if (lblInvested) lblInvested.innerText = 'Required Monthly SIP';
+        if (lblTotal) lblTotal.innerText = 'Target Corpus';
       }
       syncAndRecalculate();
     }
 
     function setPrimaryVal(val) {
-      document.getElementById('primaryInput').value = val;
-      document.getElementById('primarySlider').value = val;
+      const input = document.getElementById('primaryInput');
+      const slider = document.getElementById('primarySlider');
+      if (input) input.value = val;
+      if (slider) slider.value = val;
       syncAndRecalculate();
     }
 
-    function syncInputs(numId, sliderId) {
-      const num = document.getElementById(numId);
-      const slider = document.getElementById(sliderId);
-      num.addEventListener('input', () => { slider.value = num.value; syncAndRecalculate(); });
-      slider.addEventListener('input', () => { num.value = slider.value; syncAndRecalculate(); });
-    }
-
-    syncInputs('primaryInput', 'primarySlider');
-    syncInputs('returnRateInput', 'returnRateSlider');
-    syncInputs('tenureInput', 'tenureSlider');
-    syncInputs('stepUpRateInput', 'stepUpRateSlider');
-    syncInputs('inflationRateInput', 'inflationRateSlider');
-
-    document.getElementById('stepUpToggle').addEventListener('change', (e) => {
-      document.getElementById('stepUpContainer').style.display = e.target.checked ? 'block' : 'none';
-      syncAndRecalculate();
-    });
-    document.getElementById('inflationToggle').addEventListener('change', (e) => {
-      document.getElementById('inflationContainer').style.display = e.target.checked ? 'block' : 'none';
-      syncAndRecalculate();
-    });
-
-    // Core Financial Calculations
+    // Core Calculation Logic
     function syncAndRecalculate() {
-      const primaryVal = parseFloat(document.getElementById('primaryInput').value) || 0;
-      const annualRate = parseFloat(document.getElementById('returnRateInput').value) || 0;
-      const years = parseInt(document.getElementById('tenureInput').value) || 1;
-      const hasStepUp = document.getElementById('stepUpToggle').checked;
-      const stepUpRate = hasStepUp ? (parseFloat(document.getElementById('stepUpRateInput').value) || 0) : 0;
-      const hasInflation = document.getElementById('inflationToggle').checked;
-      const inflationRate = hasInflation ? (parseFloat(document.getElementById('inflationRateInput').value) || 0) : 0;
+      const primaryInput = document.getElementById('primaryInput');
+      if (!primaryInput) return;
 
-      document.getElementById('primaryWordPreview').innerText = formatToIndianWords(primaryVal);
+      const primaryVal = parseFloat(primaryInput.value) || 0;
+      const annualRate = parseFloat(document.getElementById('returnRateInput')?.value) || 0;
+      const years = parseInt(document.getElementById('tenureInput')?.value) || 1;
+      const hasStepUp = document.getElementById('stepUpToggle')?.checked || false;
+      const stepUpRate = hasStepUp ? (parseFloat(document.getElementById('stepUpRateInput')?.value) || 0) : 0;
+      const hasInflation = document.getElementById('inflationToggle')?.checked || false;
+      const inflationRate = hasInflation ? (parseFloat(document.getElementById('inflationRateInput')?.value) || 0) : 0;
+
+      const primaryWordPreview = document.getElementById('primaryWordPreview');
+      if (primaryWordPreview) {
+        primaryWordPreview.innerText = formatToIndianWords(primaryVal);
+      }
 
       let totalInvested = 0;
       let maturityValue = 0;
@@ -568,27 +557,37 @@
 
         let estReturns = maturityValue - totalInvested;
 
-        document.getElementById('valInvested').innerText = formatINR(totalInvested);
-        document.getElementById('wordInvested').innerText = formatToIndianWords(totalInvested);
-        document.getElementById('valReturns').innerText = formatINR(estReturns);
-        document.getElementById('wordReturns').innerText = formatToIndianWords(estReturns);
-        document.getElementById('valTotal').innerText = formatINR(maturityValue);
-        document.getElementById('wordTotal').innerText = formatToIndianWords(maturityValue);
+        const elInv = document.getElementById('valInvested');
+        const elInvW = document.getElementById('wordInvested');
+        const elRet = document.getElementById('valReturns');
+        const elRetW = document.getElementById('wordReturns');
+        const elTot = document.getElementById('valTotal');
+        const elTotW = document.getElementById('wordTotal');
+
+        if (elInv) elInv.innerText = formatINR(totalInvested);
+        if (elInvW) elInvW.innerText = formatToIndianWords(totalInvested);
+        if (elRet) elRet.innerText = formatINR(estReturns);
+        if (elRetW) elRetW.innerText = formatToIndianWords(estReturns);
+        if (elTot) elTot.innerText = formatINR(maturityValue);
+        if (elTotW) elTotW.innerText = formatToIndianWords(maturityValue);
 
       } else {
         // Goal Mode
         const targetCorpus = primaryVal;
         let low = 100, high = targetCorpus, calculatedSIP = 0;
+
         for (let iter = 0; iter < 40; iter++) {
           let mid = (low + high) / 2;
           let testCorpus = 0;
           let testSIP = mid;
+
           for (let yr = 1; yr <= years; yr++) {
             for (let m = 1; m <= 12; m++) {
               testCorpus = (testCorpus + testSIP) * (1 + monthlyRate);
             }
             if (hasStepUp) testSIP += testSIP * (stepUpRate / 100);
           }
+
           if (testCorpus < targetCorpus) low = mid;
           else high = mid;
           calculatedSIP = mid;
@@ -601,10 +600,12 @@
         for (let yr = 1; yr <= years; yr++) {
           let yearStartCorpus = corpus;
           let yearlyInvested = 0;
+
           for (let m = 1; m <= 12; m++) {
             corpus = (corpus + currentSIP) * (1 + monthlyRate);
             yearlyInvested += currentSIP;
           }
+
           cumulativeInvested += yearlyInvested;
           schedule.push({
             year: yr,
@@ -613,6 +614,7 @@
             yearlyReturns: corpus - yearStartCorpus - yearlyInvested,
             endBalance: corpus
           });
+
           if (hasStepUp) currentSIP += currentSIP * (stepUpRate / 100);
         }
 
@@ -620,12 +622,19 @@
         totalInvested = cumulativeInvested;
         let estReturns = maturityValue - totalInvested;
 
-        document.getElementById('valInvested').innerText = formatINR(calculatedSIP) + ' /mo';
-        document.getElementById('wordInvested').innerText = formatToIndianWords(calculatedSIP) + ' monthly';
-        document.getElementById('valReturns').innerText = formatINR(estReturns);
-        document.getElementById('wordReturns').innerText = formatToIndianWords(estReturns);
-        document.getElementById('valTotal').innerText = formatINR(maturityValue);
-        document.getElementById('wordTotal').innerText = formatToIndianWords(maturityValue);
+        const elInv = document.getElementById('valInvested');
+        const elInvW = document.getElementById('wordInvested');
+        const elRet = document.getElementById('valReturns');
+        const elRetW = document.getElementById('wordReturns');
+        const elTot = document.getElementById('valTotal');
+        const elTotW = document.getElementById('wordTotal');
+
+        if (elInv) elInv.innerText = formatINR(calculatedSIP) + ' /mo';
+        if (elInvW) elInvW.innerText = formatToIndianWords(calculatedSIP) + ' monthly';
+        if (elRet) elRet.innerText = formatINR(estReturns);
+        if (elRetW) elRetW.innerText = formatToIndianWords(estReturns);
+        if (elTot) elTot.innerText = formatINR(maturityValue);
+        if (elTotW) elTotW.innerText = formatToIndianWords(maturityValue);
       }
 
       cachedSchedule = schedule;
@@ -636,6 +645,7 @@
     // Render Table
     function renderTable(schedule) {
       const tbody = document.getElementById('scheduleBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
       schedule.forEach(row => {
         const tr = document.createElement('tr');
@@ -652,7 +662,7 @@
 
     // CSV Download
     function exportTableToCSV() {
-      if (!cachedSchedule.length) return;
+      if (!cachedSchedule || !cachedSchedule.length) return;
       let csv = 'Year,Monthly SIP (INR),Total Invested (INR),Yearly Gain (INR),End Balance (INR)\n';
       cachedSchedule.forEach(r => {
         csv += `${r.year},${Math.round(r.monthlySIP)},${Math.round(r.totalInvested)},${Math.round(r.yearlyReturns)},${Math.round(r.endBalance)}\n`;
@@ -664,17 +674,23 @@
       link.click();
     }
 
-    // Chart.js Visualizations with Theme-aware styling
+    // Chart.js Visualizations
     function renderCharts(invested, returns, schedule) {
+      const canvasDonut = document.getElementById('ratioChart');
+      const canvasGrowth = document.getElementById('growthChart');
+      if (!canvasDonut || !canvasGrowth || typeof Chart === 'undefined') return;
+
       const computedStyle = getComputedStyle(document.documentElement);
-      const textColor = computedStyle.getPropertyValue('--chart-text').trim();
-      const gridColor = computedStyle.getPropertyValue('--chart-grid').trim();
-      const investedBarColor = computedStyle.getPropertyValue('--chart-invested').trim();
-      const primaryColor = computedStyle.getPropertyValue('--primary').trim();
+      const textColor = computedStyle.getPropertyValue('--chart-text').trim() || '#64748b';
+      const gridColor = computedStyle.getPropertyValue('--chart-grid').trim() || '#e2e8f0';
+      const investedBarColor = computedStyle.getPropertyValue('--chart-invested').trim() || '#94a3b8';
+      const primaryColor = computedStyle.getPropertyValue('--primary').trim() || '#2563eb';
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const chartBorderColor = isDark ? '#111111' : '#ffffff';
 
       // 1. Donut Chart
       if (ratioChart) ratioChart.destroy();
-      const ctxDonut = document.getElementById('ratioChart').getContext('2d');
+      const ctxDonut = canvasDonut.getContext('2d');
       ratioChart = new Chart(ctxDonut, {
         type: 'doughnut',
         data: {
@@ -682,7 +698,7 @@
           datasets: [{
             data: [Math.round(invested), Math.round(returns)],
             backgroundColor: [investedBarColor, primaryColor],
-            borderColor: document.documentElement.getAttribute('data-theme') === 'dark' ? '#111111' : '#ffffff',
+            borderColor: chartBorderColor,
             borderWidth: 2
           }]
         },
@@ -702,7 +718,7 @@
 
       // 2. Growth Area Line Chart
       if (growthChart) growthChart.destroy();
-      const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+      const ctxGrowth = canvasGrowth.getContext('2d');
       growthChart = new Chart(ctxGrowth, {
         type: 'line',
         data: {
@@ -712,7 +728,7 @@
               label: 'Total Corpus',
               data: schedule.map(s => Math.round(s.endBalance)),
               borderColor: primaryColor,
-              backgroundColor: document.documentElement.getAttribute('data-theme') === 'dark' ? 'rgba(59, 130, 246, 0.25)' : 'rgba(37, 99, 235, 0.15)',
+              backgroundColor: isDark ? 'rgba(59, 130, 246, 0.25)' : 'rgba(37, 99, 235, 0.15)',
               fill: true,
               tension: 0.3
             },
@@ -755,8 +771,59 @@
       });
     }
 
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', syncAndRecalculate);
+    // Initialize Event Listeners safely after DOM loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Theme
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+      applyTheme(initialTheme);
+
+      const themeToggle = document.getElementById('themeToggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          applyTheme(nextTheme);
+        });
+      }
+
+      // 2. Input Synchronization Helper
+      function bindInputSync(numId, sliderId) {
+        const num = document.getElementById(numId);
+        const slider = document.getElementById(sliderId);
+        if (num && slider) {
+          num.addEventListener('input', () => { slider.value = num.value; syncAndRecalculate(); });
+          slider.addEventListener('input', () => { num.value = slider.value; syncAndRecalculate(); });
+        }
+      }
+
+      bindInputSync('primaryInput', 'primarySlider');
+      bindInputSync('returnRateInput', 'returnRateSlider');
+      bindInputSync('tenureInput', 'tenureSlider');
+      bindInputSync('stepUpRateInput', 'stepUpRateSlider');
+      bindInputSync('inflationRateInput', 'inflationRateSlider');
+
+      // 3. Toggles
+      const stepUpToggle = document.getElementById('stepUpToggle');
+      if (stepUpToggle) {
+        stepUpToggle.addEventListener('change', (e) => {
+          const container = document.getElementById('stepUpContainer');
+          if (container) container.style.display = e.target.checked ? 'block' : 'none';
+          syncAndRecalculate();
+        });
+      }
+
+      const inflationToggle = document.getElementById('inflationToggle');
+      if (inflationToggle) {
+        inflationToggle.addEventListener('change', (e) => {
+          const container = document.getElementById('inflationContainer');
+          if (container) container.style.display = e.target.checked ? 'block' : 'none';
+          syncAndRecalculate();
+        });
+      }
+
+      // 4. Initial Calculation Run
+      syncAndRecalculate();
+    });
   </script>
 </body>
 </html>
