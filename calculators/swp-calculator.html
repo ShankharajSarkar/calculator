@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SWP Calculator — Systematic Withdrawal Plan & Retirement Cashflow</title>
-  <meta name="description" content="Calculate monthly cash payouts from mutual fund investments with SWP. Check corpus sustainability, remaining balance growth, and inflation adjustments.">
+  <title>SWP Calculator with Annual Payout Increase — Retirement Cashflow Planner</title>
+  <meta name="description" content="Calculate SWP cashflows with an annual increase (step-up) in monthly withdrawals to beat inflation. Model portfolio sustainability and depletion.">
   <link rel="canonical" href="https://shankharajsarkar.github.io/calculator/calculators/swp-calculator.html">
 
   <!-- Chart.js CDN -->
@@ -17,7 +17,7 @@
     "@graph": [
       {
         "@type": "WebApplication",
-        "name": "FinCalc India SWP Calculator",
+        "name": "FinCalc India SWP Step-Up Calculator",
         "url": "https://shankharajsarkar.github.io/calculator/calculators/swp-calculator.html",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "All"
@@ -27,26 +27,18 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What is a Systematic Withdrawal Plan (SWP)?",
+            "name": "Why should I increase my SWP withdrawal annually?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "An SWP allows an investor to withdraw a predetermined sum regularly (usually monthly) from an existing mutual fund corpus while the remaining capital continues to generate returns."
+              "text": "Due to lifestyle inflation (typically 6% to 7% in India), the cost of living doubles every 10-12 years. Increasing your monthly withdrawal annually ensures your real purchasing power remains constant throughout retirement."
             }
           },
           {
             "@type": "Question",
-            "name": "How is SWP more tax-efficient than FD interest or dividends?",
+            "name": "How does an annual step-up impact portfolio longevity?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "In an SWP, each withdrawal is treated as a mix of principal repayment and capital gains. You only pay tax on the capital gains proportion, and for equity funds held over 1 year, gains under ₹1.25 Lakh per financial year are tax-free."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is a safe monthly withdrawal rate?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "A standard annual withdrawal rate of 4% to 6% of your initial investment corpus is typically considered sustainable without depleting your core capital over a 20-30 year horizon."
+              "text": "An annual step-up draws larger sums in later years. If the portfolio return rate is not higher than the initial withdrawal rate plus the step-up rate, the corpus may deplete faster, requiring a larger starting capital."
             }
           }
         ]
@@ -133,7 +125,7 @@
     .ad-728x90 { min-height: 90px; max-width: 728px; }
     .ad-300x250 { min-height: 250px; }
 
-    /* Page Intro */
+    /* Page Head */
     .page-head { text-align: center; margin: 1rem 0 1.5rem; }
     .page-head h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.4rem; }
     .page-head p { color: var(--text-muted); font-size: 0.9rem; }
@@ -170,7 +162,7 @@
     .summary-val { font-size: 1.15rem; font-weight: 800; color: var(--text); word-break: break-word; }
     .summary-words { font-size: 0.7rem; color: var(--primary); font-weight: 600; margin-top: 2px; }
 
-    /* Sustainability Status Alert */
+    /* Sustainability Alert */
     .status-card { border-radius: 10px; padding: 1rem; display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; font-weight: 600; }
     .status-card.sustainable { background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent); color: var(--accent); }
     .status-card.depleting { background: rgba(239, 68, 68, 0.12); border: 1px solid var(--danger); color: var(--danger); }
@@ -196,7 +188,7 @@
     .btn-action { background: var(--surface-subtle); border: 1px solid var(--border); padding: 0.35rem 0.65rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: var(--text); cursor: pointer; }
     .btn-action:hover { background: var(--primary); color: #fff; }
     .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; max-height: 380px; }
-    table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.8rem; text-align: right; }
+    table { width: 100%; min-width: 580px; border-collapse: collapse; font-size: 0.8rem; text-align: right; }
     th, td { padding: 0.5rem; border-bottom: 1px solid var(--border); }
     th:first-child, td:first-child { text-align: left; }
     th { background: var(--surface-subtle); position: sticky; top: 0; }
@@ -250,14 +242,14 @@
     <div class="ad-banner ad-728x90" aria-label="Top Banner Ad">Ad Slot — Top Responsive (728x90)</div>
 
     <div class="page-head">
-      <h1>SWP Cashflow & Sustainability Calculator</h1>
-      <p>Plan monthly retirement cashflow, assess portfolio longevity, and track your remaining balance.</p>
+      <h1>SWP Calculator with Annual Payout Increase</h1>
+      <p>Model retirement cashflows with annual percentage step-ups to match inflation and track capital longevity.</p>
     </div>
 
     <div class="calc-layout">
       <!-- Input Sidebar -->
       <aside class="input-panel">
-        <!-- Total Initial Corpus -->
+        <!-- Initial Corpus -->
         <div class="input-group">
           <div class="input-label-row">
             <label for="corpusInput">Total Investment Corpus</label>
@@ -277,24 +269,41 @@
           </div>
         </div>
 
-        <!-- Monthly Withdrawal -->
+        <!-- Initial Monthly Withdrawal -->
         <div class="input-group">
           <div class="input-label-row">
-            <label for="withdrawalInput">Monthly Withdrawal</label>
+            <label for="withdrawalInput">Starting Monthly Payout</label>
             <div class="input-box-wrap">
               <span>₹</span>
               <input type="number" id="withdrawalInput" value="30000" step="1000">
             </div>
           </div>
           <input type="range" id="withdrawalSlider" class="range-slider" min="1000" max="300000" step="1000" value="30000">
-          <div class="word-preview" id="withdrawalWordPreview">₹30 Thousand</div>
+          <div class="word-preview" id="withdrawalWordPreview">₹30 Thousand /mo</div>
           <div class="preset-pills">
             <button class="preset-pill" onclick="setWithdrawalVal(15000)">₹15,000</button>
             <button class="preset-pill" onclick="setWithdrawalVal(25000)">₹25,000</button>
-            <button class="preset-pill" onclick="setWithdrawalVal(40000)">₹40,000</button>
-            <button class="preset-pill" onclick="setWithdrawalVal(60000)">₹60,000</button>
+            <button class="preset-pill" onclick="setWithdrawalVal(35000)">₹35,000</button>
+            <button class="preset-pill" onclick="setWithdrawalVal(50000)">₹50,000</button>
             <button class="preset-pill" onclick="setWithdrawalVal(100000)">₹1 Lakh</button>
           </div>
+        </div>
+
+        <!-- Annual Step-Up in Withdrawals -->
+        <div class="toggle-row">
+          <span class="toggle-label">Annual Increase in Withdrawal</span>
+          <input type="checkbox" id="stepUpToggle" checked>
+        </div>
+        <div class="input-group" id="stepUpContainer" style="margin-top:0.75rem;">
+          <div class="input-label-row">
+            <label for="stepUpRateInput">Annual Payout Hike</label>
+            <div class="input-box-wrap">
+              <input type="number" id="stepUpRateInput" value="6" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+          <input type="range" id="stepUpRateSlider" class="range-slider" min="1" max="15" step="0.5" value="6">
+          <div class="word-preview" id="stepUpWordPreview">Withdrawal increases by 6% each year</div>
         </div>
 
         <!-- Expected Return Rate -->
@@ -319,22 +328,6 @@
             </div>
           </div>
           <input type="range" id="tenureSlider" class="range-slider" min="1" max="40" step="1" value="20">
-        </div>
-
-        <!-- Annual Step-Up in Withdrawals (Inflation-indexing) -->
-        <div class="toggle-row">
-          <span class="toggle-label">Annual Payout Increase (Step-Up)</span>
-          <input type="checkbox" id="stepUpToggle">
-        </div>
-        <div class="input-group" id="stepUpContainer" style="display:none; margin-top:0.75rem;">
-          <div class="input-label-row">
-            <label for="stepUpRateInput">Annual Payout Hike</label>
-            <div class="input-box-wrap">
-              <input type="number" id="stepUpRateInput" value="5" step="0.5">
-              <span>%</span>
-            </div>
-          </div>
-          <input type="range" id="stepUpRateSlider" class="range-slider" min="1" max="15" step="0.5" value="5">
         </div>
 
         <div class="ad-banner ad-300x250" style="margin-top:1.5rem;" aria-label="Sidebar Ad">Ad Slot — Sidebar (300x250)</div>
@@ -362,9 +355,9 @@
             <div class="summary-words" id="wordWithdrawn"></div>
           </div>
           <div class="summary-card">
-            <div class="summary-title">Initial Investment</div>
-            <div class="summary-val" id="valInvested">₹0</div>
-            <div class="summary-words" id="wordInvested"></div>
+            <div class="summary-title">Final Year Monthly Payout</div>
+            <div class="summary-val" id="valFinalPayout">₹0</div>
+            <div class="summary-words" id="wordFinalPayout"></div>
           </div>
           <div class="summary-card highlight">
             <div class="summary-title">Final Remaining Corpus</div>
@@ -400,6 +393,7 @@
               <thead>
                 <tr>
                   <th>Year</th>
+                  <th>Monthly Payout</th>
                   <th>Opening Corpus</th>
                   <th>Interest Accrued</th>
                   <th>Yearly Payout</th>
@@ -415,23 +409,23 @@
 
     <!-- Educational Content & FAQs -->
     <article class="content-article">
-      <h2>How Systematic Withdrawal Plans (SWP) Work</h2>
-      <p>An <strong>SWP</strong> allows mutual fund investors to generate regular cashflow (monthly or quarterly) by redeeming units periodically while letting the remaining balance continue earning compounded returns.</p>
+      <h2>Why You Need an Increasing SWP in Retirement</h2>
+      <p>With an average Indian inflation rate of <strong>6% to 7%</strong>, a fixed monthly withdrawal of ₹30,000 today will only buy ₹16,700 worth of groceries in 10 years and less than ₹9,300 in 20 years. Implementing an <strong>Annual Step-Up SWP</strong> increases your monthly payout year-over-year to keep your living standard steady.</p>
       
-      <h2>The Safe Withdrawal Rule</h2>
+      <h2>Annual Step-Up Compounding Formula</h2>
       <div class="formula-box">
-        Annual Withdrawal Rate % = (Monthly Payout × 12) ÷ Initial Corpus × 100
+        Yearly Payout (Yr t) = Monthly Payout<sub>0</sub> × (1 + StepUp %)<sup>t−1</sup> × 12
       </div>
-      <p>If your annual withdrawal rate is lower than the net return rate of your portfolio, your capital remains infinite and grows over time. If your withdrawal rate exceeds portfolio return plus inflation, your corpus gradually depletes.</p>
+      <p>The remaining portfolio balance earns monthly returns calculated as <code>Balance × (Return Rate ÷ 12)</code> while handling the escalating withdrawal stream.</p>
 
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Why is SWP better than Fixed Deposit monthly interest? <span>▼</span></div>
-        <div class="faq-a">FD interest is taxed at your full slab rate (up to 30%+). In an SWP, tax is payable only on the capital gains component, with equity mutual fund LTCG enjoying a ₹1.25 Lakh exemption threshold annually.</div>
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How much step-up percentage should I choose? <span>▼</span></div>
+        <div class="faq-a">A step-up rate of 5% to 7% closely matches historical inflation in India. If your starting withdrawal rate is low (e.g., 3% to 4% of total corpus), a 6% step-up is generally sustainable.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What happens if my corpus runs out early? <span>▼</span></div>
-        <div class="faq-a">If withdrawals exceed gains for consecutive years, the balance declines to zero. You can avoid depletion by reducing monthly payouts or choosing a balanced advantage / hybrid fund with conservative return forecasts.</div>
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the tax treatment on SWP withdrawals? <span>▼</span></div>
+        <div class="faq-a">Only the capital gains portion of each redemption is taxed. In equity mutual funds held for over 12 months, long-term capital gains up to ₹1.25 Lakh per financial year are tax-free, with the excess taxed at 12.5%.</div>
       </div>
     </article>
   </main>
@@ -492,7 +486,6 @@
       syncAndRecalculate();
     }
 
-    // URL State Sync & WhatsApp Sharing
     function updateURLParams() {
       const p = new URLSearchParams();
       p.set('corpus', document.getElementById('corpusInput')?.value || 5000000);
@@ -500,7 +493,7 @@
       p.set('rate', document.getElementById('returnRateInput')?.value || 10);
       p.set('yr', document.getElementById('tenureInput')?.value || 20);
       if (document.getElementById('stepUpToggle')?.checked) {
-        p.set('step', document.getElementById('stepUpRateInput')?.value || 5);
+        p.set('step', document.getElementById('stepUpRateInput')?.value || 6);
       }
       window.history.replaceState({}, '', `${window.location.pathname}?${p.toString()}`);
     }
@@ -513,13 +506,14 @@
     function shareWhatsApp() {
       const corpus = document.getElementById('corpusInput')?.value || 5000000;
       const payout = document.getElementById('withdrawalInput')?.value || 30000;
+      const step = document.getElementById('stepUpToggle')?.checked ? document.getElementById('stepUpRateInput')?.value : 0;
       const tenure = document.getElementById('tenureInput')?.value || 20;
       const finalBal = document.getElementById('valFinal')?.innerText || '';
-      const text = encodeURIComponent(`Check out my SWP retirement cashflow plan:\n🏦 Initial Corpus: ₹${corpus}\n💵 Monthly Payout: ₹${payout}/mo\n⏳ Tenure: ${tenure} Years\n📈 Final Balance: ${finalBal}\n\nCalculate yours here: ${window.location.href}`);
+      const text = encodeURIComponent(`Check out my SWP cashflow plan:\n🏦 Initial Corpus: ₹${corpus}\n💵 Start Payout: ₹${payout}/mo (Step-Up: ${step}%/yr)\n⏳ Tenure: ${tenure} Years\n📈 Final Balance: ${finalBal}\n\nCalculate yours here: ${window.location.href}`);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
 
-    // Calculation Engine
+    // Core Calculation Logic
     function syncAndRecalculate() {
       const corpusInput = document.getElementById('corpusInput');
       if (!corpusInput) return;
@@ -532,7 +526,12 @@
       const stepUpRate = hasStepUp ? (parseFloat(document.getElementById('stepUpRateInput')?.value) || 0) : 0;
 
       document.getElementById('corpusWordPreview').innerText = formatToIndianWords(initialCorpus);
-      document.getElementById('withdrawalWordPreview').innerText = formatToIndianWords(monthlyPayout);
+      document.getElementById('withdrawalWordPreview').innerText = formatToIndianWords(monthlyPayout) + ' /month initially';
+      
+      const stepPreview = document.getElementById('stepUpWordPreview');
+      if (stepPreview) {
+        stepPreview.innerText = hasStepUp ? `Withdrawal increases by ${stepUpRate}% each year` : 'No annual increase';
+      }
 
       const monthlyRate = annualRate / 12 / 100;
       let currentBalance = initialCorpus;
@@ -540,11 +539,14 @@
       let schedule = [];
       let depletedAtYear = null;
       let depletedAtMonth = null;
+      let currentMonthlyPayout = monthlyPayout;
+      let finalYearMonthlyPayout = monthlyPayout;
 
       for (let yr = 1; yr <= years; yr++) {
         let openBal = currentBalance;
         let yearlyInterest = 0;
         let yearlyPayout = 0;
+        finalYearMonthlyPayout = currentMonthlyPayout;
 
         for (let m = 1; m <= 12; m++) {
           if (currentBalance <= 0) {
@@ -555,13 +557,11 @@
             break;
           }
 
-          // Earn return on remaining balance
           let interestThisMonth = currentBalance * monthlyRate;
           yearlyInterest += interestThisMonth;
           currentBalance += interestThisMonth;
 
-          // Deduct withdrawal
-          let actualWithdrawal = Math.min(currentBalance, monthlyPayout);
+          let actualWithdrawal = Math.min(currentBalance, currentMonthlyPayout);
           currentBalance -= actualWithdrawal;
           yearlyPayout += actualWithdrawal;
           totalWithdrawn += actualWithdrawal;
@@ -569,6 +569,7 @@
 
         schedule.push({
           year: yr,
+          monthlyPayout: currentMonthlyPayout,
           opening: openBal,
           interest: yearlyInterest,
           withdrawn: yearlyPayout,
@@ -576,15 +577,15 @@
         });
 
         if (hasStepUp) {
-          monthlyPayout += monthlyPayout * (stepUpRate / 100);
+          currentMonthlyPayout += currentMonthlyPayout * (stepUpRate / 100);
         }
       }
 
-      // Update Summary Cards
-      document.getElementById('valInvested').innerText = formatINR(initialCorpus);
-      document.getElementById('wordInvested').innerText = formatToIndianWords(initialCorpus);
+      // Summary Cards
       document.getElementById('valWithdrawn').innerText = formatINR(totalWithdrawn);
       document.getElementById('wordWithdrawn').innerText = formatToIndianWords(totalWithdrawn);
+      document.getElementById('valFinalPayout').innerText = formatINR(finalYearMonthlyPayout) + ' /mo';
+      document.getElementById('wordFinalPayout').innerText = formatToIndianWords(finalYearMonthlyPayout) + ' /mo by Year ' + years;
       document.getElementById('valFinal').innerText = formatINR(currentBalance);
       document.getElementById('wordFinal').innerText = formatToIndianWords(currentBalance);
 
@@ -596,15 +597,15 @@
       if (depletedAtYear) {
         statusBox.className = 'status-card depleting';
         statusIcon.innerText = '⚠️';
-        statusText.innerText = `Corpus Depletion Alert: Your funds will run out in Year ${depletedAtYear} (Month ${depletedAtMonth}). Consider lowering your monthly withdrawal.`;
+        statusText.innerText = `Corpus Depletion Alert: Under a ${stepUpRate}% annual hike, your funds will deplete completely in Year ${depletedAtYear} (Month ${depletedAtMonth}). Lower your starting withdrawal or reduce the step-up hike.`;
       } else if (currentBalance < initialCorpus) {
         statusBox.className = 'status-card warning';
         statusIcon.innerText = '📉';
-        statusText.innerText = `Moderate Drawdown: Your corpus survives ${years} years but is declining. Final balance is less than your initial investment.`;
+        statusText.innerText = `Declining Corpus: Your money lasts ${years} years, but your final balance is less than your initial capital.`;
       } else {
         statusBox.className = 'status-card sustainable';
         statusIcon.innerText = '🛡️';
-        statusText.innerText = `Fully Sustainable: Your corpus grows while funding all payouts. Final balance exceeds your initial principal.`;
+        statusText.innerText = `Fully Sustainable: Even with a ${stepUpRate}% annual payout increase, your corpus continues to grow above your starting capital!`;
       }
 
       cachedSchedule = schedule;
@@ -621,6 +622,7 @@
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>Yr ${row.year}</td>
+          <td>${formatINR(row.monthlyPayout)} /mo</td>
           <td>${formatINR(row.opening)}</td>
           <td>${formatINR(row.interest)}</td>
           <td style="color:var(--accent); font-weight:600;">${formatINR(row.withdrawn)}</td>
@@ -632,14 +634,14 @@
 
     function exportTableToCSV() {
       if (!cachedSchedule || !cachedSchedule.length) return;
-      let csv = 'Year,Opening Corpus (INR),Interest Earned (INR),Payout (INR),Closing Balance (INR)\n';
+      let csv = 'Year,Monthly Payout (INR),Opening Corpus (INR),Interest Earned (INR),Annual Payout (INR),Closing Balance (INR)\n';
       cachedSchedule.forEach(r => {
-        csv += `${r.year},${Math.round(r.opening)},${Math.round(r.interest)},${Math.round(r.withdrawn)},${Math.round(r.closing)}\n`;
+        csv += `${r.year},${Math.round(r.monthlyPayout)},${Math.round(r.opening)},${Math.round(r.interest)},${Math.round(r.withdrawn)},${Math.round(r.closing)}\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `SWP_Schedule_${new Date().getFullYear()}.csv`;
+      link.download = `SWP_StepUp_Schedule_${new Date().getFullYear()}.csv`;
       link.click();
     }
 
@@ -656,7 +658,7 @@
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       const chartBorderColor = isDark ? '#111111' : '#ffffff';
 
-      // 1. Donut Chart
+      // 1. Donut Ratio Chart
       if (ratioChart) ratioChart.destroy();
       const ctxDonut = canvasDonut.getContext('2d');
       ratioChart = new Chart(ctxDonut, {
@@ -684,7 +686,7 @@
         }
       });
 
-      // 2. Growth Area Line Chart
+      // 2. Growth Area Trajectory Chart
       if (growthChart) growthChart.destroy();
       const ctxGrowth = canvasGrowth.getContext('2d');
       growthChart = new Chart(ctxGrowth, {
@@ -746,7 +748,7 @@
         });
       }
 
-      // Parse URL Params
+      // Parse URL parameters
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('corpus')) {
         document.getElementById('corpusInput').value = urlParams.get('corpus');
