@@ -1,0 +1,6 @@
+# Allow all search engine bots to crawl the entire site
+User-agent: *
+Disallow:
+
+# Location of your sitemap
+Sitemap: https://kitnapaisa.in/sitemap.xml
