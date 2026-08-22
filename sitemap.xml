@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- 1. Homepage -->
   <url>
     <loc>https://kitnapaisa.in/</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- If you have other pages or tools, add them here: -->
-  <!--
+
+  <!-- 2. Privacy Policy Page -->
   <url>
-    <loc>https://kitnapaisa.in/calculator.html</loc>
-    <lastmod>2026-08-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://kitnapaisa.in/privacy-policy.html</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
-  -->
+
+  <!-- 3. Terms of Use & Disclaimer Page -->
+  <url>
+    <loc>https://kitnapaisa.in/terms.html</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- 4. About Us & Contact Page -->
+  <url>
+    <loc>https://kitnapaisa.in/about.html</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>
