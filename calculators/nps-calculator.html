@@ -1,36 +1,60 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced NPS Calculator India | KitnaPaisa</title>
-  <meta name="description" content="Calculate your NPS retirement corpus, monthly pension, and lump sum with dark mode and annual step-up support.">
+  <title>NPS Calculator — National Pension Scheme Retirement & Monthly Pension</title>
+  <meta name="description" content="Calculate your NPS retirement corpus, tax-free lump-sum withdrawal, monthly pension annuity, and Section 80CCD(1B) tax savings with KitnaPaisa.">
+  <link rel="canonical" href="https://kitnapaisa.in/calculators/nps-calculator.html">
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <!-- Schema Markup -->
+  <!-- Schema.org JSON-LD (WebApplication + FAQPage) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebApplication",
-        "name": "KitnaPaisa Advanced NPS Calculator",
-        "url": "https://kitnapaisa.in/nps-calculator",
+        "name": "KitnaPaisa NPS Calculator",
+        "url": "https://kitnapaisa.in/calculators/nps-calculator.html",
         "applicationCategory": "FinanceApplication",
-        "operatingSystem": "All",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+        "operatingSystem": "All"
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What is the minimum annuity requirement in NPS?",
+            "name": "What is the maximum tax-free withdrawal allowed in NPS at retirement?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Under PFRDA rules for non-government subscribers, you must allocate at least 20% of the total maturity corpus to purchase an annuity if the corpus exceeds ₹12 Lakh. The remaining 80% can be withdrawn as a lump sum."
+              "text": "At age 60 (superannuation), you can withdraw up to 60% of your total accumulated NPS corpus completely tax-free under Section 10(12A). The remaining minimum 40% must be used to purchase an annuity for monthly pension."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the tax benefits of investing in NPS Tier 1?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "NPS offers triple tax benefits: up to ₹1.5 Lakh under Section 80CCD(1) (within the overall Section 80CCE limit), an exclusive additional deduction of up to ₹50,000 under Section 80CCD(1B), and employer contribution deductions under Section 80CCD(2)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the monthly pension from the NPS annuity taxable?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, while the 60% lump-sum payout is 100% tax-free, the monthly pension received from the annuity service provider is treated as regular income and taxed according to your applicable income tax slab."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I withdraw 100% of my NPS corpus without buying an annuity?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, under PFRDA guidelines, if your total accumulated Tier 1 corpus at retirement is ₹8 Lakh or less, you are eligible to withdraw the entire 100% amount as a tax-free lump sum without any mandatory annuity purchase."
             }
           }
         ]
@@ -40,456 +64,743 @@
   </script>
 
   <style>
-    /* Light Theme (Default) */
     :root {
       --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --panel-bg: #f1f5f9;
-      --stat-bg: #ffffff;
+      --surface: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --border: #e2e8f0;
       --text: #0f172a;
       --text-muted: #64748b;
-      --border: #e2e8f0;
-      --slider-track: #e2e8f0;
       --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --success: #16a34a;
-      --pension-bg: #ecfdf5;
-      --pension-border: #bbf7d0;
-      --pension-subtext: #166534;
+      --primary-light: #eff6ff;
+      --accent: #10b981;
+      --amber: #f59e0b;
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      --chart-text: #64748b;
+      --chart-grid: #e2e8f0;
       --chart-invested: #94a3b8;
-      --chart-gains: #16a34a;
     }
 
-    /* Dark Theme */
     [data-theme="dark"] {
-      --bg: #0b0f19;
-      --card-bg: #111827;
-      --panel-bg: #1f2937;
-      --stat-bg: #111827;
-      --text: #f9fafb;
-      --text-muted: #9ca3af;
-      --border: #374151;
-      --slider-track: #374151;
+      --bg: #000000;
+      --surface: #111111;
+      --surface-subtle: #1c1c1c;
+      --border: #262626;
+      --text: #f5f5f5;
+      --text-muted: #a3a3a3;
       --primary: #3b82f6;
-      --primary-hover: #60a5fa;
-      --success: #22c55e;
-      --pension-bg: #064e3b26;
-      --pension-border: #065f46;
-      --pension-subtext: #34d399;
-      --chart-invested: #4b5563;
-      --chart-gains: #22c55e;
+      --primary-light: rgba(59, 130, 246, 0.15);
+      --accent: #34d399;
+      --amber: #fbbf24;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      --chart-text: #a3a3a3;
+      --chart-grid: #262626;
+      --chart-invested: #525252;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease; }
-    body { background: var(--bg); color: var(--text); padding: 24px 16px; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; min-height: 100%; overflow-x: hidden; }
 
-    .calc-wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      border-radius: 16px;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+
+    /* Header */
+    header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 20; width: 100%; }
+    .nav-wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .nav-left { display: flex; align-items: center; gap: 1rem; }
+    .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1.1rem; }
+    .logo-badge { background: var(--primary); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; flex-shrink: 0; }
+    .nav-link { text-decoration: none; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+    .nav-link:hover { color: var(--primary); }
+
+    .theme-toggle {
+      background: var(--surface-subtle);
       border: 1px solid var(--border);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
-
-    .calc-header {
-      padding: 24px 32px;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .calc-header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
-    .calc-header p { font-size: 0.9rem; color: #94a3b8; }
-
-    /* Theme Toggle Button */
-    .theme-toggle-btn {
-      background: #334155;
-      color: #f8fafc;
-      border: 1px solid #475569;
-      padding: 8px 14px;
+      color: var(--text);
+      padding: 0.35rem 0.75rem;
       border-radius: 8px;
+      cursor: pointer;
       font-size: 0.85rem;
       font-weight: 600;
-      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-    .theme-toggle-btn:hover { background: #475569; }
-
-    .calc-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      padding: 32px;
+      gap: 0.3rem;
     }
 
-    @media (max-width: 860px) {
-      .calc-grid { grid-template-columns: 1fr; padding: 20px; }
-      .calc-header { padding: 20px; }
+    /* Ad Banner */
+    .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; margin: 1rem auto; width: 100%; }
+    .ad-728x90 { min-height: 90px; max-width: 728px; }
+    .ad-300x250 { min-height: 250px; }
+
+    /* Page Head */
+    .page-head { text-align: center; margin: 1rem 0 1.5rem; }
+    .page-head h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .page-head p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* Layout */
+    .calc-layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 1.5rem; align-items: start; width: 100%; }
+
+    /* Input Panel */
+    .input-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: var(--card-shadow); width: 100%; }
+
+    .input-group { margin-bottom: 1.25rem; }
+    .input-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; gap: 0.5rem; }
+    .input-label-row label { font-weight: 600; font-size: 0.85rem; }
+    .input-box-wrap { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; padding: 0.25rem 0.5rem; background: var(--surface-subtle); max-width: 140px; }
+    .input-box-wrap input { width: 100%; border: none; background: transparent; color: var(--text); font-weight: 700; text-align: right; outline: none; font-size: 0.9rem; }
+    .input-box-wrap span { color: var(--text-muted); font-size: 0.8rem; margin-left: 4px; }
+    
+    .range-slider { width: 100%; accent-color: var(--primary); cursor: pointer; display: block; }
+    .word-preview { font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.3rem; }
+
+    .preset-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .preset-pill { border: 1px solid var(--border); background: var(--surface-subtle); border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.75rem; cursor: pointer; color: var(--text-muted); }
+    .preset-pill:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Results Dashboard */
+    .dashboard { display: flex; flex-direction: column; gap: 1.25rem; width: 100%; min-width: 0; }
+    .summary-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; width: 100%; }
+    .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; min-width: 0; }
+    .summary-card.highlight { border-color: var(--primary); background: var(--primary-light); }
+    .summary-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem; }
+    .summary-val { font-size: 1.15rem; font-weight: 800; color: var(--text); word-break: break-word; }
+    .summary-words { font-size: 0.7rem; color: var(--primary); font-weight: 600; margin-top: 2px; }
+
+    /* Pension Payout Grid */
+    .pension-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; width: 100%; }
+    .pension-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
+
+    /* Tax Badge Card */
+    .tax-badge-card { background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent); border-radius: 10px; padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; flex-wrap: wrap; gap: 0.5rem; }
+    .tax-badge-title { font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 0.4rem; }
+    .tax-badge-desc { color: var(--text-muted); font-size: 0.75rem; }
+
+    /* Action Bar */
+    .action-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .action-btn { flex: 1; min-width: 140px; padding: 0.55rem 0.85rem; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: all 0.2s; }
+    .action-btn.whatsapp { background: #25d36615; border-color: #25d366; color: #25d366; }
+    .action-btn.whatsapp:hover { background: #25d366; color: #fff; }
+    .action-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Charts */
+    .charts-grid { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 1rem; width: 100%; }
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; width: 100%; min-width: 0; }
+    .chart-card h3 { font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .donut-wrap { position: relative; width: 100%; height: 200px; }
+    .growth-wrap { position: relative; width: 100%; height: 200px; }
+
+    /* Table */
+    .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; width: 100%; min-width: 0; }
+    .table-head-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; gap: 0.5rem; }
+    .btn-action { background: var(--surface-subtle); border: 1px solid var(--border); padding: 0.35rem 0.65rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: var(--text); cursor: pointer; }
+    .btn-action:hover { background: var(--primary); color: #fff; }
+    .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; max-height: 380px; }
+    table { width: 100%; min-width: 580px; border-collapse: collapse; font-size: 0.8rem; text-align: right; }
+    th, td { padding: 0.5rem; border-bottom: 1px solid var(--border); }
+    th:first-child, td:first-child { text-align: left; }
+    th { background: var(--surface-subtle); position: sticky; top: 0; }
+
+    /* Content & FAQs */
+    .content-article { margin: 2rem 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; width: 100%; }
+    .content-article h2 { font-size: 1.2rem; margin: 1.2rem 0 0.5rem; font-weight: 700; }
+    .content-article p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.5rem; }
+    .formula-box { background: var(--surface-subtle); padding: 0.75rem; border-radius: 6px; margin: 0.75rem 0; font-family: monospace; font-size: 0.85rem; overflow-x: auto; }
+
+    .faq-item { border-bottom: 1px solid var(--border); padding: 0.75rem 0; }
+    .faq-q { font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; justify-content: space-between; }
+    .faq-a { margin-top: 0.4rem; color: var(--text-muted); font-size: 0.85rem; display: none; }
+    .faq-item.open .faq-a { display: block; }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 1px solid var(--primary); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 100; }
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 840px) {
+      .calc-layout, .charts-grid, .summary-cards, .pension-cards { grid-template-columns: 100%; }
+      .page-head h1 { font-size: 1.4rem; }
+      .container { padding: 0 0.75rem; }
     }
 
-    .form-group { margin-bottom: 22px; }
-    .label-row { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
-    .label-val { color: var(--primary); font-weight: 700; }
-
-    input[type="range"] {
-      width: 100%;
-      height: 6px;
-      border-radius: 4px;
-      background: var(--slider-track);
-      outline: none;
-      -webkit-appearance: none;
+    @media print {
+      header, .ad-banner, .input-panel, .action-bar, .content-article, .theme-toggle { display: none !important; }
+      .calc-layout { display: block; }
+      .dashboard { width: 100%; }
     }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--primary);
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
-    }
-
-    .results-card {
-      background: var(--panel-bg);
-      border-radius: 12px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid var(--border);
-    }
-
-    .highlight-pension {
-      background: var(--pension-bg);
-      border: 1px solid var(--pension-border);
-      padding: 16px;
-      border-radius: 10px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .highlight-pension small { color: var(--pension-subtext); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
-    .highlight-pension .amount { font-size: 1.8rem; font-weight: 800; color: var(--success); margin-top: 4px; }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    .stat-item {
-      background: var(--stat-bg);
-      padding: 12px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-    .stat-item span { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
-    .stat-item strong { font-size: 1rem; color: var(--text); }
-
-    .chart-box {
-      position: relative;
-      max-width: 190px;
-      margin: 0 auto 20px auto;
-    }
-
-    .share-actions {
-      display: flex;
-      gap: 10px;
-    }
-    .btn {
-      flex: 1;
-      padding: 10px 14px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .btn:hover { opacity: 0.9; }
-    .btn-wa { background: #25d366; color: #fff; }
-    .btn-copy { background: #334155; color: #fff; }
-    [data-theme="dark"] .btn-copy { background: #475569; color: #fff; }
   </style>
 </head>
 <body>
 
-<div class="calc-wrapper">
-  <div class="calc-header">
-    <div>
-      <h1>KitnaPaisa NPS Calculator</h1>
-      <p>Retirement corpus, pension, and step-up projection</p>
+  <header>
+    <div class="container nav-wrap">
+      <div class="nav-left">
+        <a href="../index.html" class="logo">
+          <span class="logo-badge">₹</span>
+          <span>KitnaPaisa</span>
+        </a>
+        <a href="../index.html" class="nav-link">← All Calculators</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Black Dark Mode">
+        <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+      </button>
     </div>
-    <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
-      <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
-    </button>
-  </div>
+  </header>
 
-  <div class="calc-grid">
-    <!-- Controls -->
-    <div class="controls">
-      <div class="form-group">
-        <div class="label-row">
-          <span>Current Age</span>
-          <span class="label-val" id="ageLabel">28 Years</span>
-        </div>
-        <input type="range" id="age" min="18" max="60" value="28" oninput="runNPSCalculation()">
-      </div>
+  <main class="container">
+    <div class="ad-banner ad-728x90" aria-label="Top Banner Ad">Ad Slot — Top Responsive (728x90)</div>
 
-      <div class="form-group">
-        <div class="label-row">
-          <span>Retirement Age</span>
-          <span class="label-val" id="retireAgeLabel">60 Years</span>
-        </div>
-        <input type="range" id="retireAge" min="50" max="75" value="60" oninput="runNPSCalculation()">
-      </div>
-
-      <div class="form-group">
-        <div class="label-row">
-          <span>Initial Monthly Contribution</span>
-          <span class="label-val" id="investLabel">₹5,000</span>
-        </div>
-        <input type="range" id="investment" min="500" max="150000" step="500" value="5000" oninput="runNPSCalculation()">
-      </div>
-
-      <div class="form-group">
-        <div class="label-row">
-          <span>Annual Step-Up</span>
-          <span class="label-val" id="stepUpLabel">5%</span>
-        </div>
-        <input type="range" id="stepUp" min="0" max="15" step="1" value="5" oninput="runNPSCalculation()">
-      </div>
-
-      <div class="form-group">
-        <div class="label-row">
-          <span>Expected Return (% p.a.)</span>
-          <span class="label-val" id="roiLabel">10%</span>
-        </div>
-        <input type="range" id="roi" min="7" max="15" step="0.5" value="10" oninput="runNPSCalculation()">
-      </div>
-
-      <div class="form-group">
-        <div class="label-row">
-          <span>Annuity Share (Min 20%)</span>
-          <span class="label-val" id="annuityLabel">40%</span>
-        </div>
-        <input type="range" id="annuityPct" min="20" max="100" step="5" value="40" oninput="runNPSCalculation()">
-      </div>
-
-      <div class="form-group">
-        <div class="label-row">
-          <span>Expected Annuity Rate (% p.a.)</span>
-          <span class="label-val" id="annuityRoiLabel">6%</span>
-        </div>
-        <input type="range" id="annuityRoi" min="4" max="10" step="0.5" value="6" oninput="runNPSCalculation()">
-      </div>
+    <div class="page-head">
+      <h1>NPS Retirement & Pension Calculator</h1>
+      <p>Estimate your National Pension System corpus, tax-free lump-sum payout, and monthly lifelong pension annuity.</p>
     </div>
 
-    <!-- Output Dashboard -->
-    <div class="results-card">
-      <div>
-        <div class="highlight-pension">
-          <small>Expected Monthly Pension</small>
-          <div class="amount" id="resMonthlyPension">₹0</div>
-        </div>
-
-        <div class="chart-box">
-          <canvas id="npsDoughnut"></canvas>
-        </div>
-
-        <div class="summary-grid">
-          <div class="stat-item">
-            <span>Total Invested</span>
-            <strong id="resTotalInv">₹0</strong>
+    <div class="calc-layout">
+      <!-- Input Sidebar -->
+      <aside class="input-panel">
+        <!-- Monthly Contribution -->
+        <div class="input-group">
+          <div class="input-label-row">
+            <label for="monthlyInput">Monthly Contribution</label>
+            <div class="input-box-wrap">
+              <span>₹</span>
+              <input type="number" id="monthlyInput" value="5000" step="500" min="500">
+            </div>
           </div>
-          <div class="stat-item">
-            <span>Total Corpus (Age <span id="resAge">60</span>)</span>
-            <strong id="resCorpus">₹0</strong>
-          </div>
-          <div class="stat-item">
-            <span>Lump Sum (Tax-Free up to 60%)</span>
-            <strong id="resLumpSum">₹0</strong>
-          </div>
-          <div class="stat-item">
-            <span>Annuity Reinvested</span>
-            <strong id="resAnnuity">₹0</strong>
+          <input type="range" id="monthlySlider" class="range-slider" min="500" max="150000" step="500" value="5000">
+          <div class="word-preview" id="monthlyWordPreview">₹5 Thousand /month</div>
+          <div class="preset-pills">
+            <button class="preset-pill" onclick="setMonthlyVal(2000)">₹2,000</button>
+            <button class="preset-pill" onclick="setMonthlyVal(5000)">₹5,000</button>
+            <button class="preset-pill" onclick="setMonthlyVal(10000)">₹10,000</button>
+            <button class="preset-pill" onclick="setMonthlyVal(25000)">₹25,000</button>
+            <button class="preset-pill" onclick="setMonthlyVal(50000)">₹50,000</button>
           </div>
         </div>
-      </div>
 
-      <div class="share-actions">
-        <button class="btn btn-wa" onclick="shareWhatsApp()">Share on WhatsApp</button>
-        <button class="btn btn-copy" onclick="copyResults()">Copy Plan</button>
-      </div>
+        <!-- Current Age -->
+        <div class="input-group">
+          <div class="input-label-row">
+            <label for="ageInput">Your Current Age</label>
+            <div class="input-box-wrap">
+              <input type="number" id="ageInput" value="30" min="18" max="59" step="1">
+              <span>Yrs</span>
+            </div>
+          </div>
+          <input type="range" id="ageSlider" class="range-slider" min="18" max="59" step="1" value="30">
+        </div>
+
+        <!-- Retirement Age -->
+        <div class="input-group">
+          <div class="input-label-row">
+            <label for="retireAgeInput">Retirement Age</label>
+            <div class="input-box-wrap">
+              <input type="number" id="retireAgeInput" value="60" min="60" max="75" step="1">
+              <span>Yrs</span>
+            </div>
+          </div>
+          <input type="range" id="retireAgeSlider" class="range-slider" min="60" max="75" step="1" value="60">
+        </div>
+
+        <!-- Expected NPS Return Rate -->
+        <div class="input-group">
+          <div class="input-label-row">
+            <label for="rateInput">Expected Return (p.a)</label>
+            <div class="input-box-wrap">
+              <input type="number" id="rateInput" value="10.0" step="0.5" min="5" max="18">
+              <span>%</span>
+            </div>
+          </div>
+          <input type="range" id="rateSlider" class="range-slider" min="5" max="18" step="0.5" value="10.0">
+        </div>
+
+        <!-- Annuity Ratio Reinvestment (%) -->
+        <div class="input-group">
+          <div class="input-label-row">
+            <label for="annuityRatioInput">Annuity Reinvestment (Min 40%)</label>
+            <div class="input-box-wrap">
+              <input type="number" id="annuityRatioInput" value="40" min="40" max="100" step="5">
+              <span>%</span>
+            </div>
+          </div>
+          <input type="range" id="annuityRatioSlider" class="range-slider" min="40" max="100" step="5" value="40">
+          <div class="word-preview" id="annuitySplitPreview">60% Lump Sum + 40% Annuity</div>
+        </div>
+
+        <!-- Annuity Expected Interest Rate (%) -->
+        <div class="input-group">
+          <div class="input-label-row">
+            <label for="annuityRateInput">Expected Annuity Rate (p.a)</label>
+            <div class="input-box-wrap">
+              <input type="number" id="annuityRateInput" value="6.5" step="0.25" min="4" max="10">
+              <span>%</span>
+            </div>
+          </div>
+          <input type="range" id="annuityRateSlider" class="range-slider" min="4" max="10" step="0.25" value="6.5">
+        </div>
+
+        <div class="ad-banner ad-300x250" style="margin-top:1.5rem;" aria-label="Sidebar Ad">Ad Slot — Sidebar (300x250)</div>
+      </aside>
+
+      <!-- Results & Visualizations Dashboard -->
+      <section class="dashboard">
+        <!-- Action & Share Bar -->
+        <div class="action-bar">
+          <button class="action-btn whatsapp" onclick="shareWhatsApp()">💬 Share Plan on WhatsApp</button>
+          <button class="action-btn" onclick="copyShareableLink()">🔗 Copy Link</button>
+          <button class="action-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+        </div>
+
+        <!-- Tax Benefits Banner -->
+        <div class="tax-badge-card">
+          <div class="tax-badge-title">
+            <span>🛡️ Section 80CCD Tax Benefits</span>
+          </div>
+          <div class="tax-badge-desc">
+            Save tax up to ₹2 Lakh/year (₹1.5L under Sec 80CCD(1) + extra ₹50,000 under Sec 80CCD(1B)). 60% lump-sum withdrawal is 100% tax-free!
+          </div>
+        </div>
+
+        <!-- Total Corpus Summaries -->
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="summary-title">Total Invested</div>
+            <div class="summary-val" id="valInvested">₹0</div>
+            <div class="summary-words" id="wordInvested"></div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-title">Total Gain Earned</div>
+            <div class="summary-val" id="valInterest" style="color:var(--accent);">₹0</div>
+            <div class="summary-words" id="wordInterest"></div>
+          </div>
+          <div class="summary-card highlight">
+            <div class="summary-title">Total Maturity Corpus</div>
+            <div class="summary-val" id="valTotal" style="color:var(--primary);">₹0</div>
+            <div class="summary-words" id="wordTotal"></div>
+          </div>
+        </div>
+
+        <!-- Pension & Lump Sum Breakdown Cards -->
+        <div class="pension-cards">
+          <div class="pension-card">
+            <div class="summary-title">Tax-Free Lump Sum (Max 60%)</div>
+            <div class="summary-val" id="valLumpSum" style="color:var(--accent);">₹0</div>
+            <div class="summary-words" id="wordLumpSum"></div>
+          </div>
+          <div class="pension-card highlight">
+            <div class="summary-title">Expected Monthly Pension</div>
+            <div class="summary-val" id="valMonthlyPension" style="color:var(--primary);">₹0</div>
+            <div class="summary-words" id="wordMonthlyPension"></div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3>Corpus Breakdown</h3>
+            <div class="donut-wrap">
+              <canvas id="ratioChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3>Retirement Wealth Trajectory</h3>
+            <div class="growth-wrap">
+              <canvas id="growthChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule Table -->
+        <div class="table-card">
+          <div class="table-head-bar">
+            <h3>Yearly NPS Amortization Schedule</h3>
+            <button class="btn-action" onclick="exportTableToCSV()">📥 Download CSV</button>
+          </div>
+          <div class="table-container">
+            <table id="scheduleTable">
+              <thead>
+                <tr>
+                  <th>Age</th>
+                  <th>Opening Corpus</th>
+                  <th>Yearly Deposit</th>
+                  <th>Interest Accrued</th>
+                  <th>Closing Corpus</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </div>
-  </div>
-</div>
 
-<script>
-let npsChart = null;
+    <!-- Educational Content & SEO FAQs -->
+    <article class="content-article">
+      <h2>How the National Pension System (NPS) Works</h2>
+      <p>The <strong>National Pension System (NPS)</strong> is a government-sponsored, voluntary, long-term retirement savings scheme managed by the <strong>Pension Fund Regulatory and Development Authority (PFRDA)</strong>. It allows you to invest systematically into a diversified mix of Equity (E), Corporate Debt (C), and Government Securities (G) across your working life.</p>
+      
+      <h2>NPS Maturity & Annuity Rules</h2>
+      <p>Upon reaching age 60 (superannuation):</p>
+      <ul>
+        <li><strong>Lump-Sum Withdrawal (Up to 60%):</strong> You can withdraw up to 60% of your total corpus completely tax-free under Section 10(12A).</li>
+        <li><strong>Annuity Purchase (Minimum 40%):</strong> At least 40% of the corpus must be used to purchase an annuity plan from an IRDAI-approved Annuity Service Provider (ASP) to guarantee a regular monthly pension for life.</li>
+        <li><strong>Corpus Below ₹8 Lakh:</strong> If your accumulated wealth is ₹8 Lakh or less at retirement, you are exempt from mandatory annuity purchase and can withdraw 100% tax-free.</li>
+      </ul>
 
-// ================= THEME MANAGEMENT =================
-function initTheme() {
-  const savedTheme = localStorage.getItem('kp_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  setTheme(savedTheme);
-}
+      <h2>Frequently Asked Questions (FAQs)</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the extra ₹50,000 tax deduction under Section 80CCD(1B)? <span>▼</span></div>
+        <div class="faq-a">Section 80CCD(1B) provides an exclusive tax deduction of up to ₹50,000 for voluntary contributions to an NPS Tier 1 account. This deduction is over and above the ₹1.5 Lakh limit available under Section 80C/80CCD(1), allowing total tax deductions of up to ₹2 Lakh per financial year under the Old Tax Regime.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I defer my NPS withdrawal beyond 60 years of age? <span>▼</span></div>
+        <div class="faq-a">Yes. NPS subscribers can choose to defer their lump-sum withdrawal and annuity purchase, staying invested up to the age of 75 or 85 years, while continuing to earn market-linked compounding returns.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What happens in the event of the subscriber's demise before retirement? <span>▼</span></div>
+        <div class="faq-a">In the unfortunate event of the subscriber's demise, 100% of the accumulated NPS corpus is paid directly to the registered nominee or legal heir as a tax-free lump sum.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the difference between NPS Tier 1 and Tier 2 accounts? <span>▼</span></div>
+        <div class="faq-a">NPS Tier 1 is the primary retirement account with lock-in until age 60 and exclusive tax deduction benefits. Tier 2 is an optional, fully liquid savings account with zero withdrawal restrictions, but does not offer tax deductions for non-government subscribers.</div>
+      </div>
+    </article>
+  </main>
 
-function setTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('kp_theme', theme);
-  const icon = document.getElementById('themeIcon');
-  const text = document.getElementById('themeText');
-  
-  if (theme === 'dark') {
-    icon.innerText = '☀️';
-    text.innerText = 'Light Mode';
-  } else {
-    icon.innerText = '🌙';
-    text.innerText = 'Dark Mode';
-  }
+  <div id="toast" class="toast">Link copied to clipboard!</div>
 
-  // Re-render chart colors to match theme
-  if (npsChart) {
-    updateChartTheme();
-  }
-}
+  <script>
+    let ratioChart = null;
+    let growthChart = null;
+    let cachedSchedule = [];
 
-function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-}
-
-// ================= CALCULATION LOGIC =================
-function formatINRCurrency(num) {
-  if (num >= 10000000) return '₹' + (num / 10000000).toFixed(2) + ' Cr';
-  if (num >= 100000) return '₹' + (num / 100000).toFixed(2) + ' L';
-  return '₹' + Math.round(num).toLocaleString('en-IN');
-}
-
-function runNPSCalculation() {
-  const age = parseInt(document.getElementById('age').value);
-  const retireAge = parseInt(document.getElementById('retireAge').value);
-  let monthlyInv = parseFloat(document.getElementById('investment').value);
-  const stepUpPct = parseFloat(document.getElementById('stepUp').value) / 100;
-  const roi = parseFloat(document.getElementById('roi').value) / 100;
-  const annuityPct = parseFloat(document.getElementById('annuityPct').value) / 100;
-  const annuityRoi = parseFloat(document.getElementById('annuityRoi').value) / 100;
-
-  document.getElementById('ageLabel').innerText = age + ' Years';
-  document.getElementById('retireAgeLabel').innerText = retireAge + ' Years';
-  document.getElementById('investLabel').innerText = '₹' + monthlyInv.toLocaleString('en-IN');
-  document.getElementById('stepUpLabel').innerText = (stepUpPct * 100).toFixed(0) + '%';
-  document.getElementById('roiLabel').innerText = (roi * 100).toFixed(1) + '%';
-  document.getElementById('annuityLabel').innerText = (annuityPct * 100).toFixed(0) + '%';
-  document.getElementById('annuityRoiLabel').innerText = (annuityRoi * 100).toFixed(1) + '%';
-  document.getElementById('resAge').innerText = retireAge;
-
-  const years = Math.max(1, retireAge - age);
-  const monthlyRate = roi / 12;
-
-  let totalCorpus = 0;
-  let totalInvested = 0;
-
-  for (let y = 0; y < years; y++) {
-    for (let m = 0; m < 12; m++) {
-      totalInvested += monthlyInv;
-      totalCorpus = (totalCorpus + monthlyInv) * (1 + monthlyRate);
+    function formatINR(val) {
+      if (isNaN(val) || val === null) return '₹0';
+      return '₹' + Math.round(val).toLocaleString('en-IN');
     }
-    monthlyInv += (monthlyInv * stepUpPct);
-  }
 
-  const annuityCorpus = totalCorpus * annuityPct;
-  const lumpSumCorpus = totalCorpus - annuityCorpus;
-  const monthlyPension = (annuityCorpus * annuityRoi) / 12;
+    function formatToIndianWords(num) {
+      if (isNaN(num) || num <= 0) return '₹0';
+      if (num >= 10000000) return '₹' + (num / 10000000).toFixed(2) + ' Crore';
+      if (num >= 100000) return '₹' + (num / 100000).toFixed(2) + ' Lakh';
+      if (num >= 1000) return '₹' + (num / 1000).toFixed(1) + ' Thousand';
+      return '₹' + Math.round(num);
+    }
 
-  document.getElementById('resTotalInv').innerText = formatINRCurrency(totalInvested);
-  document.getElementById('resCorpus').innerText = formatINRCurrency(totalCorpus);
-  document.getElementById('resLumpSum').innerText = formatINRCurrency(lumpSumCorpus);
-  document.getElementById('resAnnuity').innerText = formatINRCurrency(annuityCorpus);
-  document.getElementById('resMonthlyPension').innerText = '₹' + Math.round(monthlyPension).toLocaleString('en-IN');
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
 
-  updateChart(totalInvested, Math.max(0, totalCorpus - totalInvested));
-}
-
-function getThemeColors() {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  return {
-    invested: isDark ? '#4b5563' : '#94a3b8',
-    gains: isDark ? '#22c55e' : '#16a34a',
-    text: isDark ? '#f9fafb' : '#0f172a'
-  };
-}
-
-function updateChartTheme() {
-  const colors = getThemeColors();
-  npsChart.data.datasets[0].backgroundColor = [colors.invested, colors.gains];
-  npsChart.options.plugins.legend.labels.color = colors.text;
-  npsChart.update();
-}
-
-function updateChart(invested, interest) {
-  const ctx = document.getElementById('npsDoughnut').getContext('2d');
-  const colors = getThemeColors();
-
-  if (npsChart) {
-    npsChart.data.datasets[0].data = [invested, interest];
-    npsChart.data.datasets[0].backgroundColor = [colors.invested, colors.gains];
-    npsChart.options.plugins.legend.labels.color = colors.text;
-    npsChart.update();
-  } else {
-    npsChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Invested', 'Gains'],
-        datasets: [{
-          data: [invested, interest],
-          backgroundColor: [colors.invested, colors.gains],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { color: colors.text }
-          }
-        },
-        cutout: '70%'
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      const icon = document.getElementById('themeIcon');
+      const text = document.getElementById('themeText');
+      if (icon && text) {
+        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        text.textContent = theme === 'dark' ? 'Light' : 'Dark';
       }
+      localStorage.setItem('theme', theme);
+      if (ratioChart && growthChart && cachedSchedule.length > 0) {
+        const totalInvested = cachedSchedule[cachedSchedule.length - 1]?.totalInvested || 0;
+        const totalInterest = cachedSchedule.reduce((a, b) => a + b.interest, 0);
+        renderCharts(totalInvested, totalInterest, cachedSchedule);
+      }
+    }
+
+    function setMonthlyVal(val) {
+      document.getElementById('monthlyInput').value = val;
+      document.getElementById('monthlySlider').value = val;
+      syncAndRecalculate();
+    }
+
+    function updateURLParams() {
+      const p = new URLSearchParams();
+      p.set('monthly', document.getElementById('monthlyInput')?.value || 5000);
+      p.set('age', document.getElementById('ageInput')?.value || 30);
+      p.set('retire', document.getElementById('retireAgeInput')?.value || 60);
+      p.set('rate', document.getElementById('rateInput')?.value || 10.0);
+      p.set('annuity', document.getElementById('annuityRatioInput')?.value || 40);
+      p.set('annuityRate', document.getElementById('annuityRateInput')?.value || 6.5);
+      window.history.replaceState({}, '', `${window.location.pathname}?${p.toString()}`);
+    }
+
+    function copyShareableLink() {
+      navigator.clipboard.writeText(window.location.href);
+      showToast('Link copied with your exact NPS parameters!');
+    }
+
+    function shareWhatsApp() {
+      const monthly = document.getElementById('monthlyInput')?.value || 5000;
+      const total = document.getElementById('valTotal')?.innerText || '';
+      const pension = document.getElementById('valMonthlyPension')?.innerText || '';
+      const text = encodeURIComponent(`Check out my NPS retirement projection:\n💰 Monthly Investment: ₹${monthly}\n🚀 Estimated Corpus: ${total}\n💵 Monthly Pension: ${pension}\n\nCalculate yours on KitnaPaisa: ${window.location.href}`);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    // Core NPS Compounding & Annuity Math Engine
+    function syncAndRecalculate() {
+      const monthlyInput = document.getElementById('monthlyInput');
+      if (!monthlyInput) return;
+
+      const monthlyContrib = parseFloat(monthlyInput.value) || 0;
+      const currentAge = parseInt(document.getElementById('ageInput')?.value) || 30;
+      let retireAge = parseInt(document.getElementById('retireAgeInput')?.value) || 60;
+      const expectedReturn = parseFloat(document.getElementById('rateInput')?.value) || 10.0;
+      const annuityPercent = parseFloat(document.getElementById('annuityRatioInput')?.value) || 40;
+      const annuityRate = parseFloat(document.getElementById('annuityRateInput')?.value) || 6.5;
+
+      if (retireAge <= currentAge) {
+        retireAge = currentAge + 1;
+        document.getElementById('retireAgeInput').value = retireAge;
+        document.getElementById('retireAgeSlider').value = retireAge;
+      }
+
+      const investmentYears = retireAge - currentAge;
+      const totalMonths = investmentYears * 12;
+      const monthlyRate = expectedReturn / 12 / 100;
+
+      document.getElementById('monthlyWordPreview').innerText = formatToIndianWords(monthlyContrib) + ' /month';
+      document.getElementById('annuitySplitPreview').innerText = `${100 - annuityPercent}% Tax-Free Lump Sum + ${annuityPercent}% Annuity`;
+
+      let currentCorpus = 0;
+      let cumulativeInvested = 0;
+      let schedule = [];
+
+      for (let yr = 1; yr <= investmentYears; yr++) {
+        let openBal = currentCorpus;
+        let yearlyDeposit = monthlyContrib * 12;
+        cumulativeInvested += yearlyDeposit;
+
+        for (let m = 1; m <= 12; m++) {
+          currentCorpus = (currentCorpus + monthlyContrib) * (1 + monthlyRate);
+        }
+
+        let yrInterest = currentCorpus - openBal - yearlyDeposit;
+
+        schedule.push({
+          age: currentAge + yr,
+          opening: openBal,
+          deposit: yearlyDeposit,
+          interest: yrInterest,
+          closing: currentCorpus,
+          totalInvested: cumulativeInvested
+        });
+      }
+
+      const totalMaturityCorpus = currentCorpus;
+      const totalGain = totalMaturityCorpus - cumulativeInvested;
+
+      // Annuity and Lump-Sum Allocations
+      const annuityCorpus = totalMaturityCorpus * (annuityPercent / 100);
+      const lumpSumCorpus = totalMaturityCorpus * ((100 - annuityPercent) / 100);
+      const monthlyPension = (annuityCorpus * (annuityRate / 100)) / 12;
+
+      // Summary Cards
+      document.getElementById('valInvested').innerText = formatINR(cumulativeInvested);
+      document.getElementById('wordInvested').innerText = formatToIndianWords(cumulativeInvested);
+      document.getElementById('valInterest').innerText = formatINR(totalGain);
+      document.getElementById('wordInterest').innerText = formatToIndianWords(totalGain);
+      document.getElementById('valTotal').innerText = formatINR(totalMaturityCorpus);
+      document.getElementById('wordTotal').innerText = formatToIndianWords(totalMaturityCorpus);
+
+      // Pension Cards
+      document.getElementById('valLumpSum').innerText = formatINR(lumpSumCorpus);
+      document.getElementById('wordLumpSum').innerText = formatToIndianWords(lumpSumCorpus) + ' (100% Tax-Free)';
+      document.getElementById('valMonthlyPension').innerText = formatINR(monthlyPension);
+      document.getElementById('wordMonthlyPension').innerText = formatToIndianWords(monthlyPension) + ' /month for life';
+
+      cachedSchedule = schedule;
+      renderTable(schedule);
+      renderCharts(cumulativeInvested, totalGain, schedule);
+      updateURLParams();
+    }
+
+    function renderTable(schedule) {
+      const tbody = document.getElementById('scheduleBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      schedule.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>Age ${row.age}</td>
+          <td>${formatINR(row.opening)}</td>
+          <td>${formatINR(row.deposit)}</td>
+          <td style="color:var(--accent); font-weight:600;">${formatINR(row.interest)}</td>
+          <td style="font-weight:700; color:var(--primary);">${formatINR(row.closing)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function exportTableToCSV() {
+      if (!cachedSchedule || !cachedSchedule.length) return;
+      let csv = 'Age,Opening Corpus (INR),Yearly Contribution (INR),Interest Accrued (INR),Closing Corpus (INR)\n';
+      cachedSchedule.forEach(r => {
+        csv += `${r.age},${Math.round(r.opening)},${Math.round(r.deposit)},${Math.round(r.interest)},${Math.round(r.closing)}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `NPS_Retirement_Schedule_${new Date().getFullYear()}.csv`;
+      link.click();
+    }
+
+    function renderCharts(invested, interest, schedule) {
+      const canvasDonut = document.getElementById('ratioChart');
+      const canvasGrowth = document.getElementById('growthChart');
+      if (!canvasDonut || !canvasGrowth || typeof Chart === 'undefined') return;
+
+      const computedStyle = getComputedStyle(document.documentElement);
+      const textColor = computedStyle.getPropertyValue('--chart-text').trim() || '#64748b';
+      const gridColor = computedStyle.getPropertyValue('--chart-grid').trim() || '#e2e8f0';
+      const primaryColor = computedStyle.getPropertyValue('--primary').trim() || '#2563eb';
+      const accentColor = computedStyle.getPropertyValue('--accent').trim() || '#10b981';
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const chartBorderColor = isDark ? '#111111' : '#ffffff';
+
+      // 1. Donut Chart
+      if (ratioChart) ratioChart.destroy();
+      const ctxDonut = canvasDonut.getContext('2d');
+      ratioChart = new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+          labels: ['Total Invested', 'Total Gains'],
+          datasets: [{
+            data: [Math.round(invested), Math.round(interest)],
+            backgroundColor: [primaryColor, accentColor],
+            borderColor: chartBorderColor,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: textColor, font: { size: 11 } } },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ` ${ctx.label}: ${formatINR(ctx.raw)} (${((ctx.raw / (invested + interest)) * 100).toFixed(1)}%)`
+              }
+            }
+          }
+        }
+      });
+
+      // 2. Growth Area Chart
+      if (growthChart) growthChart.destroy();
+      const ctxGrowth = canvasGrowth.getContext('2d');
+      growthChart = new Chart(ctxGrowth, {
+        type: 'line',
+        data: {
+          labels: schedule.map(s => `Age ${s.age}`),
+          datasets: [
+            {
+              label: 'NPS Retirement Corpus',
+              data: schedule.map(s => Math.round(s.closing)),
+              borderColor: primaryColor,
+              backgroundColor: isDark ? 'rgba(59, 130, 246, 0.25)' : 'rgba(37, 99, 235, 0.15)',
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'Total Contributions',
+              data: schedule.map(s => Math.round(s.totalInvested)),
+              borderColor: '#94a3b8',
+              borderDash: [4, 4],
+              fill: false,
+              tension: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          scales: {
+            x: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor } },
+            y: {
+              grid: { color: gridColor, drawBorder: false },
+              ticks: { color: textColor, callback: (val) => formatToIndianWords(val) }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom', labels: { color: textColor, font: { size: 11 } } },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ` ${ctx.dataset.label}: ${formatINR(ctx.raw)}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+      applyTheme(initialTheme);
+
+      const themeToggle = document.getElementById('themeToggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          applyTheme(nextTheme);
+        });
+      }
+
+      // Parse URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('monthly')) {
+        document.getElementById('monthlyInput').value = urlParams.get('monthly');
+        document.getElementById('monthlySlider').value = urlParams.get('monthly');
+      }
+      if (urlParams.has('age')) {
+        document.getElementById('ageInput').value = urlParams.get('age');
+        document.getElementById('ageSlider').value = urlParams.get('age');
+      }
+      if (urlParams.has('retire')) {
+        document.getElementById('retireAgeInput').value = urlParams.get('retire');
+        document.getElementById('retireAgeSlider').value = urlParams.get('retire');
+      }
+      if (urlParams.has('rate')) {
+        document.getElementById('rateInput').value = urlParams.get('rate');
+        document.getElementById('rateSlider').value = urlParams.get('rate');
+      }
+      if (urlParams.has('annuity')) {
+        document.getElementById('annuityRatioInput').value = urlParams.get('annuity');
+        document.getElementById('annuityRatioSlider').value = urlParams.get('annuity');
+      }
+      if (urlParams.has('annuityRate')) {
+        document.getElementById('annuityRateInput').value = urlParams.get('annuityRate');
+        document.getElementById('annuityRateSlider').value = urlParams.get('annuityRate');
+      }
+
+      function bindInputSync(numId, sliderId) {
+        const num = document.getElementById(numId);
+        const slider = document.getElementById(sliderId);
+        if (num && slider) {
+          num.addEventListener('input', () => { slider.value = num.value; syncAndRecalculate(); });
+          slider.addEventListener('input', () => { num.value = slider.value; syncAndRecalculate(); });
+        }
+      }
+
+      bindInputSync('monthlyInput', 'monthlySlider');
+      bindInputSync('ageInput', 'ageSlider');
+      bindInputSync('retireAgeInput', 'retireAgeSlider');
+      bindInputSync('rateInput', 'rateSlider');
+      bindInputSync('annuityRatioInput', 'annuityRatioSlider');
+      bindInputSync('annuityRateInput', 'annuityRateSlider');
+
+      syncAndRecalculate();
     });
-  }
-}
-
-function shareWhatsApp() {
-  const pension = document.getElementById('resMonthlyPension').innerText;
-  const corpus = document.getElementById('resCorpus').innerText;
-  const text = `I just calculated my NPS retirement plan on KitnaPaisa!\nCorpus: ${corpus}\nExpected Monthly Pension: ${pension}\nCalculate yours here: ${window.location.href}`;
-  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
-}
-
-function copyResults() {
-  const pension = document.getElementById('resMonthlyPension').innerText;
-  const corpus = document.getElementById('resCorpus').innerText;
-  navigator.clipboard.writeText(`NPS Retirement Projection on KitnaPaisa: Total Corpus: ${corpus}, Monthly Pension: ${pension} (${window.location.href})`);
-  alert('Breakdown copied to clipboard!');
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  initTheme();
-  runNPSCalculation();
-});
-</script>
+  </script>
 </body>
 </html>
