@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced NPS Calculator India | KitnaPaisa</title>
+  <meta name="description" content="Calculate your NPS retirement corpus, monthly pension, and lump sum with annual step-up contribution support.">
+
+  <!-- Chart.js for Visual Breakdown -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- FAQ & WebApplication Schema for Google SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "KitnaPaisa Advanced NPS Calculator",
+        "url": "https://kitnapaisa.in/nps-calculator",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the minimum annuity requirement in NPS?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Under revised PFRDA rules for non-government subscribers, you must allocate at least 20% of the total maturity corpus to purchase an annuity if the corpus exceeds ₹12 Lakh. The remaining 80% can be withdrawn as a lump sum."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the entire NPS lump sum withdrawal tax-free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Under Section 10(12A) of the Income Tax Act, up to 60% of the total accumulated corpus is 100% tax-exempt upon regular retirement."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16a34a;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px 16px; }
+
+    .calc-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .calc-header {
+      padding: 24px 32px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #fff;
+    }
+    .calc-header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
+    .calc-header p { font-size: 0.95rem; color: #94a3b8; }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      padding: 32px;
+    }
+
+    @media (max-width: 860px) {
+      .calc-grid { grid-template-columns: 1fr; padding: 20px; }
+    }
+
+    .form-group { margin-bottom: 22px; }
+    .label-row { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+    .label-val { color: var(--primary); font-weight: 700; }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 4px;
+      background: #e2e8f0;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+    }
+
+    .results-card {
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .highlight-pension {
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      padding: 16px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .highlight-pension small { color: #166534; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+    .highlight-pension .amount { font-size: 1.8rem; font-weight: 800; color: var(--success); margin-top: 4px; }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat-item {
+      background: #ffffff;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .stat-item span { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+    .stat-item strong { font-size: 1rem; color: var(--text); }
+
+    .chart-box {
+      position: relative;
+      max-width: 200px;
+      margin: 0 auto 20px auto;
+    }
+
+    .share-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      flex: 1;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-wa { background: #25d366; color: #fff; }
+    .btn-copy { background: #334155; color: #fff; }
+  </style>
+</head>
+<body>
+
+<div class="calc-wrapper">
+  <div class="calc-header">
+    <h1>KitnaPaisa Advanced NPS Calculator</h1>
+    <p>Simulate retirement corpus, monthly pension, and annual salary step-ups</p>
+  </div>
+
+  <div class="calc-grid">
+    <!-- Controls Section -->
+    <div class="controls">
+      <div class="form-group">
+        <div class="label-row">
+          <span>Current Age</span>
+          <span class="label-val" id="ageLabel">28 Years</span>
+        </div>
+        <input type="range" id="age" min="18" max="60" value="28" oninput="runNPSCalculation()">
+      </div>
+
+      <div class="form-group">
+        <div class="label-row">
+          <span>Retirement Age</span>
+          <span class="label-val" id="retireAgeLabel">60 Years</span>
+        </div>
+        <input type="range" id="retireAge" min="50" max="75" value="60" oninput="runNPSCalculation()">
+      </div>
+
+      <div class="form-group">
+        <div class="label-row">
+          <span>Initial Monthly Contribution</span>
+          <span class="label-val" id="investLabel">₹5,000</span>
+        </div>
+        <input type="range" id="investment" min="500" max="150000" step="500" value="5000" oninput="runNPSCalculation()">
+      </div>
+
+      <div class="form-group">
+        <div class="label-row">
+          <span>Annual Step-Up (Top-Up)</span>
+          <span class="label-val" id="stepUpLabel">5%</span>
+        </div>
+        <input type="range" id="stepUp" min="0" max="15" step="1" value="5" oninput="runNPSCalculation()">
+      </div>
+
+      <div class="form-group">
+        <div class="label-row">
+          <span>Expected ROI on NPS (% p.a.)</span>
+          <span class="label-val" id="roiLabel">10%</span>
+        </div>
+        <input type="range" id="roi" min="7" max="15" step="0.5" value="10" oninput="runNPSCalculation()">
+      </div>
+
+      <div class="form-group">
+        <div class="label-row">
+          <span>Annuity Share (Min 20%)</span>
+          <span class="label-val" id="annuityLabel">40%</span>
+        </div>
+        <input type="range" id="annuityPct" min="20" max="100" step="5" value="40" oninput="runNPSCalculation()">
+      </div>
+
+      <div class="form-group">
+        <div class="label-row">
+          <span>Expected Annuity Rate (% p.a.)</span>
+          <span class="label-val" id="annuityRoiLabel">6%</span>
+        </div>
+        <input type="range" id="annuityRoi" min="4" max="10" step="0.5" value="6" oninput="runNPSCalculation()">
+      </div>
+    </div>
+
+    <!-- Output Section -->
+    <div class="results-card">
+      <div>
+        <div class="highlight-pension">
+          <small>Expected Monthly Pension</small>
+          <div class="amount" id="resMonthlyPension">₹0</div>
+        </div>
+
+        <div class="chart-box">
+          <canvas id="npsDoughnut"></canvas>
+        </div>
+
+        <div class="summary-grid">
+          <div class="stat-item">
+            <span>Total Invested</span>
+            <strong id="resTotalInv">₹0</strong>
+          </div>
+          <div class="stat-item">
+            <span>Total Corpus (Age <span id="resAge">60</span>)</span>
+            <strong id="resCorpus">₹0</strong>
+          </div>
+          <div class="stat-item">
+            <span>Lump Sum Amount</span>
+            <strong id="resLumpSum">₹0</strong>
+          </div>
+          <div class="stat-item">
+            <span>Annuity Reinvested</span>
+            <strong id="resAnnuity">₹0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="share-actions">
+        <button class="btn btn-wa" onclick="shareWhatsApp()">Share on WhatsApp</button>
+        <button class="btn btn-copy" onclick="copyResults()">Copy Breakdown</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let npsChart = null;
+
+function formatINRCurrency(num) {
+  if (num >= 10000000) return '₹' + (num / 10000000).toFixed(2) + ' Cr';
+  if (num >= 100000) return '₹' + (num / 100000).toFixed(2) + ' L';
+  return '₹' + Math.round(num).toLocaleString('en-IN');
+}
+
+function runNPSCalculation() {
+  const age = parseInt(document.getElementById('age').value);
+  const retireAge = parseInt(document.getElementById('retireAge').value);
+  let monthlyInv = parseFloat(document.getElementById('investment').value);
+  const stepUpPct = parseFloat(document.getElementById('stepUp').value) / 100;
+  const roi = parseFloat(document.getElementById('roi').value) / 100;
+  const annuityPct = parseFloat(document.getElementById('annuityPct').value) / 100;
+  const annuityRoi = parseFloat(document.getElementById('annuityRoi').value) / 100;
+
+  // Sync Slider Labels
+  document.getElementById('ageLabel').innerText = age + ' Years';
+  document.getElementById('retireAgeLabel').innerText = retireAge + ' Years';
+  document.getElementById('investLabel').innerText = '₹' + monthlyInv.toLocaleString('en-IN');
+  document.getElementById('stepUpLabel').innerText = (stepUpPct * 100).toFixed(0) + '%';
+  document.getElementById('roiLabel').innerText = (roi * 100).toFixed(1) + '%';
+  document.getElementById('annuityLabel').innerText = (annuityPct * 100).toFixed(0) + '%';
+  document.getElementById('annuityRoiLabel').innerText = (annuityRoi * 100).toFixed(1) + '%';
+  document.getElementById('resAge').innerText = retireAge;
+
+  const years = Math.max(1, retireAge - age);
+  const monthlyRate = roi / 12;
+
+  let totalCorpus = 0;
+  let totalInvested = 0;
+
+  // Month-by-month compound calculation with annual step-up
+  for (let y = 0; y < years; y++) {
+    for (let m = 0; m < 12; m++) {
+      totalInvested += monthlyInv;
+      totalCorpus = (totalCorpus + monthlyInv) * (1 + monthlyRate);
+    }
+    monthlyInv += (monthlyInv * stepUpPct);
+  }
+
+  const annuityCorpus = totalCorpus * annuityPct;
+  const lumpSumCorpus = totalCorpus - annuityCorpus;
+  const monthlyPension = (annuityCorpus * annuityRoi) / 12;
+
+  // Render Stats
+  document.getElementById('resTotalInv').innerText = formatINRCurrency(totalInvested);
+  document.getElementById('resCorpus').innerText = formatINRCurrency(totalCorpus);
+  document.getElementById('resLumpSum').innerText = formatINRCurrency(lumpSumCorpus);
+  document.getElementById('resAnnuity').innerText = formatINRCurrency(annuityCorpus);
+  document.getElementById('resMonthlyPension').innerText = '₹' + Math.round(monthlyPension).toLocaleString('en-IN');
+
+  // Update Visual Chart
+  updateChart(totalInvested, Math.max(0, totalCorpus - totalInvested));
+}
+
+function updateChart(invested, interest) {
+  const ctx = document.getElementById('npsDoughnut').getContext('2d');
+  if (npsChart) {
+    npsChart.data.datasets[0].data = [invested, interest];
+    npsChart.update();
+  } else {
+    npsChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Invested', 'Gains'],
+        datasets: [{
+          data: [invested, interest],
+          backgroundColor: ['#94a3b8', '#16a34a'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+        cutout: '70%'
+      }
+    });
+  }
+}
+
+function shareWhatsApp() {
+  const pension = document.getElementById('resMonthlyPension').innerText;
+  const corpus = document.getElementById('resCorpus').innerText;
+  const text = `I just calculated my NPS retirement plan on KitnaPaisa!\nCorpus: ${corpus}\nExpected Monthly Pension: ${pension}\nCalculate yours here: ${window.location.href}`;
+  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+function copyResults() {
+  const pension = document.getElementById('resMonthlyPension').innerText;
+  const corpus = document.getElementById('resCorpus').innerText;
+  navigator.clipboard.writeText(`NPS Retirement Projection on KitnaPaisa: Total Corpus: ${corpus}, Monthly Pension: ${pension} (${window.location.href})`);
+  alert('Breakdown copied to clipboard!');
+}
+
+// Initial calculation on load
+window.addEventListener('DOMContentLoaded', runNPSCalculation);
+</script>
+</body>
+</html>
