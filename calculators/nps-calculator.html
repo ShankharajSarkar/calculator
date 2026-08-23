@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced NPS Calculator India | KitnaPaisa</title>
-  <meta name="description" content="Calculate your NPS retirement corpus, monthly pension, and lump sum with annual step-up contribution support.">
+  <meta name="description" content="Calculate your NPS retirement corpus, monthly pension, and lump sum with dark mode and annual step-up support.">
 
-  <!-- Chart.js for Visual Breakdown -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- FAQ & WebApplication Schema for Google SEO -->
+  <!-- Schema Markup -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -30,15 +30,7 @@
             "name": "What is the minimum annuity requirement in NPS?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Under revised PFRDA rules for non-government subscribers, you must allocate at least 20% of the total maturity corpus to purchase an annuity if the corpus exceeds ₹12 Lakh. The remaining 80% can be withdrawn as a lump sum."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is the entire NPS lump sum withdrawal tax-free?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Under Section 10(12A) of the Income Tax Act, up to 60% of the total accumulated corpus is 100% tax-exempt upon regular retirement."
+              "text": "Under PFRDA rules for non-government subscribers, you must allocate at least 20% of the total maturity corpus to purchase an annuity if the corpus exceeds ₹12 Lakh. The remaining 80% can be withdrawn as a lump sum."
             }
           }
         ]
@@ -48,18 +40,47 @@
   </script>
 
   <style>
+    /* Light Theme (Default) */
     :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --success: #16a34a;
       --bg: #f8fafc;
       --card-bg: #ffffff;
-      --text: #1e293b;
+      --panel-bg: #f1f5f9;
+      --stat-bg: #ffffff;
+      --text: #0f172a;
       --text-muted: #64748b;
       --border: #e2e8f0;
+      --slider-track: #e2e8f0;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --success: #16a34a;
+      --pension-bg: #ecfdf5;
+      --pension-border: #bbf7d0;
+      --pension-subtext: #166534;
+      --chart-invested: #94a3b8;
+      --chart-gains: #16a34a;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --panel-bg: #1f2937;
+      --stat-bg: #111827;
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #374151;
+      --slider-track: #374151;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --success: #22c55e;
+      --pension-bg: #064e3b26;
+      --pension-border: #065f46;
+      --pension-subtext: #34d399;
+      --chart-invested: #4b5563;
+      --chart-gains: #22c55e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease; }
     body { background: var(--bg); color: var(--text); padding: 24px 16px; }
 
     .calc-wrapper {
@@ -68,7 +89,7 @@
       background: var(--card-bg);
       border-radius: 16px;
       border: 1px solid var(--border);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
       overflow: hidden;
     }
 
@@ -76,9 +97,30 @@
       padding: 24px 32px;
       background: linear-gradient(135deg, #1e293b, #0f172a);
       color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
     }
-    .calc-header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 6px; }
-    .calc-header p { font-size: 0.95rem; color: #94a3b8; }
+    .calc-header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+    .calc-header p { font-size: 0.9rem; color: #94a3b8; }
+
+    /* Theme Toggle Button */
+    .theme-toggle-btn {
+      background: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .theme-toggle-btn:hover { background: #475569; }
 
     .calc-grid {
       display: grid;
@@ -89,6 +131,7 @@
 
     @media (max-width: 860px) {
       .calc-grid { grid-template-columns: 1fr; padding: 20px; }
+      .calc-header { padding: 20px; }
     }
 
     .form-group { margin-bottom: 22px; }
@@ -99,7 +142,7 @@
       width: 100%;
       height: 6px;
       border-radius: 4px;
-      background: #e2e8f0;
+      background: var(--slider-track);
       outline: none;
       -webkit-appearance: none;
     }
@@ -114,23 +157,24 @@
     }
 
     .results-card {
-      background: #f1f5f9;
+      background: var(--panel-bg);
       border-radius: 12px;
       padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      border: 1px solid var(--border);
     }
 
     .highlight-pension {
-      background: #ecfdf5;
-      border: 1px solid #bbf7d0;
+      background: var(--pension-bg);
+      border: 1px solid var(--pension-border);
       padding: 16px;
       border-radius: 10px;
       text-align: center;
       margin-bottom: 20px;
     }
-    .highlight-pension small { color: #166534; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+    .highlight-pension small { color: var(--pension-subtext); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
     .highlight-pension .amount { font-size: 1.8rem; font-weight: 800; color: var(--success); margin-top: 4px; }
 
     .summary-grid {
@@ -140,7 +184,7 @@
       margin-bottom: 20px;
     }
     .stat-item {
-      background: #ffffff;
+      background: var(--stat-bg);
       padding: 12px 14px;
       border-radius: 8px;
       border: 1px solid var(--border);
@@ -150,7 +194,7 @@
 
     .chart-box {
       position: relative;
-      max-width: 200px;
+      max-width: 190px;
       margin: 0 auto 20px auto;
     }
 
@@ -172,23 +216,28 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: opacity 0.2s;
     }
     .btn:hover { opacity: 0.9; }
     .btn-wa { background: #25d366; color: #fff; }
     .btn-copy { background: #334155; color: #fff; }
+    [data-theme="dark"] .btn-copy { background: #475569; color: #fff; }
   </style>
 </head>
 <body>
 
 <div class="calc-wrapper">
   <div class="calc-header">
-    <h1>KitnaPaisa Advanced NPS Calculator</h1>
-    <p>Simulate retirement corpus, monthly pension, and annual salary step-ups</p>
+    <div>
+      <h1>KitnaPaisa NPS Calculator</h1>
+      <p>Retirement corpus, pension, and step-up projection</p>
+    </div>
+    <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+      <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+    </button>
   </div>
 
   <div class="calc-grid">
-    <!-- Controls Section -->
+    <!-- Controls -->
     <div class="controls">
       <div class="form-group">
         <div class="label-row">
@@ -216,7 +265,7 @@
 
       <div class="form-group">
         <div class="label-row">
-          <span>Annual Step-Up (Top-Up)</span>
+          <span>Annual Step-Up</span>
           <span class="label-val" id="stepUpLabel">5%</span>
         </div>
         <input type="range" id="stepUp" min="0" max="15" step="1" value="5" oninput="runNPSCalculation()">
@@ -224,7 +273,7 @@
 
       <div class="form-group">
         <div class="label-row">
-          <span>Expected ROI on NPS (% p.a.)</span>
+          <span>Expected Return (% p.a.)</span>
           <span class="label-val" id="roiLabel">10%</span>
         </div>
         <input type="range" id="roi" min="7" max="15" step="0.5" value="10" oninput="runNPSCalculation()">
@@ -247,7 +296,7 @@
       </div>
     </div>
 
-    <!-- Output Section -->
+    <!-- Output Dashboard -->
     <div class="results-card">
       <div>
         <div class="highlight-pension">
@@ -269,7 +318,7 @@
             <strong id="resCorpus">₹0</strong>
           </div>
           <div class="stat-item">
-            <span>Lump Sum Amount</span>
+            <span>Lump Sum (Tax-Free up to 60%)</span>
             <strong id="resLumpSum">₹0</strong>
           </div>
           <div class="stat-item">
@@ -281,7 +330,7 @@
 
       <div class="share-actions">
         <button class="btn btn-wa" onclick="shareWhatsApp()">Share on WhatsApp</button>
-        <button class="btn btn-copy" onclick="copyResults()">Copy Breakdown</button>
+        <button class="btn btn-copy" onclick="copyResults()">Copy Plan</button>
       </div>
     </div>
   </div>
@@ -290,6 +339,38 @@
 <script>
 let npsChart = null;
 
+// ================= THEME MANAGEMENT =================
+function initTheme() {
+  const savedTheme = localStorage.getItem('kp_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  setTheme(savedTheme);
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('kp_theme', theme);
+  const icon = document.getElementById('themeIcon');
+  const text = document.getElementById('themeText');
+  
+  if (theme === 'dark') {
+    icon.innerText = '☀️';
+    text.innerText = 'Light Mode';
+  } else {
+    icon.innerText = '🌙';
+    text.innerText = 'Dark Mode';
+  }
+
+  // Re-render chart colors to match theme
+  if (npsChart) {
+    updateChartTheme();
+  }
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+}
+
+// ================= CALCULATION LOGIC =================
 function formatINRCurrency(num) {
   if (num >= 10000000) return '₹' + (num / 10000000).toFixed(2) + ' Cr';
   if (num >= 100000) return '₹' + (num / 100000).toFixed(2) + ' L';
@@ -305,7 +386,6 @@ function runNPSCalculation() {
   const annuityPct = parseFloat(document.getElementById('annuityPct').value) / 100;
   const annuityRoi = parseFloat(document.getElementById('annuityRoi').value) / 100;
 
-  // Sync Slider Labels
   document.getElementById('ageLabel').innerText = age + ' Years';
   document.getElementById('retireAgeLabel').innerText = retireAge + ' Years';
   document.getElementById('investLabel').innerText = '₹' + monthlyInv.toLocaleString('en-IN');
@@ -321,7 +401,6 @@ function runNPSCalculation() {
   let totalCorpus = 0;
   let totalInvested = 0;
 
-  // Month-by-month compound calculation with annual step-up
   for (let y = 0; y < years; y++) {
     for (let m = 0; m < 12; m++) {
       totalInvested += monthlyInv;
@@ -334,21 +413,39 @@ function runNPSCalculation() {
   const lumpSumCorpus = totalCorpus - annuityCorpus;
   const monthlyPension = (annuityCorpus * annuityRoi) / 12;
 
-  // Render Stats
   document.getElementById('resTotalInv').innerText = formatINRCurrency(totalInvested);
   document.getElementById('resCorpus').innerText = formatINRCurrency(totalCorpus);
   document.getElementById('resLumpSum').innerText = formatINRCurrency(lumpSumCorpus);
   document.getElementById('resAnnuity').innerText = formatINRCurrency(annuityCorpus);
   document.getElementById('resMonthlyPension').innerText = '₹' + Math.round(monthlyPension).toLocaleString('en-IN');
 
-  // Update Visual Chart
   updateChart(totalInvested, Math.max(0, totalCorpus - totalInvested));
+}
+
+function getThemeColors() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  return {
+    invested: isDark ? '#4b5563' : '#94a3b8',
+    gains: isDark ? '#22c55e' : '#16a34a',
+    text: isDark ? '#f9fafb' : '#0f172a'
+  };
+}
+
+function updateChartTheme() {
+  const colors = getThemeColors();
+  npsChart.data.datasets[0].backgroundColor = [colors.invested, colors.gains];
+  npsChart.options.plugins.legend.labels.color = colors.text;
+  npsChart.update();
 }
 
 function updateChart(invested, interest) {
   const ctx = document.getElementById('npsDoughnut').getContext('2d');
+  const colors = getThemeColors();
+
   if (npsChart) {
     npsChart.data.datasets[0].data = [invested, interest];
+    npsChart.data.datasets[0].backgroundColor = [colors.invested, colors.gains];
+    npsChart.options.plugins.legend.labels.color = colors.text;
     npsChart.update();
   } else {
     npsChart = new Chart(ctx, {
@@ -357,13 +454,18 @@ function updateChart(invested, interest) {
         labels: ['Invested', 'Gains'],
         datasets: [{
           data: [invested, interest],
-          backgroundColor: ['#94a3b8', '#16a34a'],
+          backgroundColor: [colors.invested, colors.gains],
           borderWidth: 0
         }]
       },
       options: {
         responsive: true,
-        plugins: { legend: { position: 'bottom' } },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: colors.text }
+          }
+        },
         cutout: '70%'
       }
     });
@@ -384,8 +486,10 @@ function copyResults() {
   alert('Breakdown copied to clipboard!');
 }
 
-// Initial calculation on load
-window.addEventListener('DOMContentLoaded', runNPSCalculation);
+window.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  runNPSCalculation();
+});
 </script>
 </body>
 </html>
