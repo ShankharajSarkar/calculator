@@ -1,44 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZPBH5KCD4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-YZPBH5KCD4');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CAGR Calculator — Compound Annual Growth Rate & Absolute Returns</title>
-  <meta name="description" content="Calculate CAGR (Compound Annual Growth Rate), Absolute Returns, holding period analytics, and wealth multipliers for stocks, mutual funds, and real estate.">
+  <title>CAGR Calculator — Compound Annual Growth Rate & Absolute Return | KitnaPaisa</title>
+  <meta name="description" content="Calculate CAGR (Compound Annual Growth Rate), holding period returns, absolute profit %, real inflation-adjusted CAGR, and wealth multipliers with KitnaPaisa.">
   <link rel="canonical" href="https://kitnapaisa.in/calculators/cagr-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kitnapaisa.in/calculators/cagr-calculator.html">
+  <meta property="og:title" content="CAGR & Absolute Return Calculator — KitnaPaisa">
+  <meta property="og:description" content="Calculate true compounded annual growth rates, date-to-date returns, and benchmark against Indian markets.">
+  <meta name="theme-color" content="#000000">
 
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <!-- Schema.org JSON-LD (WebApplication + FAQPage) -->
+  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-    {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "name": "KitnaPaisa CAGR Calculator",
-      "url": "https://kitnapaisa.in/calculators/cagr-calculator.html",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "dateModified": "2026-08-28",
-      "author": {
-        "@type": "Organization",
-        "name": "KitnaPaisa Research Team",
-        "url": "https://kitnapaisa.in/about.html"
-      }
-    }
-  ]
-}
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "KitnaPaisa CAGR Calculator",
+        "url": "https://kitnapaisa.in/calculators/cagr-calculator.html",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "dateModified": "2026-08-30",
+        "author": {
+          "@type": "Organization",
+          "name": "KitnaPaisa Research Team",
+          "url": "https://kitnapaisa.in/"
+        }
+      },
       {
         "@type": "FAQPage",
         "mainEntity": [
@@ -55,7 +49,7 @@
             "name": "What is the difference between CAGR and Absolute Return?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Absolute return measures the raw total percentage gain or loss without considering time duration. CAGR factors in the time horizon to provide the true annualized compound performance."
+              "text": "Absolute return measures raw percentage gain without considering time duration. CAGR factors in the exact time horizon to provide the true annualized compound performance."
             }
           },
           {
@@ -63,7 +57,7 @@
             "name": "What is the formula for calculating CAGR?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The CAGR formula is: CAGR = (Final Value / Initial Value)^(1 / n) - 1, where n is the total number of years (or days / 365.25)."
+              "text": "CAGR = (Final Value / Initial Value)^(1 / n) - 1, where n is the total duration in years (or total days / 365.25)."
             }
           }
         ]
@@ -73,78 +67,6 @@
   </script>
 
   <style>
-    /* --- Credibility & Trust Bar --- */
-.trust-badge-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  background: var(--surface-subtle);
-  border: 1px solid var(--border);
-  padding: 0.4rem 0.85rem;
-  border-radius: 9999px;
-  width: fit-content;
-  margin: 0.5rem auto 1.25rem;
-}
-.trust-badge-bar strong {
-  color: var(--text);
-}
-
-/* --- Methodology Box --- */
-.methodology-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.25rem;
-  margin: 1.5rem 0;
-}
-.methodology-card h3 {
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-}
-.methodology-card ul {
-  padding-left: 1.2rem;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-/* --- Author / Editorial Box --- */
-.author-card {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
-  margin: 2rem 0;
-}
-.author-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: #fff;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.author-info h4 {
-  font-size: 0.9rem;
-  margin-bottom: 0.2rem;
-}
-.author-info p {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.4;
-  margin: 0;
-}
     :root {
       --bg: #f8fafc;
       --surface: #ffffff;
@@ -156,27 +78,26 @@
       --primary-light: #eff6ff;
       --accent: #10b981;
       --amber: #f59e0b;
-      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
       --chart-text: #64748b;
       --chart-grid: #e2e8f0;
-      --chart-invested: #94a3b8;
     }
 
+    /* Pure OLED Pitch Black Dark Mode */
     [data-theme="dark"] {
       --bg: #000000;
-      --surface: #111111;
-      --surface-subtle: #1c1c1c;
-      --border: #262626;
+      --surface: #0a0a0a;
+      --surface-subtle: #141414;
+      --border: #222222;
       --text: #f5f5f5;
-      --text-muted: #a3a3a3;
+      --text-muted: #999999;
       --primary: #3b82f6;
       --primary-light: rgba(59, 130, 246, 0.15);
       --accent: #34d399;
       --amber: #fbbf24;
-      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
-      --chart-text: #a3a3a3;
-      --chart-grid: #262626;
-      --chart-invested: #525252;
+      --card-shadow: 0 4px 14px rgba(0, 0, 0, 0.9);
+      --chart-text: #999999;
+      --chart-grid: #1f1f1f;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -188,6 +109,7 @@
       color: var(--text);
       line-height: 1.5;
       transition: background-color 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
@@ -197,7 +119,7 @@
     .nav-wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
     .nav-left { display: flex; align-items: center; gap: 1rem; }
     .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1.1rem; }
-    .logo-badge { background: var(--primary); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; flex-shrink: 0; }
+    .logo-badge { background: var(--primary); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; flex-shrink: 0; font-size: 0.95rem; font-weight: 800; }
     .nav-link { text-decoration: none; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
     .nav-link:hover { color: var(--primary); }
 
@@ -205,14 +127,15 @@
       background: var(--surface-subtle);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 0.35rem 0.75rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.85rem;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
+      min-height: 38px;
     }
 
     /* Ad Banner */
@@ -220,22 +143,27 @@
     .ad-728x90 { min-height: 90px; max-width: 728px; }
     .ad-300x250 { min-height: 250px; }
 
-    /* Page Head */
+    /* Page Head & E-E-A-T Trust Bar */
     .page-head { text-align: center; margin: 1rem 0 1.5rem; }
-    <div class="page-head">
-  <h1>CAGR Calculator — Compounded Annual Growth Rate</h1>
-  <p>Calculate mutual fund wealth compounding returns.</p>
-  
-  <div class="trust-badge-bar">
-    <span>📅 <strong>Updated:</strong> August 2026</span>
-    <span>•</span>
-    <span>⚖️ <strong>Tax Basis:</strong> Section 112A / Current Budget Norms</span>
-    <span>•</span>
-    <span>🔍 <strong>Verified by:</strong> KitnaPaisa Research Team</span>
-  </div>
-</div>
     .page-head h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.4rem; }
     .page-head p { color: var(--text-muted); font-size: 0.9rem; }
+
+    .trust-badge-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.85rem;
+      border-radius: 9999px;
+      width: fit-content;
+      margin: 0.5rem auto 1.25rem;
+    }
+    .trust-badge-bar strong { color: var(--text); }
 
     /* Layout */
     .calc-layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 1.5rem; align-items: start; width: 100%; }
@@ -244,23 +172,26 @@
     .input-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: var(--card-shadow); width: 100%; }
 
     .tab-group { display: flex; background: var(--surface-subtle); padding: 4px; border-radius: 8px; margin-bottom: 1.25rem; width: 100%; }
-    .tab-btn { flex: 1; padding: 0.5rem; border: none; background: transparent; font-weight: 600; font-size: 0.8rem; border-radius: 6px; cursor: pointer; color: var(--text-muted); }
-    .tab-btn.active { background: var(--surface); color: var(--primary); }
+    .tab-btn { flex: 1; padding: 0.55rem; border: none; background: transparent; font-weight: 600; font-size: 0.8rem; border-radius: 6px; cursor: pointer; color: var(--text-muted); min-height: 40px; }
+    .tab-btn.active { background: var(--surface); color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
 
     .input-group { margin-bottom: 1.25rem; }
     .input-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; gap: 0.5rem; }
     .input-label-row label { font-weight: 600; font-size: 0.85rem; }
-    .input-box-wrap { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; padding: 0.25rem 0.5rem; background: var(--surface-subtle); max-width: 145px; }
-    .input-box-wrap input { width: 100%; border: none; background: transparent; color: var(--text); font-weight: 700; text-align: right; outline: none; font-size: 0.9rem; }
+    .input-box-wrap { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; padding: 0.35rem 0.5rem; background: var(--surface-subtle); max-width: 155px; }
+    .input-box-wrap input { width: 100%; border: none; background: transparent; color: var(--text); font-weight: 700; text-align: right; outline: none; font-size: 0.95rem; }
     .input-box-wrap span { color: var(--text-muted); font-size: 0.8rem; margin-left: 4px; }
     
-    .date-input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 0.45rem 0.65rem; background: var(--surface-subtle); color: var(--text); font-size: 0.85rem; outline: none; }
-    .range-slider { width: 100%; accent-color: var(--primary); cursor: pointer; display: block; }
+    .date-input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 0.55rem 0.65rem; background: var(--surface-subtle); color: var(--text); font-size: 0.9rem; outline: none; min-height: 42px; }
+    .range-slider { width: 100%; accent-color: var(--primary); cursor: pointer; display: block; height: 6px; }
     .word-preview { font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.3rem; }
 
-    .preset-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
-    .preset-pill { border: 1px solid var(--border); background: var(--surface-subtle); border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.75rem; cursor: pointer; color: var(--text-muted); }
+    .preset-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.6rem; }
+    .preset-pill { border: 1px solid var(--border); background: var(--surface-subtle); border-radius: 6px; padding: 0.35rem 0.6rem; font-size: 0.75rem; cursor: pointer; color: var(--text-muted); min-height: 32px; }
     .preset-pill:hover { border-color: var(--primary); color: var(--primary); }
+
+    .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-top: 1px solid var(--border); }
+    .toggle-label { font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; }
 
     /* Results Dashboard */
     .dashboard { display: flex; flex-direction: column; gap: 1.25rem; width: 100%; min-width: 0; }
@@ -271,13 +202,12 @@
     .summary-val { font-size: 1.25rem; font-weight: 800; color: var(--text); word-break: break-word; }
     .summary-words { font-size: 0.7rem; color: var(--primary); font-weight: 600; margin-top: 2px; }
 
-    /* Performance Analytics Strip */
     .perf-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; width: 100%; }
     .perf-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
 
     /* Action Bar */
     .action-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .action-btn { flex: 1; min-width: 140px; padding: 0.55rem 0.85rem; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; transition: all 0.2s; }
+    .action-btn { flex: 1; min-width: 140px; padding: 0.65rem 0.85rem; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 42px; transition: all 0.2s; }
     .action-btn.whatsapp { background: #25d36615; border-color: #25d366; color: #25d366; }
     .action-btn.whatsapp:hover { background: #25d366; color: #fff; }
     .action-btn:hover { border-color: var(--primary); color: var(--primary); }
@@ -292,19 +222,29 @@
     /* Table */
     .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; width: 100%; min-width: 0; }
     .table-head-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; gap: 0.5rem; }
-    .btn-action { background: var(--surface-subtle); border: 1px solid var(--border); padding: 0.35rem 0.65rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: var(--text); cursor: pointer; }
+    .btn-action { background: var(--surface-subtle); border: 1px solid var(--border); padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: var(--text); cursor: pointer; min-height: 32px; }
     .btn-action:hover { background: var(--primary); color: #fff; }
     .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; max-height: 380px; }
     table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.8rem; text-align: right; }
-    th, td { padding: 0.5rem; border-bottom: 1px solid var(--border); }
+    th, td { padding: 0.55rem; border-bottom: 1px solid var(--border); }
     th:first-child, td:first-child { text-align: left; }
     th { background: var(--surface-subtle); position: sticky; top: 0; }
+
+    /* Methodology & Author Card */
+    .methodology-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin: 1.5rem 0; }
+    .methodology-card h3 { font-size: 1rem; margin-bottom: 0.75rem; font-weight: 700; }
+    .methodology-card ul { padding-left: 1.2rem; color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; }
+    .formula-box { background: var(--surface-subtle); padding: 0.75rem; border-radius: 6px; margin: 0.75rem 0; font-family: monospace; font-size: 0.85rem; overflow-x: auto; }
+
+    .author-card { display: flex; align-items: center; gap: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin: 2rem 0; }
+    .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .author-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; font-weight: 700; }
+    .author-info p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin: 0; }
 
     /* Content & FAQs */
     .content-article { margin: 2rem 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; width: 100%; }
     .content-article h2 { font-size: 1.2rem; margin: 1.2rem 0 0.5rem; font-weight: 700; }
     .content-article p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.5rem; }
-    .formula-box { background: var(--surface-subtle); padding: 0.75rem; border-radius: 6px; margin: 0.75rem 0; font-family: monospace; font-size: 0.85rem; overflow-x: auto; }
 
     .faq-item { border-bottom: 1px solid var(--border); padding: 0.75rem 0; }
     .faq-q { font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; justify-content: space-between; }
@@ -312,19 +252,15 @@
     .faq-item.open .faq-a { display: block; }
 
     /* Toast */
-    .toast { position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 1px solid var(--primary); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 100; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 1px solid var(--primary); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 100; }
     .toast.show { opacity: 1; }
 
+    /* Mobile Responsive Optimizations */
     @media (max-width: 840px) {
       .calc-layout, .charts-grid, .summary-cards, .perf-strip { grid-template-columns: 100%; }
-      .page-head h1 { font-size: 1.4rem; }
+      .page-head h1 { font-size: 1.35rem; }
       .container { padding: 0 0.75rem; }
-    }
-
-    @media print {
-      header, .ad-banner, .input-panel, .action-bar, .content-article, .theme-toggle { display: none !important; }
-      .calc-layout { display: block; }
-      .dashboard { width: 100%; }
+      .input-box-wrap { max-width: 140px; }
     }
   </style>
 </head>
@@ -339,7 +275,7 @@
         </a>
         <a href="../index.html" class="nav-link">← All Calculators</a>
       </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Black Dark Mode">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
         <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
       </button>
     </div>
@@ -350,21 +286,23 @@
 
     <div class="page-head">
       <h1>CAGR & Absolute Return Calculator</h1>
-      <p>Measure the true compounded annual growth rate (CAGR), holding period gains, and wealth multipliers for your investments.</p>
-    <div class="trust-badge-bar">
-    <span>📅 <strong>Updated:</strong> August 2026</span>
-    <span>•</span>
-    <span>⚖️ <strong>Tax Basis:</strong> Section 112A / Current Budget Norms</span>
-    <span>•</span>
-    <span>🔍 <strong>Verified by:</strong> KitnaPaisa Research Team</span>
-    </div>
+      <p>Measure compounded annual growth rate (CAGR), holding period gains, and inflation-adjusted real returns.</p>
+      
+      <!-- Trust & Credibility Badge Bar -->
+      <div class="trust-badge-bar">
+        <span>📅 <strong>Updated:</strong> August 2026</span>
+        <span>•</span>
+        <span>📐 <strong>Standard:</strong> Annualized Multi-Period Compounding</span>
+        <span>•</span>
+        <span>🔍 <strong>Verified by:</strong> KitnaPaisa Research Team</span>
+      </div>
     </div>
 
     <div class="calc-layout">
       <!-- Input Sidebar -->
       <aside class="input-panel">
         <div class="tab-group">
-          <button class="tab-btn active" id="tabTenure" onclick="setMode('tenure')">By Years / Duration</button>
+          <button class="tab-btn active" id="tabTenure" onclick="setMode('tenure')">By Years</button>
           <button class="tab-btn" id="tabDates" onclick="setMode('dates')">By Exact Dates</button>
         </div>
 
@@ -428,6 +366,22 @@
           <div class="word-preview" id="daysPreview" style="margin-bottom:1rem;">Holding Period: 0 Days</div>
         </div>
 
+        <!-- Inflation Adjustment Toggle -->
+        <div class="toggle-row">
+          <span class="toggle-label">Calculate Real (Inflation-Adjusted) CAGR</span>
+          <input type="checkbox" id="inflationToggle">
+        </div>
+        <div class="input-group" id="inflationContainer" style="display:none; margin-top:0.75rem;">
+          <div class="input-label-row">
+            <label for="inflationRateInput">Annual Inflation Rate</label>
+            <div class="input-box-wrap">
+              <input type="number" id="inflationRateInput" value="6.0" step="0.5">
+              <span>%</span>
+            </div>
+          </div>
+          <input type="range" id="inflationRateSlider" class="range-slider" min="1" max="15" step="0.5" value="6.0">
+        </div>
+
         <div class="ad-banner ad-300x250" style="margin-top:1.5rem;" aria-label="Sidebar Ad">Ad Slot — Sidebar (300x250)</div>
       </aside>
 
@@ -443,7 +397,7 @@
         <!-- Summary Return Cards -->
         <div class="summary-cards">
           <div class="summary-card highlight">
-            <div class="summary-title">CAGR (Annualized Rate)</div>
+            <div class="summary-title" id="titleCAGR">Nominal CAGR</div>
             <div class="summary-val" id="valCAGR" style="color:var(--primary);">0%</div>
             <div class="summary-words" id="wordCAGR">Compounded Per Year</div>
           </div>
@@ -512,56 +466,60 @@
       </section>
     </div>
 
-    <!-- Educational Content & SEO FAQs -->
-    <article class="content-article">
-      <h2>Understanding CAGR (Compound Annual Growth Rate)</h2>
-      <p>The <strong>Compound Annual Growth Rate (CAGR)</strong> is the metric used by financial analysts and mutual fund managers to measure the constant rate of return on an investment assuming all profits are reinvested over multiple years.</p>
-      
-      <h2>CAGR vs Absolute Return: The Real Difference</h2>
-      <p>If an investment of ₹1 Lakh grows to ₹2 Lakh over 5 years:</p>
-      <ul>
-        <li><strong>Absolute Return:</strong> $\frac{₹2,00,000 - ₹1,00,000}{₹1,00,000} \times 100 = \mathbf{100\%}$</li>
-        <li><strong>CAGR (Annualized):</strong> $(\frac{₹2,00,000}{₹1,00,000})^{1/5} - 1 = \mathbf{14.87\% \text{ p.a.}}$</li>
-      </ul>
-      <div class="formula-box">
-        CAGR = (Final Value / Initial Value)<sup>(1 / Years)</sup> − 1
-      </div>
-
-      <h2>Frequently Asked Questions (FAQs)</h2>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Why is CAGR preferred over average annual returns? <span>▼</span></div>
-        <div class="faq-a">Average annual returns ignore the volatility and timing of compounding. CAGR smooths out fluctuating market returns (e.g., +40% in year one, -20% in year two) to give the true single-rate compound progression.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">When is Absolute Return better than CAGR? <span>▼</span></div>
-        <div class="faq-a">Absolute return is best suited for investments held for <strong>less than 1 year</strong>. For time periods exceeding 1 year, CAGR is the industry standard benchmark.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is a good CAGR return in the Indian Market? <span>▼</span></div>
-        <div class="faq-a">Historically in India, large-cap equity index funds (Nifty 50) have delivered 12% to 13% CAGR, mid/small-caps have generated 15% to 18% CAGR, and bank FDs deliver 6.5% to 7.5% CAGR over long 10+ year horizons.</div>
-      </div>
-    </article>
+    <!-- Methodology & Calculation Transparency -->
     <section class="methodology-card">
-      <h3>📐 Calculation Methodology & Disclosures</h3>
+      <h3>📐 Mathematical Methodology & Verification</h3>
+      <div class="formula-box">
+        Nominal CAGR = (Final Value / Initial Value)<sup>(1 / Years)</sup> − 1<br>
+        Real CAGR = [(1 + Nominal CAGR) / (1 + Inflation Rate)] − 1
+      </div>
       <ul>
-        <li><strong>Client-Side Execution:</strong> All compounding algorithms execute locally in your web browser. No financial data or personal figures are stored or transmitted.</li>
-        <li><strong>Regulatory Alignment:</strong> Calculations reflect guidelines and statutory limits issued by the Reserve Bank of India (RBI), SEBI, and the Ministry of Finance.</li>
+        <li><strong>Client-Side Execution:</strong> All compounding algorithms calculate locally in your browser. No financial data is transmitted.</li>
+        <li><strong>Date Precision:</strong> Date calculations use actual calendar day counts divided by 365.25 to account for leap years.</li>
       </ul>
     </section>
 
+    <!-- Editorial Trust Card -->
     <div class="author-card">
       <div class="author-avatar">KP</div>
       <div class="author-info">
         <h4>Researched & Maintained by the KitnaPaisa Financial Team</h4>
-        <p>KitnaPaisa provides free, transparent financial tools for Indian retail investors, adhering to current tax brackets and compounding formulas.</p>
+        <p>KitnaPaisa provides free, transparent financial tools for Indian retail investors, adhering to standard compounding formulas and regulatory norms.</p>
       </div>
     </div>
+
+    <!-- Educational Content & SEO FAQs -->
+    <article class="content-article">
+      <h2>Understanding CAGR (Compound Annual Growth Rate)</h2>
+      <p>The <strong>Compound Annual Growth Rate (CAGR)</strong> measures the smoothed, annualized rate of return on an investment over a multi-year holding period, assuming all intermediate gains are reinvested.</p>
+      
+      <h2>CAGR vs. Absolute Return</h2>
+      <p>If an investment of ₹1 Lakh grows to ₹2 Lakh in 5 years:</p>
+      <ul>
+        <li><strong>Absolute Return:</strong> $\frac{₹2,00,000 - ₹1,00,000}{₹1,00,000} \times 100 = \mathbf{100\%}$</li>
+        <li><strong>CAGR (Annualized):</strong> $(\frac{₹2,00,000}{₹1,00,000})^{1/5} - 1 = \mathbf{14.87\% \text{ p.a.}}$</li>
+      </ul>
+
+      <h2>Frequently Asked Questions (FAQs)</h2>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Why is CAGR preferred over average annual returns? <span>▼</span></div>
+        <div class="faq-a">Average annual returns ignore the compounding effect of volatility. CAGR smooths fluctuating annual market returns into a single constant annual growth rate.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">When should I use Absolute Return instead of CAGR? <span>▼</span></div>
+        <div class="faq-a">Absolute return is best for investments held for <strong>less than 1 year</strong>. For horizons exceeding 1 year, CAGR is the standard metric.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is a good CAGR benchmark in India? <span>▼</span></div>
+        <div class="faq-a">Historically, Nifty 50 Index funds deliver ~12% to 13% CAGR, mid/small-caps generate ~15% to 18% CAGR, and bank Fixed Deposits yield ~6.5% to 7.5% CAGR over 10+ year periods.</div>
+      </div>
+    </article>
   </main>
 
   <div id="toast" class="toast">Link copied to clipboard!</div>
 
   <script>
-    let mode = 'tenure'; // 'tenure' or 'dates'
+    let mode = 'tenure';
     let ratioChart = null;
     let growthChart = null;
     let cachedSchedule = [];
@@ -628,23 +586,25 @@
         p.set('buy', document.getElementById('buyDate')?.value || '');
         p.set('sell', document.getElementById('sellDate')?.value || '');
       }
+      if (document.getElementById('inflationToggle')?.checked) {
+        p.set('inf', document.getElementById('inflationRateInput')?.value || 6);
+      }
       window.history.replaceState({}, '', `${window.location.pathname}?${p.toString()}`);
     }
 
     function copyShareableLink() {
       navigator.clipboard.writeText(window.location.href);
-      showToast('Link copied with your exact CAGR calculations!');
+      showToast('Link copied with your exact CAGR parameters!');
     }
 
     function shareWhatsApp() {
       const initial = document.getElementById('initialInput')?.value || 100000;
       const finalVal = document.getElementById('finalInput')?.value || 250000;
       const cagr = document.getElementById('valCAGR')?.innerText || '';
-      const text = encodeURIComponent(`Check out my investment CAGR return:\n💰 Initial Value: ₹${initial}\n🚀 Final Value: ₹${finalVal}\n📈 Annualized CAGR: ${cagr}\n\nCalculate yours on KitnaPaisa: ${window.location.href}`);
+      const text = encodeURIComponent(`Check out my investment CAGR returns:\n💰 Initial: ₹${initial}\n🚀 Final Value: ₹${finalVal}\n📈 Annualized CAGR: ${cagr}\n\nCalculate yours on KitnaPaisa: ${window.location.href}`);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
 
-    // Core CAGR & Amortization Math Logic
     function syncAndRecalculate() {
       const initialInput = document.getElementById('initialInput');
       if (!initialInput) return;
@@ -676,18 +636,27 @@
         }
       }
 
-      // Calculations
       let cagr = 0;
       if (initialVal > 0 && finalVal > 0 && years > 0) {
         cagr = (Math.pow(finalVal / initialVal, 1 / years) - 1) * 100;
+      }
+
+      const hasInflation = document.getElementById('inflationToggle')?.checked || false;
+      const inflationRate = hasInflation ? (parseFloat(document.getElementById('inflationRateInput')?.value) || 0) : 0;
+      
+      let displayCagr = cagr;
+      if (hasInflation) {
+        displayCagr = (((1 + (cagr / 100)) / (1 + (inflationRate / 100))) - 1) * 100;
       }
 
       const absoluteReturn = ((finalVal - initialVal) / initialVal) * 100;
       const profit = finalVal - initialVal;
       const multiplier = (finalVal / initialVal).toFixed(2);
 
-      // Summary Dashboard
-      document.getElementById('valCAGR').innerText = (isFinite(cagr) ? cagr.toFixed(2) : '0') + '%';
+      document.getElementById('titleCAGR').innerText = hasInflation ? 'Real (Post-Inflation) CAGR' : 'Nominal CAGR';
+      document.getElementById('valCAGR').innerText = (isFinite(displayCagr) ? displayCagr.toFixed(2) : '0') + '%';
+      document.getElementById('wordCAGR').innerText = hasInflation ? `Adjusted for ${inflationRate}% Inflation` : 'Compounded Per Year';
+
       document.getElementById('valAbsolute').innerText = (isFinite(absoluteReturn) ? (absoluteReturn > 0 ? '+' : '') + absoluteReturn.toFixed(2) : '0') + '%';
       document.getElementById('valProfit').innerText = formatINR(profit);
       document.getElementById('wordProfit').innerText = formatToIndianWords(Math.abs(profit)) + (profit >= 0 ? ' Net Gain' : ' Loss');
@@ -695,7 +664,6 @@
       document.getElementById('valTenureDisplay').innerText = `${years.toFixed(1)} Years`;
       document.getElementById('wordDaysDisplay').innerText = `${totalDays} Total Days`;
 
-      // Year-by-Year Amortization Schedule
       let schedule = [];
       const cagrDecimal = cagr / 100;
       const wholeYears = Math.max(1, Math.ceil(years));
@@ -760,9 +728,9 @@
       const primaryColor = computedStyle.getPropertyValue('--primary').trim() || '#2563eb';
       const accentColor = computedStyle.getPropertyValue('--accent').trim() || '#10b981';
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const chartBorderColor = isDark ? '#111111' : '#ffffff';
+      const chartBorderColor = isDark ? '#0a0a0a' : '#ffffff';
 
-      // 1. Donut Ratio Chart
+      // 1. Donut Ratio
       if (ratioChart) ratioChart.destroy();
       const ctxDonut = canvasDonut.getContext('2d');
       ratioChart = new Chart(ctxDonut, {
@@ -783,7 +751,7 @@
             legend: { position: 'bottom', labels: { color: textColor, font: { size: 11 } } },
             tooltip: {
               callbacks: {
-                label: (ctx) => ` ${ctx.label}: ${formatINR(ctx.raw)} (${((ctx.raw / (invested + profit)) * 100).toFixed(1)}%)`
+                label: (ctx) => ` ${ctx.label}: ${formatINR(ctx.raw)} (${((ctx.raw / (invested + profit || 1)) * 100).toFixed(1)}%)`
               }
             }
           }
@@ -852,7 +820,6 @@
         });
       }
 
-      // Default Dates Setup (5 Years back to today)
       const today = new Date();
       const fiveYearsAgo = new Date();
       fiveYearsAgo.setFullYear(today.getFullYear() - 5);
@@ -862,7 +829,6 @@
       if (buyDateInput) buyDateInput.value = fiveYearsAgo.toISOString().split('T')[0];
       if (sellDateInput) sellDateInput.value = today.toISOString().split('T')[0];
 
-      // Parse URL parameters
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.has('initial')) {
         document.getElementById('initialInput').value = urlParams.get('initial');
@@ -894,9 +860,15 @@
       bindInputSync('initialInput', 'initialSlider');
       bindInputSync('finalInput', 'finalSlider');
       bindInputSync('yearsInput', 'yearsSlider');
+      bindInputSync('inflationRateInput', 'inflationRateSlider');
 
       document.getElementById('buyDate')?.addEventListener('change', syncAndRecalculate);
       document.getElementById('sellDate')?.addEventListener('change', syncAndRecalculate);
+
+      document.getElementById('inflationToggle')?.addEventListener('change', (e) => {
+        document.getElementById('inflationContainer').style.display = e.target.checked ? 'block' : 'none';
+        syncAndRecalculate();
+      });
 
       syncAndRecalculate();
     });
