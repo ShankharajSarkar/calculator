@@ -3,62 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CAGR Calculator — Compound Annual Growth Rate & Absolute Return | KitnaPaisa</title>
-  <meta name="description" content="Calculate CAGR (Compound Annual Growth Rate), holding period returns, absolute profit %, real inflation-adjusted CAGR, and wealth multipliers with KitnaPaisa.">
+  <title>Advanced CAGR & XIRR Calculator — Multi-Investment, Goal Seek & Benchmarks | KitnaPaisa</title>
+  <meta name="description" content="Advanced CAGR calculator with XIRR for irregular investments, goal-seek required-return solver, post-tax CAGR, benchmark comparison against Nifty 50/Gold/FD, and sensitivity analysis.">
   <link rel="canonical" href="https://kitnapaisa.in/calculators/cagr-calculator.html">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kitnapaisa.in/calculators/cagr-calculator.html">
-  <meta property="og:title" content="CAGR & Absolute Return Calculator — KitnaPaisa">
-  <meta property="og:description" content="Calculate true compounded annual growth rates, date-to-date returns, and benchmark against Indian markets.">
+  <meta property="og:title" content="Advanced CAGR & XIRR Calculator — KitnaPaisa">
+  <meta property="og:description" content="Calculate CAGR, XIRR for irregular cash flows, required return to hit a goal, post-tax returns, and benchmark comparisons.">
   <meta name="theme-color" content="#000000">
 
-  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebApplication",
-        "name": "KitnaPaisa CAGR Calculator",
+        "name": "KitnaPaisa Advanced CAGR & XIRR Calculator",
         "url": "https://kitnapaisa.in/calculators/cagr-calculator.html",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "All",
         "dateModified": "2026-08-30",
-        "author": {
-          "@type": "Organization",
-          "name": "KitnaPaisa Research Team",
-          "url": "https://kitnapaisa.in/"
-        }
+        "author": { "@type": "Organization", "name": "KitnaPaisa Research Team", "url": "https://kitnapaisa.in/" }
       },
       {
         "@type": "FAQPage",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What is CAGR (Compound Annual Growth Rate)?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "CAGR represents the smoothed, constant annual rate at which an investment grows over a holding period greater than one year, assuming all compounding returns are reinvested."
-            }
+            "name": "What is the difference between CAGR and XIRR?",
+            "acceptedAnswer": { "@type": "Answer", "text": "CAGR assumes a single lump-sum investment growing to a single final value over a fixed period. XIRR handles irregular, multiple cash flows (like staggered investments or partial withdrawals) occurring on different dates, and returns the effective annualized rate that reconciles all of them." }
           },
           {
             "@type": "Question",
-            "name": "What is the difference between CAGR and Absolute Return?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Absolute return measures raw percentage gain without considering time duration. CAGR factors in the exact time horizon to provide the true annualized compound performance."
-            }
+            "name": "What is Goal Seek in a CAGR calculator?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Goal Seek works backward: instead of computing CAGR from a known final value, you specify your target corpus and time horizon, and the calculator solves for the annual return you would need to achieve it." }
           },
           {
             "@type": "Question",
-            "name": "What is the formula for calculating CAGR?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "CAGR = (Final Value / Initial Value)^(1 / n) - 1, where n is the total duration in years (or total days / 365.25)."
-            }
+            "name": "How is post-tax CAGR calculated for Indian equity investments?",
+            "acceptedAnswer": { "@type": "Answer", "text": "For holding periods over one year, Long-Term Capital Gains exceeding Rs 1.25 lakh in a financial year are taxed at 12.5% under current rules. For holdings under one year, Short-Term Capital Gains are taxed at 20%. The calculator deducts the applicable tax from the profit before re-deriving the annualized rate." }
           }
         ]
       }
@@ -68,199 +53,132 @@
 
   <style>
     :root {
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --surface-subtle: #f1f5f9;
-      --border: #e2e8f0;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --primary: #2563eb;
-      --primary-light: #eff6ff;
-      --accent: #10b981;
-      --amber: #f59e0b;
+      --bg: #f8fafc; --surface: #ffffff; --surface-subtle: #f1f5f9; --border: #e2e8f0;
+      --text: #0f172a; --text-muted: #64748b; --primary: #2563eb; --primary-light: #eff6ff;
+      --accent: #10b981; --amber: #f59e0b; --red: #ef4444;
       --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      --chart-text: #64748b;
-      --chart-grid: #e2e8f0;
+      --chart-text: #64748b; --chart-grid: #e2e8f0;
     }
-
-    /* Pure OLED Pitch Black Dark Mode */
     [data-theme="dark"] {
-      --bg: #000000;
-      --surface: #0a0a0a;
-      --surface-subtle: #141414;
-      --border: #222222;
-      --text: #f5f5f5;
-      --text-muted: #999999;
-      --primary: #3b82f6;
-      --primary-light: rgba(59, 130, 246, 0.15);
-      --accent: #34d399;
-      --amber: #fbbf24;
-      --card-shadow: 0 4px 14px rgba(0, 0, 0, 0.9);
-      --chart-text: #999999;
-      --chart-grid: #1f1f1f;
+      --bg: #000000; --surface: #0a0a0a; --surface-subtle: #141414; --border: #222222;
+      --text: #f5f5f5; --text-muted: #999999; --primary: #3b82f6; --primary-light: rgba(59,130,246,0.15);
+      --accent: #34d399; --amber: #fbbf24; --red: #f87171;
+      --card-shadow: 0 4px 14px rgba(0,0,0,0.9); --chart-text: #999999; --chart-grid: #1f1f1f;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; min-height: 100%; overflow-x: hidden; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.5; transition: background-color .2s ease, color .2s ease; -webkit-tap-highlight-color: transparent; }
     .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
 
-    /* Header */
     header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 20; width: 100%; }
     .nav-wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
     .nav-left { display: flex; align-items: center; gap: 1rem; }
-    .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1.1rem; }
-    .logo-badge { background: var(--primary); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; flex-shrink: 0; font-size: 0.95rem; font-weight: 800; }
-    .nav-link { text-decoration: none; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+    .logo { display: flex; align-items: center; gap: .5rem; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1.1rem; }
+    .logo-badge { background: var(--primary); color: #fff; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: 6px; flex-shrink: 0; font-size: .95rem; font-weight: 800; }
+    .nav-link { text-decoration: none; font-size: .85rem; color: var(--text-muted); font-weight: 500; }
     .nav-link:hover { color: var(--primary); }
+    .theme-toggle { background: var(--surface-subtle); border: 1px solid var(--border); color: var(--text); padding: .4rem .8rem; border-radius: 8px; cursor: pointer; font-size: .85rem; font-weight: 600; display: flex; align-items: center; gap: .35rem; min-height: 38px; }
 
-    .theme-toggle {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.4rem 0.8rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      min-height: 38px;
-    }
-
-    /* Ad Banner */
-    .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; margin: 1rem auto; width: 100%; }
+    .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: .8rem; margin: 1rem auto; width: 100%; }
     .ad-728x90 { min-height: 90px; max-width: 728px; }
     .ad-300x250 { min-height: 250px; }
 
-    /* Page Head & E-E-A-T Trust Bar */
     .page-head { text-align: center; margin: 1rem 0 1.5rem; }
-    .page-head h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.4rem; }
-    .page-head p { color: var(--text-muted); font-size: 0.9rem; }
-
-    .trust-badge-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      padding: 0.4rem 0.85rem;
-      border-radius: 9999px;
-      width: fit-content;
-      margin: 0.5rem auto 1.25rem;
-    }
+    .page-head h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: .4rem; }
+    .page-head p { color: var(--text-muted); font-size: .9rem; }
+    .trust-badge-bar { display: flex; align-items: center; justify-content: center; gap: .6rem; flex-wrap: wrap; font-size: .78rem; color: var(--text-muted); background: var(--surface-subtle); border: 1px solid var(--border); padding: .4rem .85rem; border-radius: 9999px; width: fit-content; margin: .5rem auto 1.25rem; }
     .trust-badge-bar strong { color: var(--text); }
 
-    /* Layout */
     .calc-layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 1.5rem; align-items: start; width: 100%; }
-
-    /* Input Panel */
     .input-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: var(--card-shadow); width: 100%; }
 
-    .tab-group { display: flex; background: var(--surface-subtle); padding: 4px; border-radius: 8px; margin-bottom: 1.25rem; width: 100%; }
-    .tab-btn { flex: 1; padding: 0.55rem; border: none; background: transparent; font-weight: 600; font-size: 0.8rem; border-radius: 6px; cursor: pointer; color: var(--text-muted); min-height: 40px; }
-    .tab-btn.active { background: var(--surface); color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .tab-group { display: flex; background: var(--surface-subtle); padding: 4px; border-radius: 8px; margin-bottom: 1.25rem; width: 100%; flex-wrap: wrap; }
+    .tab-btn { flex: 1; min-width: 47%; padding: .55rem .3rem; border: none; background: transparent; font-weight: 600; font-size: .74rem; border-radius: 6px; cursor: pointer; color: var(--text-muted); min-height: 38px; }
+    .tab-btn.active { background: var(--surface); color: var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,.2); }
 
     .input-group { margin-bottom: 1.25rem; }
-    .input-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; gap: 0.5rem; }
-    .input-label-row label { font-weight: 600; font-size: 0.85rem; }
-    .input-box-wrap { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; padding: 0.35rem 0.5rem; background: var(--surface-subtle); max-width: 155px; }
-    .input-box-wrap input { width: 100%; border: none; background: transparent; color: var(--text); font-weight: 700; text-align: right; outline: none; font-size: 0.95rem; }
-    .input-box-wrap span { color: var(--text-muted); font-size: 0.8rem; margin-left: 4px; }
-    
-    .date-input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 0.55rem 0.65rem; background: var(--surface-subtle); color: var(--text); font-size: 0.9rem; outline: none; min-height: 42px; }
+    .input-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; gap: .5rem; }
+    .input-label-row label { font-weight: 600; font-size: .85rem; }
+    .input-box-wrap { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 6px; padding: .35rem .5rem; background: var(--surface-subtle); max-width: 155px; }
+    .input-box-wrap input { width: 100%; border: none; background: transparent; color: var(--text); font-weight: 700; text-align: right; outline: none; font-size: .95rem; }
+    .input-box-wrap span { color: var(--text-muted); font-size: .8rem; margin-left: 4px; }
+    .date-input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: .55rem .65rem; background: var(--surface-subtle); color: var(--text); font-size: .9rem; outline: none; min-height: 42px; }
     .range-slider { width: 100%; accent-color: var(--primary); cursor: pointer; display: block; height: 6px; }
-    .word-preview { font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-top: 0.3rem; }
+    .word-preview { font-size: .75rem; color: var(--primary); font-weight: 600; margin-top: .3rem; }
+    .field-note { font-size: .72rem; color: var(--text-muted); margin-top: .35rem; line-height: 1.4; }
 
-    .preset-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.6rem; }
-    .preset-pill { border: 1px solid var(--border); background: var(--surface-subtle); border-radius: 6px; padding: 0.35rem 0.6rem; font-size: 0.75rem; cursor: pointer; color: var(--text-muted); min-height: 32px; }
+    .preset-pills { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .6rem; }
+    .preset-pill { border: 1px solid var(--border); background: var(--surface-subtle); border-radius: 6px; padding: .35rem .6rem; font-size: .75rem; cursor: pointer; color: var(--text-muted); min-height: 32px; }
     .preset-pill:hover { border-color: var(--primary); color: var(--primary); }
 
-    .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-top: 1px solid var(--border); }
-    .toggle-label { font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; }
+    .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: .75rem 0; border-top: 1px solid var(--border); gap: .5rem; }
+    .toggle-label { font-size: .85rem; font-weight: 600; }
 
-    /* Results Dashboard */
     .dashboard { display: flex; flex-direction: column; gap: 1.25rem; width: 100%; min-width: 0; }
-    .summary-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; width: 100%; }
+    .summary-cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .75rem; width: 100%; }
     .summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; min-width: 0; }
     .summary-card.highlight { border-color: var(--primary); background: var(--primary-light); }
-    .summary-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem; }
+    .summary-title { font-size: .75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: .25rem; }
     .summary-val { font-size: 1.25rem; font-weight: 800; color: var(--text); word-break: break-word; }
-    .summary-words { font-size: 0.7rem; color: var(--primary); font-weight: 600; margin-top: 2px; }
+    .summary-words { font-size: .7rem; color: var(--primary); font-weight: 600; margin-top: 2px; }
 
-    .perf-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; width: 100%; }
+    .perf-strip { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem; width: 100%; }
     .perf-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
 
-    /* Action Bar */
-    .action-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .action-btn { flex: 1; min-width: 140px; padding: 0.65rem 0.85rem; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.8rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 42px; transition: all 0.2s; }
+    .action-bar { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .action-btn { flex: 1; min-width: 140px; padding: .65rem .85rem; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: .8rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: .4rem; min-height: 42px; transition: all .2s; }
     .action-btn.whatsapp { background: #25d36615; border-color: #25d366; color: #25d366; }
     .action-btn.whatsapp:hover { background: #25d366; color: #fff; }
     .action-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-    /* Charts */
-    .charts-grid { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 1rem; width: 100%; }
+    .charts-grid { display: grid; grid-template-columns: minmax(0,260px) minmax(0,1fr); gap: 1rem; width: 100%; }
     .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; width: 100%; min-width: 0; }
-    .chart-card h3 { font-size: 0.85rem; margin-bottom: 0.5rem; }
-    .donut-wrap { position: relative; width: 100%; height: 200px; }
-    .growth-wrap { position: relative; width: 100%; height: 200px; }
+    .chart-card h3 { font-size: .85rem; margin-bottom: .5rem; }
+    .donut-wrap, .growth-wrap, .bench-wrap { position: relative; width: 100%; height: 200px; }
 
-    /* Table */
     .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; width: 100%; min-width: 0; }
-    .table-head-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; gap: 0.5rem; }
-    .btn-action { background: var(--surface-subtle); border: 1px solid var(--border); padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: var(--text); cursor: pointer; min-height: 32px; }
+    .table-head-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: .75rem; gap: .5rem; flex-wrap: wrap; }
+    .btn-action { background: var(--surface-subtle); border: 1px solid var(--border); padding: .4rem .75rem; border-radius: 6px; font-size: .75rem; font-weight: 600; color: var(--text); cursor: pointer; min-height: 32px; }
     .btn-action:hover { background: var(--primary); color: #fff; }
     .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; max-height: 380px; }
-    table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 0.8rem; text-align: right; }
-    th, td { padding: 0.55rem; border-bottom: 1px solid var(--border); }
+    table { width: 100%; min-width: 460px; border-collapse: collapse; font-size: .8rem; text-align: right; }
+    th, td { padding: .55rem; border-bottom: 1px solid var(--border); }
     th:first-child, td:first-child { text-align: left; }
     th { background: var(--surface-subtle); position: sticky; top: 0; }
+    td.match { background: var(--primary-light); font-weight: 700; color: var(--primary); }
 
-    /* Methodology & Author Card */
+    .cashflow-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: .5rem; align-items: center; margin-bottom: .5rem; }
+    .cashflow-row input { border: 1px solid var(--border); border-radius: 6px; padding: .5rem; background: var(--surface-subtle); color: var(--text); font-size: .82rem; width: 100%; min-height: 38px; }
+    .cf-remove { background: none; border: 1px solid var(--border); color: var(--red); border-radius: 6px; width: 34px; height: 34px; cursor: pointer; font-weight: 700; }
+    .cf-add { width: 100%; padding: .55rem; border-radius: 6px; border: 1px dashed var(--border); background: transparent; color: var(--primary); font-weight: 600; font-size: .8rem; cursor: pointer; margin-top: .25rem; }
+
     .methodology-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin: 1.5rem 0; }
-    .methodology-card h3 { font-size: 1rem; margin-bottom: 0.75rem; font-weight: 700; }
-    .methodology-card ul { padding-left: 1.2rem; color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; }
-    .formula-box { background: var(--surface-subtle); padding: 0.75rem; border-radius: 6px; margin: 0.75rem 0; font-family: monospace; font-size: 0.85rem; overflow-x: auto; }
+    .methodology-card h3 { font-size: 1rem; margin-bottom: .75rem; font-weight: 700; }
+    .methodology-card ul { padding-left: 1.2rem; color: var(--text-muted); font-size: .85rem; line-height: 1.6; }
+    .formula-box { background: var(--surface-subtle); padding: .75rem; border-radius: 6px; margin: .75rem 0; font-family: monospace; font-size: .82rem; overflow-x: auto; }
 
     .author-card { display: flex; align-items: center; gap: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin: 2rem 0; }
     .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--primary); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .author-info h4 { font-size: 0.9rem; margin-bottom: 0.2rem; font-weight: 700; }
-    .author-info p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; margin: 0; }
+    .author-info h4 { font-size: .9rem; margin-bottom: .2rem; font-weight: 700; }
+    .author-info p { font-size: .8rem; color: var(--text-muted); line-height: 1.4; margin: 0; }
 
-    /* Content & FAQs */
     .content-article { margin: 2rem 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; width: 100%; }
-    .content-article h2 { font-size: 1.2rem; margin: 1.2rem 0 0.5rem; font-weight: 700; }
-    .content-article p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.5rem; }
-
-    .faq-item { border-bottom: 1px solid var(--border); padding: 0.75rem 0; }
-    .faq-q { font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; justify-content: space-between; }
-    .faq-a { margin-top: 0.4rem; color: var(--text-muted); font-size: 0.85rem; display: none; }
+    .content-article h2 { font-size: 1.2rem; margin: 1.2rem 0 .5rem; font-weight: 700; }
+    .content-article p { color: var(--text-muted); font-size: .85rem; line-height: 1.5; margin-bottom: .5rem; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: .75rem 0; }
+    .faq-q { font-weight: 600; font-size: .9rem; cursor: pointer; display: flex; justify-content: space-between; }
+    .faq-a { margin-top: .4rem; color: var(--text-muted); font-size: .85rem; display: none; }
     .faq-item.open .faq-a { display: block; }
 
-    /* Toast */
-    .toast { position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 1px solid var(--primary); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 100; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: var(--surface); border: 1px solid var(--primary); color: var(--text); padding: .6rem 1.2rem; border-radius: 8px; font-size: .85rem; box-shadow: 0 4px 12px rgba(0,0,0,.5); opacity: 0; pointer-events: none; transition: opacity .3s ease; z-index: 100; }
     .toast.show { opacity: 1; }
 
-    /* Mobile Responsive Optimizations */
     @media (max-width: 840px) {
       .calc-layout, .charts-grid, .summary-cards, .perf-strip { grid-template-columns: 100%; }
       .page-head h1 { font-size: 1.35rem; }
-      .container { padding: 0 0.75rem; }
+      .container { padding: 0 .75rem; }
       .input-box-wrap { max-width: 140px; }
+      .cashflow-row { grid-template-columns: 1fr 1fr auto; }
     }
   </style>
 </head>
@@ -269,15 +187,10 @@
   <header>
     <div class="container nav-wrap">
       <div class="nav-left">
-        <a href="../index.html" class="logo">
-          <span class="logo-badge">₹</span>
-          <span>KitnaPaisa</span>
-        </a>
+        <a href="../index.html" class="logo"><span class="logo-badge">₹</span><span>KitnaPaisa</span></a>
         <a href="../index.html" class="nav-link">← All Calculators</a>
       </div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
-        <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
-      </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode"><span id="themeIcon">🌙</span> <span id="themeText">Dark</span></button>
     </div>
   </header>
 
@@ -285,116 +198,138 @@
     <div class="ad-banner ad-728x90" aria-label="Top Banner Ad">Ad Slot — Top Responsive (728x90)</div>
 
     <div class="page-head">
-      <h1>CAGR & Absolute Return Calculator</h1>
-      <p>Measure compounded annual growth rate (CAGR), holding period gains, and inflation-adjusted real returns.</p>
-      
-      <!-- Trust & Credibility Badge Bar -->
+      <h1>Advanced CAGR & XIRR Calculator</h1>
+      <p>Handle single lump-sums, irregular multi-investment cash flows, goal-seek return targets, post-tax returns, and benchmark comparisons.</p>
       <div class="trust-badge-bar">
         <span>📅 <strong>Updated:</strong> August 2026</span>
         <span>•</span>
-        <span>📐 <strong>Standard:</strong> Annualized Multi-Period Compounding</span>
+        <span>📐 <strong>Standard:</strong> Annualized Compounding + XIRR</span>
         <span>•</span>
         <span>🔍 <strong>Verified by:</strong> KitnaPaisa Research Team</span>
       </div>
     </div>
 
     <div class="calc-layout">
-      <!-- Input Sidebar -->
+      <!-- Input Panel -->
       <aside class="input-panel">
         <div class="tab-group">
           <button class="tab-btn active" id="tabTenure" onclick="setMode('tenure')">By Years</button>
           <button class="tab-btn" id="tabDates" onclick="setMode('dates')">By Exact Dates</button>
+          <button class="tab-btn" id="tabCashflows" onclick="setMode('cashflows')">Multiple Investments</button>
+          <button class="tab-btn" id="tabGoal" onclick="setMode('goalseek')">Goal Seek</button>
         </div>
 
-        <!-- Initial Investment (Buy Price) -->
-        <div class="input-group">
-          <div class="input-label-row">
-            <label for="initialInput">Initial Investment (Buy Value)</label>
-            <div class="input-box-wrap">
-              <span>₹</span>
-              <input type="number" id="initialInput" value="100000" step="5000">
+        <!-- Simple two-point value inputs (tenure + dates modes) -->
+        <div id="simpleValueInputs">
+          <div class="input-group">
+            <div class="input-label-row"><label for="initialInput">Initial Investment (Buy Value)</label>
+              <div class="input-box-wrap"><span>₹</span><input type="number" id="initialInput" value="100000" step="5000"></div>
+            </div>
+            <input type="range" id="initialSlider" class="range-slider" min="5000" max="5000000" step="5000" value="100000">
+            <div class="word-preview" id="initialWordPreview">₹1 Lakh</div>
+            <div class="preset-pills">
+              <button class="preset-pill" onclick="setInitialVal(25000)">₹25,000</button>
+              <button class="preset-pill" onclick="setInitialVal(50000)">₹50,000</button>
+              <button class="preset-pill" onclick="setInitialVal(100000)">₹1 Lakh</button>
+              <button class="preset-pill" onclick="setInitialVal(500000)">₹5 Lakh</button>
+              <button class="preset-pill" onclick="setInitialVal(1000000)">₹10 Lakh</button>
             </div>
           </div>
-          <input type="range" id="initialSlider" class="range-slider" min="5000" max="5000000" step="5000" value="100000">
-          <div class="word-preview" id="initialWordPreview">₹1 Lakh</div>
-          <div class="preset-pills">
-            <button class="preset-pill" onclick="setInitialVal(25000)">₹25,000</button>
-            <button class="preset-pill" onclick="setInitialVal(50000)">₹50,000</button>
-            <button class="preset-pill" onclick="setInitialVal(100000)">₹1 Lakh</button>
-            <button class="preset-pill" onclick="setInitialVal(500000)">₹5 Lakh</button>
-            <button class="preset-pill" onclick="setInitialVal(1000000)">₹10 Lakh</button>
-          </div>
-        </div>
-
-        <!-- Final Value (Sell / Current Value) -->
-        <div class="input-group">
-          <div class="input-label-row">
-            <label for="finalInput">Final Value (Sell Value)</label>
-            <div class="input-box-wrap">
-              <span>₹</span>
-              <input type="number" id="finalInput" value="250000" step="5000">
+          <div class="input-group">
+            <div class="input-label-row"><label for="finalInput">Final Value (Sell Value)</label>
+              <div class="input-box-wrap"><span>₹</span><input type="number" id="finalInput" value="250000" step="5000"></div>
             </div>
+            <input type="range" id="finalSlider" class="range-slider" min="5000" max="15000000" step="5000" value="250000">
+            <div class="word-preview" id="finalWordPreview">₹2.5 Lakh</div>
           </div>
-          <input type="range" id="finalSlider" class="range-slider" min="5000" max="15000000" step="5000" value="250000">
-          <div class="word-preview" id="finalWordPreview">₹2.5 Lakh</div>
         </div>
 
-        <!-- Duration Inputs (Tenure Mode) -->
         <div id="tenureContainer">
           <div class="input-group">
-            <div class="input-label-row">
-              <label for="yearsInput">Duration (Years)</label>
-              <div class="input-box-wrap">
-                <input type="number" id="yearsInput" value="5" step="0.5" min="0.1" max="50">
-                <span>Yrs</span>
-              </div>
+            <div class="input-label-row"><label for="yearsInput">Duration (Years)</label>
+              <div class="input-box-wrap"><input type="number" id="yearsInput" value="5" step="0.5" min="0.1" max="50"><span>Yrs</span></div>
             </div>
             <input type="range" id="yearsSlider" class="range-slider" min="0.5" max="30" step="0.5" value="5">
           </div>
         </div>
 
-        <!-- Exact Date Inputs (Dates Mode) -->
         <div id="datesContainer" style="display:none;">
           <div class="input-group">
-            <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.4rem;">Investment Buy Date</label>
+            <label style="font-weight:600;font-size:.85rem;display:block;margin-bottom:.4rem;">Investment Buy Date</label>
             <input type="date" id="buyDate" class="date-input">
           </div>
           <div class="input-group">
-            <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.4rem;">Redemption / Current Date</label>
+            <label style="font-weight:600;font-size:.85rem;display:block;margin-bottom:.4rem;">Redemption / Current Date</label>
             <input type="date" id="sellDate" class="date-input">
           </div>
           <div class="word-preview" id="daysPreview" style="margin-bottom:1rem;">Holding Period: 0 Days</div>
         </div>
 
-        <!-- Inflation Adjustment Toggle -->
-        <div class="toggle-row">
-          <span class="toggle-label">Calculate Real (Inflation-Adjusted) CAGR</span>
-          <input type="checkbox" id="inflationToggle">
+        <!-- Multiple cash flows (XIRR) mode -->
+        <div id="cashflowsContainer" style="display:none;">
+          <div class="field-note" style="margin-bottom:.6rem;">Add every investment as an outflow. Your current value is entered separately below as the final inflow.</div>
+          <div id="cfRows"></div>
+          <button class="cf-add" onclick="addCashflowRow()">+ Add another investment</button>
+          <div class="input-group" style="margin-top:1rem;">
+            <label style="font-weight:600;font-size:.85rem;display:block;margin-bottom:.4rem;">Current Value (as of today)</label>
+            <div class="input-box-wrap" style="max-width:100%;"><span>₹</span><input type="number" id="cfFinalValue" value="500000" step="5000"></div>
+          </div>
+          <div class="input-group">
+            <label style="font-weight:600;font-size:.85rem;display:block;margin-bottom:.4rem;">Valuation Date</label>
+            <input type="date" id="cfFinalDate" class="date-input">
+          </div>
         </div>
-        <div class="input-group" id="inflationContainer" style="display:none; margin-top:0.75rem;">
-          <div class="input-label-row">
-            <label for="inflationRateInput">Annual Inflation Rate</label>
-            <div class="input-box-wrap">
-              <input type="number" id="inflationRateInput" value="6.0" step="0.5">
-              <span>%</span>
+
+        <!-- Goal seek mode -->
+        <div id="goalSeekContainer" style="display:none;">
+          <div class="input-group">
+            <div class="input-label-row"><label for="gsInitial">Starting Investment</label>
+              <div class="input-box-wrap"><span>₹</span><input type="number" id="gsInitial" value="500000" step="10000"></div>
             </div>
           </div>
-          <input type="range" id="inflationRateSlider" class="range-slider" min="1" max="15" step="0.5" value="6.0">
+          <div class="input-group">
+            <div class="input-label-row"><label for="gsTarget">Target Corpus</label>
+              <div class="input-box-wrap"><span>₹</span><input type="number" id="gsTarget" value="2000000" step="50000"></div>
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="input-label-row"><label for="gsYears">Time Available</label>
+              <div class="input-box-wrap"><input type="number" id="gsYears" value="10" step="0.5" min="0.5" max="50"><span>Yrs</span></div>
+            </div>
+            <input type="range" id="gsYearsSlider" class="range-slider" min="0.5" max="30" step="0.5" value="10">
+          </div>
+        </div>
+
+        <!-- Adjustments (apply to tenure/dates/cashflows results) -->
+        <div id="adjustmentsBlock">
+          <div class="toggle-row">
+            <span class="toggle-label">Calculate Real (Inflation-Adjusted) Rate</span>
+            <input type="checkbox" id="inflationToggle">
+          </div>
+          <div class="input-group" id="inflationContainer" style="display:none;margin-top:.5rem;">
+            <div class="input-label-row"><label for="inflationRateInput">Annual Inflation Rate</label>
+              <div class="input-box-wrap"><input type="number" id="inflationRateInput" value="6.0" step="0.5"><span>%</span></div>
+            </div>
+            <input type="range" id="inflationRateSlider" class="range-slider" min="1" max="15" step="0.5" value="6.0">
+          </div>
+          <div class="toggle-row">
+            <span class="toggle-label">Show Post-Tax (Capital Gains) Rate</span>
+            <input type="checkbox" id="taxToggle">
+          </div>
+          <div class="field-note" id="taxNote" style="display:none;">Applies LTCG at 12.5% on gains above ₹1.25L if holding &gt; 1 year, else STCG at 20%. Rates as of Aug 2026 — verify against the latest Finance Act.</div>
         </div>
 
         <div class="ad-banner ad-300x250" style="margin-top:1.5rem;" aria-label="Sidebar Ad">Ad Slot — Sidebar (300x250)</div>
       </aside>
 
-      <!-- Results & Visualizations Dashboard -->
+      <!-- Dashboard -->
       <section class="dashboard">
-        <!-- Action & Share Bar -->
         <div class="action-bar">
           <button class="action-btn whatsapp" onclick="shareWhatsApp()">💬 Share Plan on WhatsApp</button>
           <button class="action-btn" onclick="copyShareableLink()">🔗 Copy Link</button>
           <button class="action-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
         </div>
 
-        <!-- Summary Return Cards -->
         <div class="summary-cards">
           <div class="summary-card highlight">
             <div class="summary-title" id="titleCAGR">Nominal CAGR</div>
@@ -413,106 +348,96 @@
           </div>
         </div>
 
-        <!-- Performance Multiplier Strip -->
         <div class="perf-strip">
           <div class="perf-card">
-            <div class="summary-title">Wealth Growth Multiplier</div>
+            <div class="summary-title" id="multiplierTitle">Wealth Growth Multiplier</div>
             <div class="summary-val" id="valMultiplier" style="color:var(--primary);">0.0x</div>
-            <div class="summary-words">Times of Initial Capital</div>
+            <div class="summary-words" id="wordMultiplier">Times of Initial Capital</div>
           </div>
           <div class="perf-card">
-            <div class="summary-title">Effective Holding Period</div>
-            <div class="summary-val" id="valTenureDisplay">0 Years</div>
-            <div class="summary-words" id="wordDaysDisplay">0 Total Days</div>
+            <div class="summary-title" id="secondCardTitle">Post-Tax CAGR</div>
+            <div class="summary-val" id="valTenureDisplay">—</div>
+            <div class="summary-words" id="wordDaysDisplay"></div>
           </div>
         </div>
 
-        <!-- Charts Grid -->
         <div class="charts-grid">
           <div class="chart-card">
             <h3>Capital vs Profit Ratio</h3>
-            <div class="donut-wrap">
-              <canvas id="ratioChart"></canvas>
-            </div>
+            <div class="donut-wrap"><canvas id="ratioChart"></canvas></div>
           </div>
           <div class="chart-card">
-            <h3>Compounded Growth Trajectory</h3>
-            <div class="growth-wrap">
-              <canvas id="growthChart"></canvas>
-            </div>
+            <h3 id="growthChartTitle">Compounded Growth Trajectory</h3>
+            <div class="growth-wrap"><canvas id="growthChart"></canvas></div>
           </div>
         </div>
 
-        <!-- Schedule Table -->
-        <div class="table-card">
+        <div class="chart-card">
+          <h3>Your Return vs Common Benchmarks (Historical Averages)</h3>
+          <div class="bench-wrap"><canvas id="benchChart"></canvas></div>
+          <div class="field-note" style="margin-top:.5rem;">Benchmark figures are long-run historical approximations, not guarantees — actual returns vary by period and fund selection.</div>
+        </div>
+
+        <div class="table-card" id="scheduleCard">
           <div class="table-head-bar">
             <h3>Yearly Compounding Breakdown</h3>
             <button class="btn-action" onclick="exportTableToCSV()">📥 Download CSV</button>
           </div>
           <div class="table-container">
             <table id="scheduleTable">
-              <thead>
-                <tr>
-                  <th>Year</th>
-                  <th>Opening Value</th>
-                  <th>Yearly Gain</th>
-                  <th>Closing Value</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Year</th><th>Opening Value</th><th>Yearly Gain</th><th>Closing Value</th></tr></thead>
               <tbody id="scheduleBody"></tbody>
             </table>
           </div>
         </div>
+
+        <div class="table-card" id="sensitivityCard">
+          <div class="table-head-bar"><h3>Sensitivity: Final Value Across Rate & Duration</h3></div>
+          <div class="table-container">
+            <table id="sensitivityTable">
+              <thead><tr id="sensHeadRow"><th>Years \ Rate</th></tr></thead>
+              <tbody id="sensBody"></tbody>
+            </table>
+          </div>
+          <div class="field-note" style="margin-top:.5rem;">Highlighted cell is your current input combination. Each column is a CAGR scenario; each row is a duration scenario.</div>
+        </div>
       </section>
     </div>
 
-    <!-- Methodology & Calculation Transparency -->
     <section class="methodology-card">
       <h3>📐 Mathematical Methodology & Verification</h3>
       <div class="formula-box">
         Nominal CAGR = (Final Value / Initial Value)<sup>(1 / Years)</sup> − 1<br>
-        Real CAGR = [(1 + Nominal CAGR) / (1 + Inflation Rate)] − 1
+        Real CAGR = [(1 + Nominal CAGR) / (1 + Inflation Rate)] − 1<br>
+        XIRR: solves Σ CFᵢ / (1 + r)^(daysᵢ/365) = 0 for r, via Newton-Raphson, across irregularly dated cash flows<br>
+        Post-Tax CAGR = derived by re-annualizing (Final Value − Applicable Capital Gains Tax) over the same holding period
       </div>
       <ul>
-        <li><strong>Client-Side Execution:</strong> All compounding algorithms calculate locally in your browser. No financial data is transmitted.</li>
+        <li><strong>Client-Side Execution:</strong> All calculations run locally in your browser. No financial data is transmitted.</li>
         <li><strong>Date Precision:</strong> Date calculations use actual calendar day counts divided by 365.25 to account for leap years.</li>
+        <li><strong>XIRR Convergence:</strong> Newton-Raphson is capped at 100 iterations with a 1e-7 tolerance; highly irregular or sign-inconsistent cash flow sets may not converge, in which case a fallback estimate is shown.</li>
       </ul>
     </section>
 
-    <!-- Editorial Trust Card -->
     <div class="author-card">
       <div class="author-avatar">KP</div>
       <div class="author-info">
         <h4>Researched & Maintained by the KitnaPaisa Financial Team</h4>
-        <p>KitnaPaisa provides free, transparent financial tools for Indian retail investors, adhering to standard compounding formulas and regulatory norms.</p>
+        <p>KitnaPaisa provides free, transparent financial tools for Indian retail investors, adhering to standard compounding and IRR formulas and regulatory norms.</p>
       </div>
     </div>
 
-    <!-- Educational Content & SEO FAQs -->
     <article class="content-article">
-      <h2>Understanding CAGR (Compound Annual Growth Rate)</h2>
-      <p>The <strong>Compound Annual Growth Rate (CAGR)</strong> measures the smoothed, annualized rate of return on an investment over a multi-year holding period, assuming all intermediate gains are reinvested.</p>
-      
-      <h2>CAGR vs. Absolute Return</h2>
-      <p>If an investment of ₹1 Lakh grows to ₹2 Lakh in 5 years:</p>
-      <ul>
-        <li><strong>Absolute Return:</strong> $\frac{₹2,00,000 - ₹1,00,000}{₹1,00,000} \times 100 = \mathbf{100\%}$</li>
-        <li><strong>CAGR (Annualized):</strong> $(\frac{₹2,00,000}{₹1,00,000})^{1/5} - 1 = \mathbf{14.87\% \text{ p.a.}}$</li>
-      </ul>
+      <h2>Understanding CAGR vs XIRR vs Goal Seek</h2>
+      <p><strong>CAGR</strong> answers "what was my annualized return" for a single lump sum. <strong>XIRR</strong> answers the same question when money went in (or came out) on multiple different dates and amounts — the common real-world case for anyone topping up an investment over time. <strong>Goal Seek</strong> flips the question around: given what you have and what you want, what return do you need?</p>
 
-      <h2>Frequently Asked Questions (FAQs)</h2>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Why is CAGR preferred over average annual returns? <span>▼</span></div>
-        <div class="faq-a">Average annual returns ignore the compounding effect of volatility. CAGR smooths fluctuating annual market returns into a single constant annual growth rate.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">When should I use Absolute Return instead of CAGR? <span>▼</span></div>
-        <div class="faq-a">Absolute return is best for investments held for <strong>less than 1 year</strong>. For horizons exceeding 1 year, CAGR is the standard metric.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is a good CAGR benchmark in India? <span>▼</span></div>
-        <div class="faq-a">Historically, Nifty 50 Index funds deliver ~12% to 13% CAGR, mid/small-caps generate ~15% to 18% CAGR, and bank Fixed Deposits yield ~6.5% to 7.5% CAGR over 10+ year periods.</div>
-      </div>
+      <h2>CAGR vs. Absolute Return</h2>
+      <p>If an investment of ₹1 Lakh grows to ₹2 Lakh in 5 years, Absolute Return is 100%, while CAGR (annualized) works out to roughly 14.87% p.a. — CAGR is the fairer number for comparing investments held over different lengths of time.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">When should I use XIRR instead of CAGR? <span>▼</span></div><div class="faq-a">Use XIRR whenever you've invested more than once on different dates, or made partial withdrawals — SIPs, staggered lump sums, and top-ups all fall into this category. Plain CAGR only fits a single buy and a single sell.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is the required CAGR from Goal Seek guaranteed? <span>▼</span></div><div class="faq-a">No. It's the annualized return your investment would need to average to hit your target — actual markets are volatile, so treat it as a planning benchmark, not a promise.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is a good CAGR benchmark in India? <span>▼</span></div><div class="faq-a">Historically, Nifty 50 index funds have delivered roughly 12–13% CAGR, mid/small-caps around 15–18%, and bank fixed deposits around 6.5–7.5% over 10+ year periods. These are long-run averages, not year-to-year guarantees.</div></div>
     </article>
   </main>
 
@@ -520,104 +445,140 @@
 
   <script>
     let mode = 'tenure';
-    let ratioChart = null;
-    let growthChart = null;
+    let ratioChart = null, growthChart = null, benchChart = null;
     let cachedSchedule = [];
+    let cfRowCount = 0;
 
-    function formatINR(val) {
-      if (isNaN(val) || val === null) return '₹0';
-      return '₹' + Math.round(val).toLocaleString('en-IN');
-    }
+    const BENCHMARKS = [
+      { label: 'Nifty 50', rate: 12.5, color: '#2563eb' },
+      { label: 'Gold', rate: 9.0, color: '#f59e0b' },
+      { label: 'Debt Funds', rate: 7.5, color: '#8b5cf6' },
+      { label: 'Bank FD', rate: 7.0, color: '#64748b' }
+    ];
 
+    function formatINR(val) { if (isNaN(val) || val === null) return '₹0'; return '₹' + Math.round(val).toLocaleString('en-IN'); }
     function formatToIndianWords(num) {
       if (isNaN(num) || num <= 0) return '₹0';
-      if (num >= 10000000) return '₹' + (num / 10000000).toFixed(2) + ' Crore';
-      if (num >= 100000) return '₹' + (num / 100000).toFixed(2) + ' Lakh';
-      if (num >= 1000) return '₹' + (num / 1000).toFixed(1) + ' Thousand';
+      if (num >= 10000000) return '₹' + (num/10000000).toFixed(2) + ' Crore';
+      if (num >= 100000) return '₹' + (num/100000).toFixed(2) + ' Lakh';
+      if (num >= 1000) return '₹' + (num/1000).toFixed(1) + ' Thousand';
       return '₹' + Math.round(num);
     }
-
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.innerText = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2500);
-    }
+    function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
 
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
-      const icon = document.getElementById('themeIcon');
-      const text = document.getElementById('themeText');
-      if (icon && text) {
-        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-        text.textContent = theme === 'dark' ? 'Light' : 'Dark';
-      }
+      const icon = document.getElementById('themeIcon'), text = document.getElementById('themeText');
+      if (icon && text) { icon.textContent = theme === 'dark' ? '☀️' : '🌙'; text.textContent = theme === 'dark' ? 'Light' : 'Dark'; }
       localStorage.setItem('theme', theme);
-      if (ratioChart && growthChart && cachedSchedule.length > 0) {
-        const initial = parseFloat(document.getElementById('initialInput')?.value) || 0;
-        const finalVal = parseFloat(document.getElementById('finalInput')?.value) || 0;
-        renderCharts(initial, Math.max(0, finalVal - initial), cachedSchedule);
-      }
+      recalc();
     }
 
     function setMode(newMode) {
       mode = newMode;
-      document.getElementById('tabTenure').classList.toggle('active', mode === 'tenure');
-      document.getElementById('tabDates').classList.toggle('active', mode === 'dates');
+      ['tabTenure','tabDates','tabCashflows','tabGoal'].forEach(id => document.getElementById(id).classList.remove('active'));
+      const tabMap = { tenure: 'tabTenure', dates: 'tabDates', cashflows: 'tabCashflows', goalseek: 'tabGoal' };
+      document.getElementById(tabMap[newMode]).classList.add('active');
 
+      document.getElementById('simpleValueInputs').style.display = (mode === 'tenure' || mode === 'dates') ? 'block' : 'none';
       document.getElementById('tenureContainer').style.display = mode === 'tenure' ? 'block' : 'none';
       document.getElementById('datesContainer').style.display = mode === 'dates' ? 'block' : 'none';
-      syncAndRecalculate();
+      document.getElementById('cashflowsContainer').style.display = mode === 'cashflows' ? 'block' : 'none';
+      document.getElementById('goalSeekContainer').style.display = mode === 'goalseek' ? 'block' : 'none';
+      document.getElementById('adjustmentsBlock').style.display = mode === 'goalseek' ? 'none' : 'block';
+      document.getElementById('scheduleCard').style.display = mode === 'cashflows' ? 'none' : 'block';
+      document.getElementById('sensitivityCard').style.display = mode === 'cashflows' ? 'none' : 'block';
+
+      if (mode === 'cashflows' && cfRowCount === 0) { addCashflowRow(-24, 100000); addCashflowRow(-12, 100000); addCashflowRow(0, 150000, true); }
+      recalc();
     }
 
-    function setInitialVal(val) {
-      document.getElementById('initialInput').value = val;
-      document.getElementById('initialSlider').value = val;
-      syncAndRecalculate();
+    function setInitialVal(val) { document.getElementById('initialInput').value = val; document.getElementById('initialSlider').value = val; recalc(); }
+
+    function addCashflowRow(monthsAgo, amount, isDefault) {
+      cfRowCount++;
+      const id = 'cf' + cfRowCount;
+      const d = new Date();
+      if (typeof monthsAgo === 'number') d.setMonth(d.getMonth() + monthsAgo);
+      const dateStr = d.toISOString().split('T')[0];
+      const row = document.createElement('div');
+      row.className = 'cashflow-row';
+      row.id = id;
+      row.innerHTML = `
+        <input type="date" value="${dateStr}" onchange="recalc()">
+        <input type="number" value="${amount || 50000}" step="1000" placeholder="Amount invested (₹)" onchange="recalc()">
+        <button class="cf-remove" onclick="removeCashflowRow('${id}')" aria-label="Remove">×</button>`;
+      document.getElementById('cfRows').appendChild(row);
+      recalc();
+    }
+    function removeCashflowRow(id) { const el = document.getElementById(id); if (el) el.remove(); recalc(); }
+
+    function xirr(cashflows) {
+      if (cashflows.length < 2) return 0;
+      const t0 = cashflows[0].date.getTime();
+      const yrs = cf => (cf.date.getTime() - t0) / (1000 * 60 * 60 * 24 * 365);
+      function npv(r) { return cashflows.reduce((acc, cf) => acc + cf.amount / Math.pow(1 + r, yrs(cf)), 0); }
+      function dnpv(r) { return cashflows.reduce((acc, cf) => acc - cf.amount * yrs(cf) / Math.pow(1 + r, yrs(cf) + 1), 0); }
+      let r = 0.15;
+      for (let i = 0; i < 100; i++) {
+        const f = npv(r), df = dnpv(r);
+        if (Math.abs(df) < 1e-9) break;
+        const next = r - f / df;
+        if (!isFinite(next)) break;
+        if (Math.abs(next - r) < 1e-7) { r = next; break; }
+        r = Math.max(-0.99, next);
+      }
+      return r * 100;
     }
 
-    function updateURLParams() {
-      const p = new URLSearchParams();
-      p.set('initial', document.getElementById('initialInput')?.value || 100000);
-      p.set('final', document.getElementById('finalInput')?.value || 250000);
-      if (mode === 'tenure') {
-        p.set('years', document.getElementById('yearsInput')?.value || 5);
+    function taxAdjustedFinalValue(initial, finalVal, years) {
+      const gain = finalVal - initial;
+      if (gain <= 0) return finalVal;
+      let tax = 0;
+      if (years > 1) {
+        const taxableGain = Math.max(0, gain - 125000);
+        tax = taxableGain * 0.125;
       } else {
-        p.set('buy', document.getElementById('buyDate')?.value || '');
-        p.set('sell', document.getElementById('sellDate')?.value || '');
+        tax = gain * 0.20;
       }
-      if (document.getElementById('inflationToggle')?.checked) {
-        p.set('inf', document.getElementById('inflationRateInput')?.value || 6);
-      }
-      window.history.replaceState({}, '', `${window.location.pathname}?${p.toString()}`);
+      return finalVal - tax;
     }
 
-    function copyShareableLink() {
-      navigator.clipboard.writeText(window.location.href);
-      showToast('Link copied with your exact CAGR parameters!');
+    function renderSensitivity(baseInitial, baseRate, baseYears) {
+      const rateSteps = [-6, -3, 0, 3, 6].map(d => Math.max(0.5, Math.round((baseRate + d) * 10) / 10));
+      const yearSteps = [-4, -2, 0, 2, 4].map(d => Math.max(0.5, Math.round((baseYears + d) * 2) / 2)).filter((v, i, a) => a.indexOf(v) === i);
+      const headRow = document.getElementById('sensHeadRow');
+      headRow.innerHTML = '<th>Years \\ Rate</th>' + rateSteps.map(r => `<th>${r.toFixed(1)}%</th>`).join('');
+      const body = document.getElementById('sensBody');
+      body.innerHTML = '';
+      yearSteps.forEach(y => {
+        const tr = document.createElement('tr');
+        let cells = `<td>${y} yr</td>`;
+        rateSteps.forEach(r => {
+          const fv = baseInitial * Math.pow(1 + r / 100, y);
+          const isMatch = Math.abs(y - baseYears) < 0.01 && Math.abs(r - Math.round(baseRate * 10) / 10) < 0.01;
+          cells += `<td class="${isMatch ? 'match' : ''}">${formatToIndianWords(fv)}</td>`;
+        });
+        tr.innerHTML = cells;
+        body.appendChild(tr);
+      });
     }
 
-    function shareWhatsApp() {
-      const initial = document.getElementById('initialInput')?.value || 100000;
-      const finalVal = document.getElementById('finalInput')?.value || 250000;
-      const cagr = document.getElementById('valCAGR')?.innerText || '';
-      const text = encodeURIComponent(`Check out my investment CAGR returns:\n💰 Initial: ₹${initial}\n🚀 Final Value: ₹${finalVal}\n📈 Annualized CAGR: ${cagr}\n\nCalculate yours on KitnaPaisa: ${window.location.href}`);
-      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    function recalc() {
+      if (mode === 'goalseek') return recalcGoalSeek();
+      if (mode === 'cashflows') return recalcCashflows();
+      return recalcSimple();
     }
 
-    function syncAndRecalculate() {
+    function recalcSimple() {
       const initialInput = document.getElementById('initialInput');
       if (!initialInput) return;
-
       const initialVal = parseFloat(initialInput.value) || 1;
       const finalVal = parseFloat(document.getElementById('finalInput')?.value) || 0;
-
       document.getElementById('initialWordPreview').innerText = formatToIndianWords(initialVal);
       document.getElementById('finalWordPreview').innerText = formatToIndianWords(finalVal);
 
-      let years = 1;
-      let totalDays = 365;
-
+      let years = 1, totalDays = 365;
       if (mode === 'tenure') {
         years = parseFloat(document.getElementById('yearsInput')?.value) || 1;
         totalDays = Math.round(years * 365.25);
@@ -625,28 +586,29 @@
         const bDate = new Date(document.getElementById('buyDate')?.value);
         const sDate = new Date(document.getElementById('sellDate')?.value);
         if (!isNaN(bDate) && !isNaN(sDate) && sDate > bDate) {
-          const diffTime = Math.abs(sDate - bDate);
-          totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          totalDays = Math.ceil(Math.abs(sDate - bDate) / (1000*60*60*24));
           years = totalDays / 365.25;
           document.getElementById('daysPreview').innerText = `Holding Period: ${totalDays} Days (${years.toFixed(2)} Years)`;
         } else {
-          years = 1;
-          totalDays = 365;
-          document.getElementById('daysPreview').innerText = `Please select valid Buy and Sell dates`;
+          years = 1; totalDays = 365;
+          document.getElementById('daysPreview').innerText = 'Please select valid Buy and Sell dates';
         }
       }
 
       let cagr = 0;
-      if (initialVal > 0 && finalVal > 0 && years > 0) {
-        cagr = (Math.pow(finalVal / initialVal, 1 / years) - 1) * 100;
-      }
+      if (initialVal > 0 && finalVal > 0 && years > 0) cagr = (Math.pow(finalVal / initialVal, 1 / years) - 1) * 100;
 
       const hasInflation = document.getElementById('inflationToggle')?.checked || false;
       const inflationRate = hasInflation ? (parseFloat(document.getElementById('inflationRateInput')?.value) || 0) : 0;
-      
       let displayCagr = cagr;
-      if (hasInflation) {
-        displayCagr = (((1 + (cagr / 100)) / (1 + (inflationRate / 100))) - 1) * 100;
+      if (hasInflation) displayCagr = (((1 + cagr/100) / (1 + inflationRate/100)) - 1) * 100;
+
+      const hasTax = document.getElementById('taxToggle')?.checked || false;
+      document.getElementById('taxNote').style.display = hasTax ? 'block' : 'none';
+      let postTaxCagr = null;
+      if (hasTax) {
+        const taxedFinal = taxAdjustedFinalValue(initialVal, finalVal, years);
+        postTaxCagr = initialVal > 0 && taxedFinal > 0 ? (Math.pow(taxedFinal / initialVal, 1 / years) - 1) * 100 : 0;
       }
 
       const absoluteReturn = ((finalVal - initialVal) / initialVal) * 100;
@@ -656,36 +618,122 @@
       document.getElementById('titleCAGR').innerText = hasInflation ? 'Real (Post-Inflation) CAGR' : 'Nominal CAGR';
       document.getElementById('valCAGR').innerText = (isFinite(displayCagr) ? displayCagr.toFixed(2) : '0') + '%';
       document.getElementById('wordCAGR').innerText = hasInflation ? `Adjusted for ${inflationRate}% Inflation` : 'Compounded Per Year';
-
       document.getElementById('valAbsolute').innerText = (isFinite(absoluteReturn) ? (absoluteReturn > 0 ? '+' : '') + absoluteReturn.toFixed(2) : '0') + '%';
       document.getElementById('valProfit').innerText = formatINR(profit);
       document.getElementById('wordProfit').innerText = formatToIndianWords(Math.abs(profit)) + (profit >= 0 ? ' Net Gain' : ' Loss');
+      document.getElementById('multiplierTitle').innerText = 'Wealth Growth Multiplier';
       document.getElementById('valMultiplier').innerText = `${multiplier}x`;
-      document.getElementById('valTenureDisplay').innerText = `${years.toFixed(1)} Years`;
-      document.getElementById('wordDaysDisplay').innerText = `${totalDays} Total Days`;
+      document.getElementById('wordMultiplier').innerText = 'Times of Initial Capital';
+      document.getElementById('secondCardTitle').innerText = hasTax ? 'Post-Tax CAGR' : 'Effective Holding Period';
+      document.getElementById('valTenureDisplay').innerText = hasTax && postTaxCagr !== null ? postTaxCagr.toFixed(2) + '%' : `${years.toFixed(1)} Years`;
+      document.getElementById('wordDaysDisplay').innerText = hasTax ? 'After capital gains tax' : `${totalDays} Total Days`;
 
       let schedule = [];
       const cagrDecimal = cagr / 100;
       const wholeYears = Math.max(1, Math.ceil(years));
       let currentCorpus = initialVal;
-
       for (let yr = 1; yr <= wholeYears; yr++) {
-        let openBal = currentCorpus;
-        let yrGain = openBal * cagrDecimal;
+        let openBal = currentCorpus, yrGain = openBal * cagrDecimal;
         currentCorpus = openBal + yrGain;
-
-        schedule.push({
-          year: yr,
-          opening: openBal,
-          gain: yrGain,
-          closing: yr === wholeYears ? finalVal : currentCorpus
-        });
+        schedule.push({ year: yr, opening: openBal, gain: yrGain, closing: yr === wholeYears ? finalVal : currentCorpus });
       }
-
       cachedSchedule = schedule;
+      document.getElementById('growthChartTitle').innerText = 'Compounded Growth Trajectory';
       renderTable(schedule);
       renderCharts(initialVal, Math.max(0, profit), schedule);
+      renderBenchmarkChart(isFinite(displayCagr) ? displayCagr : 0);
+      renderSensitivity(initialVal, isFinite(cagr) ? cagr : 0, years);
       updateURLParams();
+    }
+
+    function recalcCashflows() {
+      const rows = Array.from(document.querySelectorAll('#cfRows .cashflow-row'));
+      const cashflows = rows.map(r => {
+        const inputs = r.querySelectorAll('input');
+        return { date: new Date(inputs[0].value), amount: -Math.abs(parseFloat(inputs[1].value) || 0) };
+      }).filter(cf => !isNaN(cf.date.getTime()) && cf.amount !== 0);
+
+      const finalVal = parseFloat(document.getElementById('cfFinalValue')?.value) || 0;
+      const finalDateStr = document.getElementById('cfFinalDate')?.value;
+      const finalDate = finalDateStr ? new Date(finalDateStr) : new Date();
+      cashflows.push({ date: finalDate, amount: finalVal });
+      cashflows.sort((a, b) => a.date - b.date);
+
+      const totalInvested = rows.reduce((s, r) => { const inputs = r.querySelectorAll('input'); return s + (parseFloat(inputs[1].value) || 0); }, 0);
+      const profit = finalVal - totalInvested;
+      const rate = cashflows.length >= 2 ? xirr(cashflows) : 0;
+      const firstDate = cashflows[0]?.date, lastDate = cashflows[cashflows.length - 1]?.date;
+      const years = firstDate && lastDate ? Math.max(0.01, (lastDate - firstDate) / (1000*60*60*24*365.25)) : 1;
+
+      document.getElementById('titleCAGR').innerText = 'XIRR (Annualized)';
+      document.getElementById('valCAGR').innerText = (isFinite(rate) ? rate.toFixed(2) : '0') + '%';
+      document.getElementById('wordCAGR').innerText = 'Across all irregular cash flows';
+      document.getElementById('valAbsolute').innerText = totalInvested > 0 ? ((profit / totalInvested) * 100).toFixed(2) + '%' : '0%';
+      document.getElementById('wordAbsolute').innerText = 'Overall Percentage Gain';
+      document.getElementById('valProfit').innerText = formatINR(profit);
+      document.getElementById('wordProfit').innerText = formatToIndianWords(Math.abs(profit)) + (profit >= 0 ? ' Net Gain' : ' Loss');
+      document.getElementById('multiplierTitle').innerText = 'Wealth Growth Multiplier';
+      document.getElementById('valMultiplier').innerText = totalInvested > 0 ? (finalVal / totalInvested).toFixed(2) + 'x' : '0.0x';
+      document.getElementById('wordMultiplier').innerText = 'Times Total Invested';
+      document.getElementById('secondCardTitle').innerText = 'Total Invested';
+      document.getElementById('valTenureDisplay').innerText = formatINR(totalInvested);
+      document.getElementById('wordDaysDisplay').innerText = `Over ${years.toFixed(1)} years, ${rows.length} investments`;
+
+      renderCharts(totalInvested, Math.max(0, profit), []);
+      renderBenchmarkChart(isFinite(rate) ? rate : 0);
+      updateURLParams();
+    }
+
+    function recalcGoalSeek() {
+      const initial = parseFloat(document.getElementById('gsInitial')?.value) || 1;
+      const target = parseFloat(document.getElementById('gsTarget')?.value) || 0;
+      const years = parseFloat(document.getElementById('gsYears')?.value) || 1;
+      let requiredRate = 0;
+      if (initial > 0 && target > 0 && years > 0) requiredRate = (Math.pow(target / initial, 1 / years) - 1) * 100;
+
+      document.getElementById('titleCAGR').innerText = 'Required CAGR';
+      document.getElementById('valCAGR').innerText = (isFinite(requiredRate) ? requiredRate.toFixed(2) : '0') + '%';
+      document.getElementById('wordCAGR').innerText = 'Annual return needed to hit your goal';
+      document.getElementById('valAbsolute').innerText = initial > 0 ? (((target - initial) / initial) * 100).toFixed(2) + '%' : '0%';
+      document.getElementById('wordAbsolute').innerText = 'Total Gain Needed';
+      document.getElementById('valProfit').innerText = formatINR(target - initial);
+      document.getElementById('wordProfit').innerText = 'Gap To Close';
+      document.getElementById('multiplierTitle').innerText = 'Wealth Growth Multiplier Needed';
+      document.getElementById('valMultiplier').innerText = initial > 0 ? (target / initial).toFixed(2) + 'x' : '0.0x';
+      document.getElementById('wordMultiplier').innerText = 'Times Starting Capital';
+      document.getElementById('secondCardTitle').innerText = 'Time Available';
+      document.getElementById('valTenureDisplay').innerText = `${years.toFixed(1)} Years`;
+      document.getElementById('wordDaysDisplay').innerText = '';
+
+      let schedule = [], corpus = initial;
+      const rateDecimal = requiredRate / 100;
+      const wholeYears = Math.max(1, Math.ceil(years));
+      for (let yr = 1; yr <= wholeYears; yr++) {
+        const openBal = corpus, gain = openBal * rateDecimal;
+        corpus = openBal + gain;
+        schedule.push({ year: yr, opening: openBal, gain, closing: yr === wholeYears ? target : corpus });
+      }
+      cachedSchedule = schedule;
+      document.getElementById('growthChartTitle').innerText = 'Required Growth Path to Goal';
+      renderTable(schedule);
+      renderCharts(initial, Math.max(0, target - initial), schedule);
+      renderBenchmarkChart(isFinite(requiredRate) ? requiredRate : 0);
+      renderSensitivity(initial, isFinite(requiredRate) ? requiredRate : 0, years);
+      updateURLParams();
+    }
+
+    function updateURLParams() {
+      const p = new URLSearchParams();
+      p.set('mode', mode);
+      window.history.replaceState({}, '', `${window.location.pathname}?${p.toString()}`);
+    }
+
+    function copyShareableLink() { navigator.clipboard.writeText(window.location.href); showToast('Link copied!'); }
+    function shareWhatsApp() {
+      const rate = document.getElementById('valCAGR')?.innerText || '';
+      const label = document.getElementById('titleCAGR')?.innerText || 'Annualized Return';
+      const text = encodeURIComponent(`My ${label}: ${rate}\n\nCalculate yours on KitnaPaisa: ${window.location.href}`);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
 
     function renderTable(schedule) {
@@ -694,12 +742,7 @@
       tbody.innerHTML = '';
       schedule.forEach(row => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>Yr ${row.year}</td>
-          <td>${formatINR(row.opening)}</td>
-          <td style="color:var(--accent); font-weight:600;">${formatINR(row.gain)}</td>
-          <td style="font-weight:700; color:var(--primary);">${formatINR(row.closing)}</td>
-        `;
+        tr.innerHTML = `<td>Yr ${row.year}</td><td>${formatINR(row.opening)}</td><td style="color:var(--accent);font-weight:600;">${formatINR(row.gain)}</td><td style="font-weight:700;color:var(--primary);">${formatINR(row.closing)}</td>`;
         tbody.appendChild(tr);
       });
     }
@@ -707,170 +750,102 @@
     function exportTableToCSV() {
       if (!cachedSchedule || !cachedSchedule.length) return;
       let csv = 'Year,Opening Value (INR),Annual Gain (INR),Closing Value (INR)\n';
-      cachedSchedule.forEach(r => {
-        csv += `${r.year},${Math.round(r.opening)},${Math.round(r.gain)},${Math.round(r.closing)}\n`;
-      });
+      cachedSchedule.forEach(r => { csv += `${r.year},${Math.round(r.opening)},${Math.round(r.gain)},${Math.round(r.closing)}\n`; });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `CAGR_Growth_Schedule_${new Date().getFullYear()}.csv`;
+      link.download = `CAGR_Schedule_${new Date().getFullYear()}.csv`;
       link.click();
     }
 
     function renderCharts(invested, profit, schedule) {
-      const canvasDonut = document.getElementById('ratioChart');
-      const canvasGrowth = document.getElementById('growthChart');
+      const canvasDonut = document.getElementById('ratioChart'), canvasGrowth = document.getElementById('growthChart');
       if (!canvasDonut || !canvasGrowth || typeof Chart === 'undefined') return;
-
-      const computedStyle = getComputedStyle(document.documentElement);
-      const textColor = computedStyle.getPropertyValue('--chart-text').trim() || '#64748b';
-      const gridColor = computedStyle.getPropertyValue('--chart-grid').trim() || '#e2e8f0';
-      const primaryColor = computedStyle.getPropertyValue('--primary').trim() || '#2563eb';
-      const accentColor = computedStyle.getPropertyValue('--accent').trim() || '#10b981';
+      const cs = getComputedStyle(document.documentElement);
+      const textColor = cs.getPropertyValue('--chart-text').trim() || '#64748b';
+      const gridColor = cs.getPropertyValue('--chart-grid').trim() || '#e2e8f0';
+      const primaryColor = cs.getPropertyValue('--primary').trim() || '#2563eb';
+      const accentColor = cs.getPropertyValue('--accent').trim() || '#10b981';
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const chartBorderColor = isDark ? '#0a0a0a' : '#ffffff';
+      const borderColor = isDark ? '#0a0a0a' : '#ffffff';
 
-      // 1. Donut Ratio
       if (ratioChart) ratioChart.destroy();
-      const ctxDonut = canvasDonut.getContext('2d');
-      ratioChart = new Chart(ctxDonut, {
+      ratioChart = new Chart(canvasDonut.getContext('2d'), {
         type: 'doughnut',
-        data: {
-          labels: ['Initial Capital', 'Total Profit'],
-          datasets: [{
-            data: [Math.round(invested), Math.round(profit)],
-            backgroundColor: [primaryColor, accentColor],
-            borderColor: chartBorderColor,
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { color: textColor, font: { size: 11 } } },
-            tooltip: {
-              callbacks: {
-                label: (ctx) => ` ${ctx.label}: ${formatINR(ctx.raw)} (${((ctx.raw / (invested + profit || 1)) * 100).toFixed(1)}%)`
-              }
-            }
-          }
-        }
+        data: { labels: ['Invested Capital', 'Total Profit'], datasets: [{ data: [Math.round(invested), Math.round(profit)], backgroundColor: [primaryColor, accentColor], borderColor, borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: textColor, font: { size: 11 } } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${formatINR(ctx.raw)} (${((ctx.raw/(invested+profit||1))*100).toFixed(1)}%)` } } } }
       });
 
-      // 2. Growth Area Trajectory Chart
       if (growthChart) growthChart.destroy();
-      const ctxGrowth = canvasGrowth.getContext('2d');
-      growthChart = new Chart(ctxGrowth, {
+      if (!schedule.length) { document.querySelector('#growthChart').closest('.chart-card').style.display = 'none'; return; }
+      document.querySelector('#growthChart').closest('.chart-card').style.display = 'block';
+      growthChart = new Chart(canvasGrowth.getContext('2d'), {
         type: 'line',
-        data: {
-          labels: schedule.map(s => `Y${s.year}`),
-          datasets: [
-            {
-              label: 'Compounded Value',
-              data: schedule.map(s => Math.round(s.closing)),
-              borderColor: primaryColor,
-              backgroundColor: isDark ? 'rgba(59, 130, 246, 0.25)' : 'rgba(37, 99, 235, 0.15)',
-              fill: true,
-              tension: 0.3
-            },
-            {
-              label: 'Initial Principal',
-              data: schedule.map(() => Math.round(invested)),
-              borderColor: '#94a3b8',
-              borderDash: [4, 4],
-              fill: false,
-              tension: 0
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: 'index', intersect: false },
-          scales: {
-            x: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor } },
-            y: {
-              grid: { color: gridColor, drawBorder: false },
-              ticks: { color: textColor, callback: (val) => formatToIndianWords(val) }
-            }
-          },
-          plugins: {
-            legend: { position: 'bottom', labels: { color: textColor, font: { size: 11 } } },
-            tooltip: {
-              callbacks: {
-                label: (ctx) => ` ${ctx.dataset.label}: ${formatINR(ctx.raw)}`
-              }
-            }
-          }
-        }
+        data: { labels: schedule.map(s => `Y${s.year}`), datasets: [
+          { label: 'Compounded Value', data: schedule.map(s => Math.round(s.closing)), borderColor: primaryColor, backgroundColor: isDark ? 'rgba(59,130,246,.25)' : 'rgba(37,99,235,.15)', fill: true, tension: .3 },
+          { label: 'Initial Principal', data: schedule.map(() => Math.round(invested)), borderColor: '#94a3b8', borderDash: [4,4], fill: false, tension: 0 }
+        ]},
+        options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+          scales: { x: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor } }, y: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor, callback: v => formatToIndianWords(v) } } },
+          plugins: { legend: { position: 'bottom', labels: { color: textColor, font: { size: 11 } } }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${formatINR(ctx.raw)}` } } } }
+      });
+    }
+
+    function renderBenchmarkChart(yourRate) {
+      const canvas = document.getElementById('benchChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const cs = getComputedStyle(document.documentElement);
+      const textColor = cs.getPropertyValue('--chart-text').trim() || '#64748b';
+      const gridColor = cs.getPropertyValue('--chart-grid').trim() || '#e2e8f0';
+      const primaryColor = cs.getPropertyValue('--primary').trim() || '#2563eb';
+      const labels = ['Your Rate', ...BENCHMARKS.map(b => b.label)];
+      const data = [yourRate, ...BENCHMARKS.map(b => b.rate)];
+      const colors = [primaryColor, ...BENCHMARKS.map(b => b.color)];
+      if (benchChart) benchChart.destroy();
+      benchChart = new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toFixed(2)}% p.a.` } } },
+          scales: { x: { grid: { display: false }, ticks: { color: textColor, font: { size: 10 } } }, y: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor, callback: v => v + '%' } } } }
       });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const initialTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
-      applyTheme(initialTheme);
+      applyTheme(localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light'));
 
-      const themeToggle = document.getElementById('themeToggle');
-      if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-          const nextTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-          applyTheme(nextTheme);
-        });
-      }
+      document.getElementById('themeToggle')?.addEventListener('click', () => {
+        applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      });
 
-      const today = new Date();
-      const fiveYearsAgo = new Date();
+      const today = new Date(), fiveYearsAgo = new Date();
       fiveYearsAgo.setFullYear(today.getFullYear() - 5);
-
-      const buyDateInput = document.getElementById('buyDate');
-      const sellDateInput = document.getElementById('sellDate');
+      const buyDateInput = document.getElementById('buyDate'), sellDateInput = document.getElementById('sellDate'), cfFinalDate = document.getElementById('cfFinalDate');
       if (buyDateInput) buyDateInput.value = fiveYearsAgo.toISOString().split('T')[0];
       if (sellDateInput) sellDateInput.value = today.toISOString().split('T')[0];
-
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('initial')) {
-        document.getElementById('initialInput').value = urlParams.get('initial');
-        document.getElementById('initialSlider').value = urlParams.get('initial');
-      }
-      if (urlParams.has('final')) {
-        document.getElementById('finalInput').value = urlParams.get('final');
-        document.getElementById('finalSlider').value = urlParams.get('final');
-      }
-      if (urlParams.has('years')) {
-        document.getElementById('yearsInput').value = urlParams.get('years');
-        document.getElementById('yearsSlider').value = urlParams.get('years');
-      }
-      if (urlParams.has('buy') && urlParams.has('sell')) {
-        setMode('dates');
-        document.getElementById('buyDate').value = urlParams.get('buy');
-        document.getElementById('sellDate').value = urlParams.get('sell');
-      }
+      if (cfFinalDate) cfFinalDate.value = today.toISOString().split('T')[0];
 
       function bindInputSync(numId, sliderId) {
-        const num = document.getElementById(numId);
-        const slider = document.getElementById(sliderId);
-        if (num && slider) {
-          num.addEventListener('input', () => { slider.value = num.value; syncAndRecalculate(); });
-          slider.addEventListener('input', () => { num.value = slider.value; syncAndRecalculate(); });
-        }
+        const num = document.getElementById(numId), slider = document.getElementById(sliderId);
+        if (num && slider) { num.addEventListener('input', () => { slider.value = num.value; recalc(); }); slider.addEventListener('input', () => { num.value = slider.value; recalc(); }); }
       }
-
       bindInputSync('initialInput', 'initialSlider');
       bindInputSync('finalInput', 'finalSlider');
       bindInputSync('yearsInput', 'yearsSlider');
       bindInputSync('inflationRateInput', 'inflationRateSlider');
+      bindInputSync('gsYears', 'gsYearsSlider');
 
-      document.getElementById('buyDate')?.addEventListener('change', syncAndRecalculate);
-      document.getElementById('sellDate')?.addEventListener('change', syncAndRecalculate);
+      document.getElementById('buyDate')?.addEventListener('change', recalc);
+      document.getElementById('sellDate')?.addEventListener('change', recalc);
+      document.getElementById('cfFinalValue')?.addEventListener('input', recalc);
+      document.getElementById('cfFinalDate')?.addEventListener('change', recalc);
+      document.getElementById('gsInitial')?.addEventListener('input', recalc);
+      document.getElementById('gsTarget')?.addEventListener('input', recalc);
 
-      document.getElementById('inflationToggle')?.addEventListener('change', (e) => {
-        document.getElementById('inflationContainer').style.display = e.target.checked ? 'block' : 'none';
-        syncAndRecalculate();
-      });
+      document.getElementById('inflationToggle')?.addEventListener('change', e => { document.getElementById('inflationContainer').style.display = e.target.checked ? 'block' : 'none'; recalc(); });
+      document.getElementById('taxToggle')?.addEventListener('change', recalc);
 
-      syncAndRecalculate();
+      setMode('tenure');
     });
   </script>
 </body>
