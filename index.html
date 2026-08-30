@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZPBH5KCD4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZPBH5KCD4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YZPBH5KCD4');
+  </script>
 
-  gtag('config', 'G-YZPBH5KCD4');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KitnaPaisa — Free Financial & Investment Calculators</title>
   <meta name="description" content="Calculate SIP, Mutual Fund returns, PPF, Loan EMI, FD, SWP, and NPS with real-time Indian tax & compounding calculations. Fast, private, and free.">
-  <meta name="keywords" content="SIP calculator, Loan EMI calculator, PPF calculator, Indian finance calculators, mutual fund returns">
+  <link rel="canonical" href="https://kitnapaisa.in/">
   <meta name="theme-color" content="#000000">
 
   <!-- OpenGraph / Social Meta -->
@@ -22,6 +22,8 @@
   <meta property="og:url" content="https://kitnapaisa.in/">
   <meta property="og:title" content="KitnaPaisa — Free Financial & Investment Calculators">
   <meta property="og:description" content="Calculate SIP, PPF, Loan EMI, and Mutual Fund returns with real-time Indian investment calculators.">
+  <meta property="og:image" content="https://kitnapaisa.in/assets/og-cover.png">
+  <!-- NOTE: replace with a real 1200x630 image at this path, or social shares will show no preview thumbnail. -->
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
@@ -33,304 +35,75 @@
     "description": "Accurate, privacy-first personal finance and investment calculation tools built for Indian investors.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "All",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "INR"
-    }
+    "dateModified": "2026-08-30",
+    "author": { "@type": "Organization", "name": "KitnaPaisa Research Team", "url": "https://kitnapaisa.in/" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
   }
   </script>
 
   <style>
     :root {
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --surface-subtle: #f1f5f9;
-      --border: #e2e8f0;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --primary: #2563eb;
-      --primary-light: #eff6ff;
-      --tag-bg: #f1f5f9;
-      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      --card-hover: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
+      --bg: #f8fafc; --surface: #ffffff; --surface-subtle: #f1f5f9; --border: #e2e8f0;
+      --text: #0f172a; --text-muted: #64748b; --primary: #2563eb; --primary-light: #eff6ff;
+      --tag-bg: #f1f5f9; --card-shadow: 0 4px 6px -1px rgba(0,0,0,.05); --card-hover: 0 10px 15px -3px rgba(37,99,235,.1);
     }
-
-    /* Pure OLED Black Dark Theme */
     [data-theme="dark"] {
-      --bg: #000000;
-      --surface: #111111;
-      --surface-subtle: #1c1c1c;
-      --border: #262626;
-      --text: #f5f5f5;
-      --text-muted: #a3a3a3;
-      --primary: #3b82f6;
-      --primary-light: rgba(59, 130, 246, 0.15);
-      --tag-bg: #1c1c1c;
-      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
-      --card-hover: 0 10px 20px -3px rgba(0, 0, 0, 0.9);
+      --bg: #000000; --surface: #111111; --surface-subtle: #1c1c1c; --border: #262626;
+      --text: #f5f5f5; --text-muted: #a3a3a3; --primary: #3b82f6; --primary-light: rgba(59,130,246,.15);
+      --tag-bg: #1c1c1c; --card-shadow: 0 4px 12px rgba(0,0,0,.7); --card-hover: 0 10px 20px -3px rgba(0,0,0,.9);
     }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; min-height: 100%; overflow-x: hidden; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.5; display: flex; flex-direction: column; transition: background-color .2s ease, color .2s ease; }
+    .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
 
-    /* Reset & Mobile Prevention */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    header { background-color: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 20; width: 100%; }
+    .nav-wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { display: flex; align-items: center; gap: .5rem; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1.15rem; }
+    .logo-badge { background: var(--primary); color: #fff; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: 800; }
+    .theme-toggle { background: var(--surface-subtle); border: 1px solid var(--border); color: var(--text); padding: .4rem .75rem; border-radius: 8px; cursor: pointer; font-size: .85rem; font-weight: 600; display: flex; align-items: center; gap: .3rem; }
 
-    html, body {
-      width: 100%;
-      min-height: 100%;
-      overflow-x: hidden;
-    }
+    .hero { text-align: center; padding: 2rem 0 1rem; }
+    .hero h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: .5rem; }
+    .hero p { color: var(--text-muted); font-size: .95rem; max-width: 600px; margin: 0 auto; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      display: flex;
-      flex-direction: column;
-      transition: background-color 0.2s ease, color 0.2s ease;
-    }
+    .ad-slot { margin: 1rem auto; background: var(--surface); border: 1px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: .8rem; text-align: center; min-height: 90px; max-width: 728px; width: 100%; }
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    /* Header */
-    header {
-      background-color: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      width: 100%;
-    }
-    .nav-wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 60px;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 700;
-      font-size: 1.15rem;
-    }
-    .logo-badge {
-      background: var(--primary);
-      color: #fff;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      font-weight: 800;
-    }
-    .theme-toggle {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.4rem 0.75rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 2rem 0 1rem;
-    }
-    .hero h1 {
-      font-size: 1.75rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
-    }
-    .hero p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Fluid Ad Banner (No-CLS) */
-    .ad-slot {
-      margin: 1rem auto;
-      background: var(--surface);
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      text-align: center;
-      min-height: 90px;
-      max-width: 728px;
-      width: 100%;
-    }
-
-    /* Search & Filter Toolbar */
-    .toolbar {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin: 1.5rem 0;
-      width: 100%;
-    }
-    .search-input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
+    .toolbar { display: flex; flex-direction: column; gap: .75rem; margin: 1.5rem 0; width: 100%; }
+    .search-input { width: 100%; padding: .75rem 1rem; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: .95rem; outline: none; transition: border-color .2s; }
     .search-input:focus { border-color: var(--primary); }
-
-    .filter-pills {
-      display: flex;
-      gap: 0.4rem;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 4px;
-      width: 100%;
-    }
+    .filter-pills { display: flex; gap: .4rem; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; width: 100%; }
     .filter-pills::-webkit-scrollbar { display: none; }
-    .filter-btn {
-      padding: 0.4rem 0.85rem;
-      border-radius: 9999px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: all 0.2s;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
+    .filter-btn { padding: .4rem .85rem; border-radius: 9999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-muted); font-size: .8rem; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all .2s; }
+    .filter-btn.active, .filter-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-  /* Perfectly Balanced 8-Card Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 3.5rem;
-      width: 100%;
-      align-items: stretch;
-    }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1.25rem; margin-bottom: 3.5rem; width: 100%; align-items: stretch; }
+    .calc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%; box-shadow: var(--card-shadow); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; min-width: 0; position: relative; }
+    .calc-card:hover { transform: translateY(-4px); box-shadow: var(--card-hover); border-color: var(--primary); }
+    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .85rem; }
+    .card-icon { width: 38px; height: 38px; border-radius: 8px; background: var(--surface-subtle); display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0; }
+    .badge { font-size: .7rem; font-weight: 700; padding: .2rem .5rem; border-radius: 6px; text-transform: uppercase; letter-spacing: .04em; }
+    .badge-popular { background: var(--primary-light); color: var(--primary); }
+    .badge-trending { background: #fef3c7; color: #b45309; }
+    [data-theme="dark"] .badge-trending { background: rgba(251,191,36,.15); color: #fbbf24; }
+    .badge-viewed { background: rgba(16,185,129,.12); color: #059669; }
+    [data-theme="dark"] .badge-viewed { background: rgba(52,211,153,.15); color: #34d399; }
+    .calc-card h3 { font-size: 1.1rem; margin-bottom: .35rem; font-weight: 700; line-height: 1.3; }
+    .calc-card p { color: var(--text-muted); font-size: .85rem; line-height: 1.45; flex-grow: 1; }
 
-    .calc-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      box-shadow: var(--card-shadow);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-      min-width: 0;
-      position: relative;
-    }
+    /* Footer — themed with CSS variables so it matches dark/light mode instead of hardcoded colors */
+    footer { margin-top: 4rem; padding: 2rem 1rem; border-top: 1px solid var(--border); text-align: center; background: var(--surface); }
+    .footer-content p { margin-bottom: .75rem; color: var(--text-muted); font-size: .9rem; }
+    .footer-content strong { color: var(--text); }
+    .footer-links { display: flex; justify-content: center; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; font-size: .85rem; }
+    .footer-links a:hover { color: var(--primary); }
 
-    .calc-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--card-hover);
-      border-color: var(--primary);
-    }
-
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.85rem;
-    }
-
-    .card-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      background: var(--surface-subtle);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      flex-shrink: 0;
-    }
-
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 0.2rem 0.5rem;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .badge-active { 
-      background: var(--primary-light); 
-      color: var(--primary); 
-    }
-
-    .calc-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.35rem;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-
-    .calc-card p {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      line-height: 1.45;
-      flex-grow: 1; /* Pushes card content to fill full uniform height */
-    }
-
-    /* Tablet Responsive (2x4 Grid) */
-    @media (max-width: 1024px) {
-      .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
-      }
-    }
-
-    /* Mobile Responsive (1-Column Stack) */
+    @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; } }
     @media (max-width: 640px) {
       .hero h1 { font-size: 1.5rem; }
-      .grid {
-        grid-template-columns: 1fr;
-        gap: 0.85rem;
-      }
-      .container { 
-        padding: 0 0.75rem; 
-      }
+      .grid { grid-template-columns: 1fr; gap: .85rem; }
+      .container { padding: 0 .75rem; }
     }
   </style>
 </head>
@@ -342,7 +115,7 @@
         <span class="logo-badge">₹</span>
         <span>KitnaPaisa</span>
       </a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Black Dark Mode">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
         <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
       </button>
     </div>
@@ -354,145 +127,104 @@
       <p>Accurate, real-time tools built with Indian tax & compounding rules.</p>
     </section>
 
-    <!-- Responsive Fluid Ad Banner -->
-    <div class="ad-slot" aria-label="Advertisement Banner">
-      Ad Slot — Header Responsive (728x90 / 320x50)
-    </div>
+    <div class="ad-slot" aria-label="Advertisement Banner">Ad Slot — Header Responsive (728x90 / 320x50)</div>
 
-    <!-- Search & Filter Controls -->
     <section class="toolbar">
       <input type="text" id="searchInput" class="search-input" placeholder="Search calculators (e.g. SIP, EMI, PPF, SWP)..." aria-label="Search Calculators">
-      <div class="filter-pills" id="categoryFilters">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="investing">Investing</button>
-        <button class="filter-btn" data-filter="retirement">Retirement & Tax</button>
-        <button class="filter-btn" data-filter="loans">Loans & Debt</button>
+      <div class="filter-pills" id="categoryFilters" role="tablist">
+        <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-btn" data-filter="investing" aria-pressed="false">Investing</button>
+        <button class="filter-btn" data-filter="retirement" aria-pressed="false">Retirement & Tax</button>
+        <button class="filter-btn" data-filter="loans" aria-pressed="false">Loans & Debt</button>
       </div>
     </section>
 
-    <!-- Calculators Grid -->
     <div class="grid" id="calcGrid">
-      
-      <!-- SIP Calculator -->
+
       <a href="calculators/sip-calculator.html" class="calc-card" data-category="investing" data-title="SIP Systematic Investment Plan Mutual Funds">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
+        <div class="card-top"><span class="badge badge-popular">Popular</span></div>
         <h3>SIP Calculator</h3>
         <p>Calculate systematic investment plan returns with annual step-up and inflation adjustments.</p>
       </a>
 
-      <!-- Lumpsum Calculator -->
       <a href="calculators/lumpsum-calculator.html" class="calc-card" data-category="investing" data-title="Lumpsum Mutual Funds One Time Investment">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
+        <div class="card-top"><span class="badge badge-viewed">Most Viewed</span></div>
         <h3>Lumpsum Calculator</h3>
         <p>Estimate long-term wealth creation from one-time investments in mutual funds or equities.</p>
       </a>
 
-      <!-- SWP Calculator -->
       <a href="calculators/swp-calculator.html" class="calc-card" data-category="investing" data-title="SWP Systematic Withdrawal Plan Regular Income">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
+        <div class="card-top"><span class="badge badge-trending">Trending</span></div>
         <h3>SWP Calculator</h3>
         <p>Plan monthly cash flow and balance growth for post-retirement systematic withdrawals.</p>
       </a>
 
-      <!-- Loan EMI Calculator -->
       <a href="calculators/emi-calculator.html" class="calc-card" data-category="loans" data-title="Loan EMI Home Loan Car Loan Personal Loan Interest">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
+        <div class="card-top"><span class="badge badge-popular">Popular</span></div>
         <h3>Loan EMI Calculator</h3>
         <p>Break down monthly loan installments and principal vs. interest payoff schedules.</p>
       </a>
 
-      <!-- PPF Calculator -->
       <a href="calculators/ppf-calculator.html" class="calc-card" data-category="retirement" data-title="PPF Public Provident Fund Tax Free 15 Year">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
         <h3>PPF Calculator</h3>
         <p>Plan Public Provident Fund returns with 15-year tax-free compounding rules (Sec 80C).</p>
       </a>
 
-      <!-- FD & RD Calculator -->
       <a href="calculators/fd-calculator.html" class="calc-card" data-category="investing" data-title="FD RD Fixed Deposit Recurring Deposit Bank Interest">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
         <h3>FD & RD Calculator</h3>
         <p>Calculate quarterly compounded fixed deposits and monthly recurring deposit returns.</p>
       </a>
 
-      <!-- NPS Calculator -->
       <a href="calculators/nps-calculator.html" class="calc-card" data-category="retirement" data-title="NPS National Pension System Retirement Annuity">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
         <h3>NPS Calculator</h3>
         <p>Model Tier-1 pension corpus growth, lump sum payouts, and monthly annuity yields.</p>
       </a>
 
-      <!-- CAGR Calculator -->
       <a href="calculators/cagr-calculator.html" class="calc-card" data-category="investing" data-title="CAGR Compound Annual Growth Rate Stock Returns Absolute Multiplier">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
         <h3>CAGR Calculator</h3>
         <p>Determine true annualized compounded returns, absolute profit percentages, and wealth multipliers.</p>
       </a>
 
-       <!-- SSY Calculator -->
-     <a href="calculators/ssy-calculator.html" class="calc-card" data-category="retirement" data-title="SSY Sukanya Samriddhi Yojana Girl Child 21 Year Tax Free 80C">
-       <div class="card-top">
-         <span class="badge badge-active">Active</span>
-       </div>
-       <h3>SSY Calculator</h3>
-       <p>Calculate 21-year Sukanya Samriddhi Yojana maturity corpus, 15-year deposit rules, and EEE tax-free wealth.</p>
+      <a href="calculators/ssy-calculator.html" class="calc-card" data-category="retirement" data-title="SSY Sukanya Samriddhi Yojana Girl Child 21 Year Tax Free 80C">
+        <h3>SSY Calculator</h3>
+        <p>Calculate 21-year Sukanya Samriddhi Yojana maturity corpus, 15-year deposit rules, and EEE tax-free wealth.</p>
       </a>
 
-      <!-- Post Office MIS Calculator -->
       <a href="calculators/pomis-calculator.html" class="calc-card" data-category="investing" data-title="POMIS Post Office MIS Monthly Income Scheme Guaranteed Interest India Post">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
         <h3>Post Office MIS</h3>
         <p>Calculate guaranteed monthly income payouts, single (₹9L) vs. joint (₹15L) limits, and 5-year returns.</p>
       </a>
 
-      <!-- Compound Interest Calculator -->
-      <a href="calculators/compound-interest-calculator.html" class="calc-card" data-category="investing" data-title="Calculate exponential wealth growth across daily, weekly, monthly, and yearly compounding cycles with APY analytics.">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
+      <a href="calculators/compound-interest-calculator.html" class="calc-card" data-category="investing" data-title="Compound Interest Daily Monthly Yearly APY">
         <h3>Compound Interest Calculator</h3>
         <p>Calculate Compound Interest Daily, Monthly, Yearly, Weekly and Fortnightly.</p>
       </a>
 
-      <!-- Driver Income Calculator -->
       <a href="calculators/driver-income-calculator.html" class="calc-card" data-category="investing" data-title="Cab Driver Income Rapido Uber Ola Auto Taxi Profit Fuel Expenses">
-        <div class="card-top">
-          <span class="badge badge-active">Active</span>
-        </div>
         <h3>Driver Earnings Calculator</h3>
         <p>Calculate true net daily/monthly profits for Ola, Uber, and Rapido drivers after fuel, commissions, and EMIs.</p>
       </a>
-      
+
+    </div>
   </main>
 
   <footer>
     <div class="container footer-content">
       <p><strong>KitnaPaisa</strong> — Free, privacy-first personal finance tools built for Indian investors.</p>
       <p>Disclaimer: Calculations provided are for educational and simulation purposes only.</p>
+      <p>&copy; 2026 <strong>KitnaPaisa</strong>. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/about.html">About & Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms & Disclaimer</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </div>
     </div>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. OLED Black Dark Mode Management
       const themeToggle = document.getElementById('themeToggle');
       const themeIcon = document.getElementById('themeIcon');
       const themeText = document.getElementById('themeText');
@@ -502,17 +234,11 @@
       function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         if (themeIcon && themeText) {
-          if (theme === 'dark') {
-            themeIcon.textContent = '☀️';
-            themeText.textContent = 'Light';
-          } else {
-            themeIcon.textContent = '🌙';
-            themeText.textContent = 'Dark';
-          }
+          themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+          themeText.textContent = theme === 'dark' ? 'Light' : 'Dark';
         }
         localStorage.setItem('theme', theme);
       }
-
       applyTheme(currentTheme);
 
       if (themeToggle) {
@@ -522,11 +248,9 @@
         });
       }
 
-      // 2. Search & Category Filtering
       const searchInput = document.getElementById('searchInput');
       const filterButtons = document.querySelectorAll('.filter-btn');
       const cards = document.querySelectorAll('.calc-card');
-
       let activeFilter = 'all';
       let searchQuery = '';
 
@@ -534,15 +258,9 @@
         cards.forEach(card => {
           const category = card.getAttribute('data-category');
           const titleAndDesc = (card.getAttribute('data-title') + ' ' + card.innerText).toLowerCase();
-          
           const matchesCategory = activeFilter === 'all' || category === activeFilter;
           const matchesSearch = titleAndDesc.includes(searchQuery.toLowerCase());
-
-          if (matchesCategory && matchesSearch) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
+          card.style.display = (matchesCategory && matchesSearch) ? 'flex' : 'none';
         });
       }
 
@@ -555,24 +273,14 @@
 
       filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-          filterButtons.forEach(b => b.classList.remove('active'));
+          filterButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
           activeFilter = btn.getAttribute('data-filter');
           filterCards();
         });
       });
     });
   </script>
-  <!-- Site Footer -->
-<footer style="margin-top: 4rem; padding: 2rem 1rem; border-top: 1px solid #e5e7eb; text-align: center; font-size: 0.9rem; color: #6b7280; font-family: system-ui, -apple-system, sans-serif;">
-  <p style="margin-bottom: 0.75rem;">&copy; 2026 <strong>Kitna Paisa</strong>. All rights reserved.</p>
-  <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-    <a href="/" style="color: #4b5563; text-decoration: none;">Home</a>
-    <a href="/about.html">About & Contact</a> | 
-<a href="/privacy-policy.html">Privacy Policy</a> | 
-<a href="/terms.html">Terms & Disclaimer</a>
-    <a href="/sitemap.xml" style="color: #4b5563; text-decoration: none;">Sitemap</a>
-  </div>
-</footer>
 </body>
 </html>
