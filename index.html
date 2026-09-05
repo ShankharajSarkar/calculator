@@ -2,13 +2,40 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZPBH5KCD4"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-YZPBH5KCD4');
-  </script>
+<!-- DataLayer initialization (runs immediately without network overhead) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YZPBH5KCD4');
+
+  // Deferred loader for GTM script
+  (function() {
+    var scriptLoaded = false;
+    function loadGtag() {
+      if (scriptLoaded) return;
+      scriptLoaded = true;
+
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-YZPBH5KCD4';
+      document.head.appendChild(script);
+
+      // Clean up event listeners
+      interactionEvents.forEach(function(e) {
+        window.removeEventListener(e, loadGtag, { passive: true });
+      });
+    }
+
+    var interactionEvents = ['scroll', 'touchstart', 'mousemove', 'keydown', 'click'];
+    interactionEvents.forEach(function(e) {
+      window.addEventListener(e, loadGtag, { once: true, passive: true });
+    });
+
+    // Fallback timer: load anyway after 3.5 seconds if no interaction occurs
+    setTimeout(loadGtag, 3500);
+  })();
+</script>>
 <head>
   <!-- Standard Favicons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
