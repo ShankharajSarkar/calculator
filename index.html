@@ -169,12 +169,12 @@
 
     <section class="toolbar">
       <input type="text" id="searchInput" class="search-input" placeholder="Search calculators (e.g. SIP, EMI, PPF, SWP)..." aria-label="Search Calculators">
-      <div class="filter-pills" id="categoryFilters" role="tablist">
-        <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-        <button class="filter-btn" data-filter="investing" aria-pressed="false">Investing</button>
-        <button class="filter-btn" data-filter="retirement" aria-pressed="false">Retirement & Tax</button>
-        <button class="filter-btn" data-filter="loans" aria-pressed="false">Loans & Debt</button>
-      </div>
+     <div class="filter-pills" id="categoryFilters" role="group" aria-label="Filter calculators by category">
+  <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+  <button type="button" class="filter-btn" data-filter="investing" aria-pressed="false">Investing</button>
+  <button type="button" class="filter-btn" data-filter="retirement" aria-pressed="false">Retirement & Tax</button>
+  <button type="button" class="filter-btn" data-filter="loans" aria-pressed="false">Loans & Debt</button>
+</div>
     </section>
 
     <div class="grid" id="calcGrid">
