@@ -5,28 +5,44 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
     gtag('js', new Date());
     gtag('config', 'G-YZPBH5KCD4');
 
-    (function() {
-      var scriptLoaded = false;
-      var interactionEvents = ['scroll', 'touchstart', 'mousemove', 'keydown', 'click'];
+    (function () {
+      let scriptLoaded = false;
+
+      const interactionEvents = [
+        'scroll',
+        'touchstart',
+        'mousemove',
+        'keydown',
+        'click'
+      ];
 
       function loadGtag() {
         if (scriptLoaded) return;
         scriptLoaded = true;
-        var script = document.createElement('script');
+
+        const script = document.createElement('script');
         script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-YZPBH5KCD4';
+        script.src =
+          'https://www.googletagmanager.com/gtag/js?id=G-YZPBH5KCD4';
+
         document.head.appendChild(script);
-        interactionEvents.forEach(function(e) {
-          window.removeEventListener(e, loadGtag, { passive: true });
+
+        interactionEvents.forEach(function (eventName) {
+          window.removeEventListener(eventName, loadGtag);
         });
       }
 
-      interactionEvents.forEach(function(e) {
-        window.addEventListener(e, loadGtag, { once: true, passive: true });
+      interactionEvents.forEach(function (eventName) {
+        window.addEventListener(eventName, loadGtag, {
+          once: true,
+          passive: true
+        });
       });
+
       setTimeout(loadGtag, 3500);
     })();
   </script>
@@ -35,9 +51,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>KitnaPaisa — Free Financial Calculators for India</title>
-  <meta name="description" content="Free financial calculators for India. Calculate SIP, EMI, income tax, salary, FD, CAGR, PPF, NPS and more with simple, transparent tools.">
-  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <meta
+    name="description"
+    content="Free financial calculators for India. Calculate SIP, EMI, income tax, salary, FD, CAGR, PPF, NPS and more with simple, transparent tools."
+  >
+
+  <meta
+    name="robots"
+    content="index, follow, max-image-preview:large"
+  >
+
   <link rel="canonical" href="https://kitnapaisa.in/">
+
   <meta name="theme-color" content="#000000">
 
   <!-- Favicons -->
@@ -50,9 +76,18 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kitnapaisa.in/">
-  <meta property="og:title" content="KitnaPaisa — Free Financial Calculators for India">
-  <meta property="og:description" content="Simple, free financial tools for SIP, EMI, tax, salary, FD, PPF, NPS and more.">
-  <meta property="og:image" content="https://kitnapaisa.in/assets/og-cover.png">
+  <meta
+    property="og:title"
+    content="KitnaPaisa — Free Financial Calculators for India"
+  >
+  <meta
+    property="og:description"
+    content="Simple, free financial tools for SIP, EMI, tax, salary, FD, PPF, NPS and more."
+  >
+  <meta
+    property="og:image"
+    content="https://kitnapaisa.in/assets/og-cover.png"
+  >
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -110,252 +145,845 @@
       --shadow-hover:0 14px 30px rgba(0,0,0,.75);
     }
 
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      width:100%;min-height:100vh;overflow-x:hidden;
+    *,
+    *::before,
+    *::after {
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html {
+      scroll-behavior:smooth;
+    }
+
+    body {
+      width:100%;
+      min-height:100vh;
+      overflow-x:hidden;
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      background:var(--bg);color:var(--text);line-height:1.55;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
       transition:background-color .2s ease,color .2s ease;
     }
-    a{color:inherit}
-    button,input{font:inherit}
-    .container{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+
+    a {
+      color:inherit;
+    }
+
+    button,
+    input {
+      font:inherit;
+    }
+
+    .container {
+      width:100%;
+      max-width:1120px;
+      margin:0 auto;
+      padding:0 20px;
+    }
 
     /* Header */
-    header{
-      position:sticky;top:0;z-index:50;width:100%;
+
+    header {
+      position:sticky;
+      top:0;
+      z-index:50;
+      width:100%;
       background:color-mix(in srgb,var(--surface) 94%,transparent);
       backdrop-filter:blur(12px);
       border-bottom:1px solid var(--border);
     }
-    .nav-wrap{height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .logo{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;font-size:1.12rem;letter-spacing:-.02em}
-    .logo-badge{
-      width:32px;height:32px;border-radius:9px;background:var(--primary);color:#fff;
-      display:grid;place-items:center;font-weight:900;box-shadow:0 4px 10px rgba(37,99,235,.2)
+
+    .nav-wrap {
+      height:62px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
     }
-    .theme-toggle{
-      display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);
-      background:var(--surface-subtle);color:var(--text);padding:7px 11px;border-radius:9px;
-      cursor:pointer;font-size:.82rem;font-weight:700
+
+    .logo {
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      text-decoration:none;
+      font-weight:800;
+      font-size:1.12rem;
+      letter-spacing:-.02em;
     }
-    .theme-toggle:hover{border-color:var(--primary);color:var(--primary)}
+
+    .logo-badge {
+      width:32px;
+      height:32px;
+      border-radius:9px;
+      background:var(--primary);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      box-shadow:0 4px 10px rgba(37,99,235,.2);
+    }
+
+    .theme-toggle {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border:1px solid var(--border);
+      background:var(--surface-subtle);
+      color:var(--text);
+      padding:7px 11px;
+      border-radius:9px;
+      cursor:pointer;
+      font-size:.82rem;
+      font-weight:700;
+    }
+
+    .theme-toggle:hover {
+      border-color:var(--primary);
+      color:var(--primary);
+    }
 
     /* Hero */
-    .hero{text-align:center;padding:58px 0 26px}
-    .eyebrow{
-      display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;
-      background:var(--primary-light);color:var(--primary);font-size:.75rem;font-weight:800;
-      margin-bottom:14px
-    }
-    .hero h1{
-      max-width:780px;margin:0 auto 12px;font-size:clamp(2rem,5vw,3.15rem);
-      line-height:1.08;letter-spacing:-.045em;font-weight:850
-    }
-    .hero p{max-width:650px;margin:0 auto;color:var(--text-muted);font-size:1rem}
 
-    .search-wrap{max-width:680px;margin:25px auto 0;position:relative}
-    .search-icon{
-      position:absolute;left:17px;top:50%;transform:translateY(-50%);
-      color:var(--text-muted);font-size:1.05rem;pointer-events:none
+    .hero {
+      text-align:center;
+      padding:58px 0 26px;
     }
-    .search-input{
-      width:100%;height:54px;padding:0 18px 0 48px;border:1px solid var(--border);
-      border-radius:14px;background:var(--surface);color:var(--text);outline:none;
-      box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:5px 10px;
+      border-radius:999px;
+      background:var(--primary-light);
+      color:var(--primary);
+      font-size:.75rem;
+      font-weight:800;
+      margin-bottom:14px;
     }
-    .search-input::placeholder{color:var(--text-muted)}
-    .search-input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-light)}
+
+    .hero h1 {
+      max-width:780px;
+      margin:0 auto 12px;
+      font-size:clamp(2rem,5vw,3.15rem);
+      line-height:1.08;
+      letter-spacing:-.045em;
+      font-weight:850;
+    }
+
+    .hero p {
+      max-width:650px;
+      margin:0 auto;
+      color:var(--text-muted);
+      font-size:1rem;
+    }
+
+    .search-wrap {
+      max-width:680px;
+      margin:25px auto 0;
+      position:relative;
+    }
+
+    .search-icon {
+      position:absolute;
+      left:17px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--text-muted);
+      font-size:1.05rem;
+      pointer-events:none;
+    }
+
+    .search-input {
+      width:100%;
+      height:54px;
+      padding:0 18px 0 48px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:var(--surface);
+      color:var(--text);
+      outline:none;
+      box-shadow:var(--shadow);
+      transition:border-color .2s,box-shadow .2s;
+    }
+
+    .search-input::placeholder {
+      color:var(--text-muted);
+    }
+
+    .search-input:focus {
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px var(--primary-light);
+    }
 
     /* Ads */
-    .ad-slot{
-      width:100%;max-width:728px;min-height:90px;margin:18px auto 8px;
-      border:1px dashed var(--border);border-radius:10px;background:var(--surface);
-      display:flex;align-items:center;justify-content:center;text-align:center;
-      color:var(--text-muted);font-size:.75rem
+
+    .ad-slot {
+      width:100%;
+      max-width:728px;
+      min-height:90px;
+      margin:18px auto 8px;
+      border:1px dashed var(--border);
+      border-radius:10px;
+      background:var(--surface);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:var(--text-muted);
+      font-size:.75rem;
     }
 
     /* Sections */
-    section{margin-top:48px}
-    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px}
-    .section-heading h2{font-size:1.35rem;letter-spacing:-.025em}
-    .section-heading p{font-size:.85rem;color:var(--text-muted)}
-    .section-link{font-size:.82rem;color:var(--primary);text-decoration:none;font-weight:750;white-space:nowrap}
-    .section-link:hover{text-decoration:underline}
 
-    /* Popular calculators */
-    .popular-grid{
-      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px
+    section {
+      margin-top:48px;
     }
-    .popular-card{
-      display:flex;align-items:center;gap:12px;padding:15px;
-      background:var(--surface);border:1px solid var(--border);border-radius:12px;
-      text-decoration:none;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s
+
+    .section-heading {
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:16px;
     }
-    .popular-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:var(--primary)}
-    .popular-icon,.goal-icon,.category-icon{
-      width:42px;height:42px;flex:0 0 42px;border-radius:11px;background:var(--primary-light);
-      display:grid;place-items:center;color:var(--primary);font-weight:850;font-size:.92rem
+
+    .section-heading h2 {
+      font-size:1.35rem;
+      letter-spacing:-.025em;
     }
-    .popular-card strong{display:block;font-size:.92rem}
-    .popular-card span{display:block;color:var(--text-muted);font-size:.72rem;margin-top:2px}
+
+    .section-heading p {
+      font-size:.85rem;
+      color:var(--text-muted);
+    }
+
+    .section-link {
+      font-size:.82rem;
+      color:var(--primary);
+      text-decoration:none;
+      font-weight:750;
+      white-space:nowrap;
+    }
+
+    .section-link:hover {
+      text-decoration:underline;
+    }
+
+    /* Popular */
+
+    .popular-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .popular-card {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:15px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      text-decoration:none;
+      box-shadow:var(--shadow);
+      transition:transform .2s,box-shadow .2s,border-color .2s;
+    }
+
+    .popular-card:hover {
+      transform:translateY(-3px);
+      box-shadow:var(--shadow-hover);
+      border-color:var(--primary);
+    }
+
+    .popular-icon,
+    .goal-icon,
+    .category-icon {
+      width:42px;
+      height:42px;
+      flex:0 0 42px;
+      border-radius:11px;
+      background:var(--primary-light);
+      display:grid;
+      place-items:center;
+      color:var(--primary);
+      font-weight:850;
+      font-size:.92rem;
+    }
+
+    .popular-card strong {
+      display:block;
+      font-size:.92rem;
+    }
+
+    .popular-card span {
+      display:block;
+      color:var(--text-muted);
+      font-size:.72rem;
+      margin-top:2px;
+    }
 
     /* Goals */
-    .goal-grid{
-      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px
+
+    .goal-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
     }
-    .goal-card{
-      display:flex;align-items:center;gap:13px;padding:17px;background:var(--surface);
-      border:1px solid var(--border);border-radius:12px;text-decoration:none;
-      transition:transform .2s,border-color .2s,box-shadow .2s
+
+    .goal-card {
+      display:flex;
+      align-items:center;
+      gap:13px;
+      padding:17px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      text-decoration:none;
+      transition:transform .2s,border-color .2s,box-shadow .2s;
     }
-    .goal-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:var(--shadow-hover)}
-    .goal-card h3{font-size:.94rem}
-    .goal-card p{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+
+    .goal-card:hover {
+      transform:translateY(-3px);
+      border-color:var(--primary);
+      box-shadow:var(--shadow-hover);
+    }
+
+    .goal-card h3 {
+      font-size:.94rem;
+    }
+
+    .goal-card p {
+      font-size:.75rem;
+      color:var(--text-muted);
+      margin-top:2px;
+    }
 
     /* Featured */
-    .featured{
-      display:grid;grid-template-columns:1.35fr .65fr;gap:0;overflow:hidden;
-      background:var(--surface);border:1px solid var(--border);border-radius:18px;
-      box-shadow:var(--shadow)
+
+    .featured {
+      display:grid;
+      grid-template-columns:1.35fr .65fr;
+      gap:0;
+      overflow:hidden;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
     }
-    .featured-copy{padding:30px}
-    .featured-label{color:var(--primary);font-size:.75rem;font-weight:850;text-transform:uppercase;letter-spacing:.08em}
-    .featured h2{font-size:1.7rem;letter-spacing:-.035em;margin:7px 0 9px}
-    .featured p{color:var(--text-muted);max-width:620px;font-size:.9rem}
-    .primary-btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:7px;margin-top:18px;
-      padding:10px 15px;border-radius:10px;background:var(--primary);color:#fff;
-      text-decoration:none;font-size:.85rem;font-weight:800
+
+    .featured-copy {
+      padding:30px;
     }
-    .primary-btn:hover{background:var(--primary-dark)}
-    .featured-visual{display:grid;place-items:center;background:var(--primary-light);font-size:4rem}
+
+    .featured-label {
+      color:var(--primary);
+      font-size:.75rem;
+      font-weight:850;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .featured h2 {
+      font-size:1.7rem;
+      letter-spacing:-.035em;
+      margin:7px 0 9px;
+    }
+
+    .featured p {
+      color:var(--text-muted);
+      max-width:620px;
+      font-size:.9rem;
+    }
+
+    .primary-btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      margin-top:18px;
+      padding:10px 15px;
+      border-radius:10px;
+      background:var(--primary);
+      color:#fff;
+      text-decoration:none;
+      font-size:.85rem;
+      font-weight:800;
+    }
+
+    .primary-btn:hover {
+      background:var(--primary-dark);
+    }
+
+    .featured-visual {
+      display:grid;
+      place-items:center;
+      background:var(--primary-light);
+      font-size:4rem;
+    }
 
     /* Categories */
-    .category-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-    .category-card{
-      padding:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;
-      text-decoration:none;transition:transform .2s,border-color .2s,box-shadow .2s
+
+    .category-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
     }
-    .category-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:var(--shadow-hover)}
-    .category-card .category-icon{margin-bottom:12px}
-    .category-card h3{font-size:.92rem}
-    .category-card p{font-size:.73rem;color:var(--text-muted);margin-top:3px}
+
+    .category-card {
+      padding:18px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      text-decoration:none;
+      transition:transform .2s,border-color .2s,box-shadow .2s;
+    }
+
+    .category-card:hover {
+      transform:translateY(-3px);
+      border-color:var(--primary);
+      box-shadow:var(--shadow-hover);
+    }
+
+    .category-card .category-icon {
+      margin-bottom:12px;
+    }
+
+    .category-card h3 {
+      font-size:.92rem;
+    }
+
+    .category-card p {
+      font-size:.73rem;
+      color:var(--text-muted);
+      margin-top:3px;
+    }
 
     /* Guides */
-    .guide-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .guide-card{
-      padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;
-      text-decoration:none;transition:transform .2s,border-color .2s,box-shadow .2s
+
+    .guide-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
     }
-    .guide-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:var(--shadow-hover)}
-    .guide-tag{font-size:.68rem;color:var(--primary);font-weight:800;text-transform:uppercase}
-    .guide-card h3{font-size:1rem;margin:7px 0 5px;line-height:1.35}
-    .guide-card p{font-size:.76rem;color:var(--text-muted)}
-    .read-more{display:inline-block;margin-top:12px;color:var(--primary);font-size:.75rem;font-weight:800}
+
+    .guide-card {
+      padding:20px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:12px;
+      text-decoration:none;
+      transition:transform .2s,border-color .2s,box-shadow .2s;
+    }
+
+    .guide-card:hover {
+      transform:translateY(-3px);
+      border-color:var(--primary);
+      box-shadow:var(--shadow-hover);
+    }
+
+    .guide-tag {
+      font-size:.68rem;
+      color:var(--primary);
+      font-weight:800;
+      text-transform:uppercase;
+    }
+
+    .guide-card h3 {
+      font-size:1rem;
+      margin:7px 0 5px;
+      line-height:1.35;
+    }
+
+    .guide-card p {
+      font-size:.76rem;
+      color:var(--text-muted);
+    }
+
+    .read-more {
+      display:inline-block;
+      margin-top:12px;
+      color:var(--primary);
+      font-size:.75rem;
+      font-weight:800;
+    }
 
     /* All calculators */
-    .all-tools{scroll-margin-top:85px}
-    .toolbar{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
-    .filter-pills{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px}
-    .filter-pills::-webkit-scrollbar{display:none}
-    .filter-btn{
-      flex:0 0 auto;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);
-      border-radius:999px;padding:7px 12px;font-size:.76rem;font-weight:750;cursor:pointer
-    }
-    .filter-btn.active,.filter-btn:hover{background:var(--primary);border-color:var(--primary);color:#fff}
-    .calc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .calc-card{
-      position:relative;display:flex;flex-direction:column;min-height:160px;padding:19px;
-      background:var(--surface);border:1px solid var(--border);border-radius:13px;
-      text-decoration:none;box-shadow:var(--shadow);transition:transform .2s,border-color .2s,box-shadow .2s
-    }
-    .calc-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:var(--shadow-hover)}
-    .card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-    .card-icon{width:36px;height:36px;border-radius:9px;background:var(--surface-subtle);display:grid;place-items:center;color:var(--primary);font-size:.85rem;font-weight:850}
-    .badge{font-size:.62rem;font-weight:800;padding:4px 7px;border-radius:6px;text-transform:uppercase;letter-spacing:.04em}
-    .badge-popular{background:var(--primary-light);color:var(--primary)}
-    .badge-trending{background:#fef3c7;color:#a16207}
-    [data-theme="dark"] .badge-trending{background:rgba(251,191,36,.14);color:#fbbf24}
-    .badge-viewed{background:rgba(16,185,129,.12);color:var(--success)}
-    .calc-card h3{font-size:1rem;line-height:1.3;margin-bottom:5px}
-    .calc-card p{font-size:.77rem;line-height:1.5;color:var(--text-muted);flex-grow:1}
-    .no-results{display:none;text-align:center;padding:30px;color:var(--text-muted);border:1px dashed var(--border);border-radius:12px}
 
-    /* Trust strip */
-    .trust-strip{
-      display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:50px 0 10px;
-      background:var(--border);border:1px solid var(--border);border-radius:13px;overflow:hidden
+    .all-tools {
+      scroll-margin-top:85px;
     }
-    .trust-item{background:var(--surface);padding:17px;text-align:center}
-    .trust-item strong{display:block;font-size:.82rem}
-    .trust-item span{display:block;color:var(--text-muted);font-size:.68rem;margin-top:3px}
+
+    .toolbar {
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-bottom:18px;
+    }
+
+    .filter-pills {
+      display:flex;
+      gap:7px;
+      overflow-x:auto;
+      padding-bottom:3px;
+    }
+
+    .filter-pills::-webkit-scrollbar {
+      display:none;
+    }
+
+    .filter-btn {
+      flex:0 0 auto;
+      border:1px solid var(--border);
+      background:var(--surface);
+      color:var(--text-muted);
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:.76rem;
+      font-weight:750;
+      cursor:pointer;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background:var(--primary);
+      border-color:var(--primary);
+      color:#fff;
+    }
+
+    .calc-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .calc-card {
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      min-height:160px;
+      padding:19px;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:13px;
+      text-decoration:none;
+      box-shadow:var(--shadow);
+      transition:transform .2s,border-color .2s,box-shadow .2s;
+    }
+
+    .calc-card:hover {
+      transform:translateY(-3px);
+      border-color:var(--primary);
+      box-shadow:var(--shadow-hover);
+    }
+
+    /* Used by JavaScript filtering */
+    .calc-card.is-hidden {
+      display:none;
+    }
+
+    .card-top {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:14px;
+    }
+
+    .card-icon {
+      width:36px;
+      height:36px;
+      border-radius:9px;
+      background:var(--surface-subtle);
+      display:grid;
+      place-items:center;
+      color:var(--primary);
+      font-size:.85rem;
+      font-weight:850;
+    }
+
+    .badge {
+      font-size:.62rem;
+      font-weight:800;
+      padding:4px 7px;
+      border-radius:6px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
+    .badge-popular {
+      background:var(--primary-light);
+      color:var(--primary);
+    }
+
+    .badge-trending {
+      background:#fef3c7;
+      color:#a16207;
+    }
+
+    [data-theme="dark"] .badge-trending {
+      background:rgba(251,191,36,.14);
+      color:#fbbf24;
+    }
+
+    .badge-viewed {
+      background:rgba(16,185,129,.12);
+      color:var(--success);
+    }
+
+    .calc-card h3 {
+      font-size:1rem;
+      line-height:1.3;
+      margin-bottom:5px;
+    }
+
+    .calc-card p {
+      font-size:.77rem;
+      line-height:1.5;
+      color:var(--text-muted);
+      flex-grow:1;
+    }
+
+    .no-results {
+      display:none;
+      text-align:center;
+      padding:30px;
+      color:var(--text-muted);
+      border:1px dashed var(--border);
+      border-radius:12px;
+    }
+
+    .no-results.is-visible {
+      display:block;
+    }
+
+    /* Trust */
+
+    .trust-strip {
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1px;
+      margin:50px 0 10px;
+      background:var(--border);
+      border:1px solid var(--border);
+      border-radius:13px;
+      overflow:hidden;
+    }
+
+    .trust-item {
+      background:var(--surface);
+      padding:17px;
+      text-align:center;
+    }
+
+    .trust-item strong {
+      display:block;
+      font-size:.82rem;
+    }
+
+    .trust-item span {
+      display:block;
+      color:var(--text-muted);
+      font-size:.68rem;
+      margin-top:3px;
+    }
 
     /* Footer */
-    footer{margin-top:55px;padding:30px 0;border-top:1px solid var(--border);background:var(--surface)}
-    .footer-content{text-align:center}
-    .footer-content p{margin-bottom:8px;color:var(--text-muted);font-size:.8rem}
-    .footer-content strong{color:var(--text)}
-    .footer-links{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin-top:14px}
-    .footer-links a{color:var(--text-muted);text-decoration:none;font-size:.76rem}
-    .footer-links a:hover{color:var(--primary)}
 
-    @media (max-width:900px){
-      .popular-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .calc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .featured{grid-template-columns:1fr}
-      .featured-visual{min-height:110px}
+    footer {
+      margin-top:55px;
+      padding:30px 0;
+      border-top:1px solid var(--border);
+      background:var(--surface);
     }
-    @media (max-width:680px){
-      .container{padding:0 13px}
-      .hero{padding:42px 0 20px}
-      .hero h1{font-size:2rem}
-      section{margin-top:38px}
-      .section-heading h2{font-size:1.2rem}
-      .section-heading p{display:none}
-      .goal-grid,.guide-grid,.calc-grid{grid-template-columns:1fr}
-      .popular-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-      .popular-card{padding:12px}
-      .popular-icon{width:36px;height:36px;flex-basis:36px}
-      .category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-      .category-card{padding:14px}
-      .trust-strip{grid-template-columns:repeat(2,1fr)}
-      .ad-slot{min-height:70px}
+
+    .footer-content {
+      text-align:center;
     }
-    @media (prefers-reduced-motion:reduce){
-      html{scroll-behavior:auto}
-      *,*::before,*::after{transition:none!important}
+
+    .footer-content p {
+      margin-bottom:8px;
+      color:var(--text-muted);
+      font-size:.8rem;
+    }
+
+    .footer-content strong {
+      color:var(--text);
+    }
+
+    .footer-links {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+
+    .footer-links a {
+      color:var(--text-muted);
+      text-decoration:none;
+      font-size:.76rem;
+    }
+
+    .footer-links a:hover {
+      color:var(--primary);
+    }
+
+    /* Responsive */
+
+    @media (max-width:900px) {
+
+      .popular-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .category-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .calc-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .featured {
+        grid-template-columns:1fr;
+      }
+
+      .featured-visual {
+        min-height:110px;
+      }
+    }
+
+    @media (max-width:680px) {
+
+      .container {
+        padding:0 13px;
+      }
+
+      .hero {
+        padding:42px 0 20px;
+      }
+
+      .hero h1 {
+        font-size:2rem;
+      }
+
+      section {
+        margin-top:38px;
+      }
+
+      .section-heading h2 {
+        font-size:1.2rem;
+      }
+
+      .section-heading p {
+        display:none;
+      }
+
+      .goal-grid,
+      .guide-grid,
+      .calc-grid {
+        grid-template-columns:1fr;
+      }
+
+      .popular-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:9px;
+      }
+
+      .popular-card {
+        padding:12px;
+      }
+
+      .popular-icon {
+        width:36px;
+        height:36px;
+        flex-basis:36px;
+      }
+
+      .category-grid {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:9px;
+      }
+
+      .category-card {
+        padding:14px;
+      }
+
+      .trust-strip {
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .ad-slot {
+        min-height:70px;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      html {
+        scroll-behavior:auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition:none!important;
+      }
     }
   </style>
 </head>
 
 <body>
+
   <header>
     <div class="container nav-wrap">
+
       <a href="/" class="logo" aria-label="KitnaPaisa home">
         <span class="logo-badge" aria-hidden="true">₹</span>
         <span>KitnaPaisa</span>
       </a>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+        type="button"
+        aria-label="Switch to dark mode"
+        aria-pressed="false"
+      >
         <span id="themeIcon" aria-hidden="true">🌙</span>
         <span id="themeText">Dark</span>
       </button>
+
     </div>
   </header>
 
   <main>
+
     <div class="container">
 
       <!-- Hero -->
+
       <section class="hero" aria-labelledby="hero-title">
+
         <span class="eyebrow">🇮🇳 Built for India</span>
-        <h1 id="hero-title">Financial tools for smarter money decisions in India</h1>
-        <p>Calculate, compare and plan your money with simple, transparent and free financial calculators.</p>
+
+        <h1 id="hero-title">
+          Financial tools for smarter money decisions in India
+        </h1>
+
+        <p>
+          Calculate, compare and plan your money with simple,
+          transparent and free financial calculators.
+        </p>
 
         <div class="search-wrap">
+
           <span class="search-icon" aria-hidden="true">🔎</span>
+
           <input
             type="search"
             id="homeSearch"
@@ -364,335 +992,1303 @@
             aria-label="Search financial calculators"
             autocomplete="off"
           >
+
         </div>
+
       </section>
 
-      <div class="ad-slot" aria-label="Advertisement">Advertisement</div>
+      <div
+        class="ad-slot"
+        aria-label="Advertisement"
+      >
+        Advertisement
+      </div>
 
       <!-- Popular -->
+
       <section aria-labelledby="popular-title">
+
         <div class="section-heading">
+
           <div>
             <h2 id="popular-title">Popular Calculators</h2>
             <p>Start with the tools people use most.</p>
           </div>
-          <a class="section-link" href="#all-calculators">View all →</a>
+
+          <a
+            class="section-link"
+            href="#all-calculators"
+          >
+            View all →
+          </a>
+
         </div>
 
         <div class="popular-grid">
-          <a class="popular-card" href="calculators/sip-calculator.html"><span class="popular-icon">SIP</span><span><strong>SIP Calculator</strong><span>Mutual fund returns</span></span></a>
-          <a class="popular-card" href="calculators/emi-calculator.html"><span class="popular-icon">EMI</span><span><strong>EMI Calculator</strong><span>Loan payments</span></span></a>
-          <a class="popular-card" href="#all-calculators" data-search-term="tax"><span class="popular-icon">₹</span><span><strong>Tax Calculator</strong><span>Indian income tax</span></span></a>
-          <a class="popular-card" href="#all-calculators" data-search-term="salary"><span class="popular-icon">₹</span><span><strong>Salary Calculator</strong><span>Salary breakdown</span></span></a>
-          <a class="popular-card" href="calculators/fd-calculator.html"><span class="popular-icon">FD</span><span><strong>FD Calculator</strong><span>Fixed deposit returns</span></span></a>
-          <a class="popular-card" href="calculators/cagr-calculator.html"><span class="popular-icon">%</span><span><strong>CAGR Calculator</strong><span>Annualized returns</span></span></a>
-          <a class="popular-card" href="#all-calculators" data-search-term="gst"><span class="popular-icon">GST</span><span><strong>GST Calculator</strong><span>Tax-inclusive pricing</span></span></a>
-          <a class="popular-card" href="calculators/ppf-calculator.html"><span class="popular-icon">PPF</span><span><strong>PPF Calculator</strong><span>Long-term savings</span></span></a>
+
+          <a
+            class="popular-card"
+            href="calculators/sip-calculator.html"
+          >
+            <span class="popular-icon">SIP</span>
+            <span>
+              <strong>SIP Calculator</strong>
+              <span>Mutual fund returns</span>
+            </span>
+          </a>
+
+          <a
+            class="popular-card"
+            href="calculators/emi-calculator.html"
+          >
+            <span class="popular-icon">EMI</span>
+            <span>
+              <strong>EMI Calculator</strong>
+              <span>Loan payments</span>
+            </span>
+          </a>
+
+          <a
+            class="popular-card"
+            href="#all-calculators"
+            data-search-term="tax"
+          >
+            <span class="popular-icon">₹</span>
+            <span>
+              <strong>Tax Calculator</strong>
+              <span>Indian income tax</span>
+            </span>
+          </a>
+
+          <a
+            class="popular-card"
+            href="#all-calculators"
+            data-search-term="salary"
+          >
+            <span class="popular-icon">₹</span>
+            <span>
+              <strong>Salary Calculator</strong>
+              <span>Salary breakdown</span>
+            </span>
+          </a>
+
+          <a
+            class="popular-card"
+            href="calculators/fd-calculator.html"
+          >
+            <span class="popular-icon">FD</span>
+            <span>
+              <strong>FD Calculator</strong>
+              <span>Fixed deposit returns</span>
+            </span>
+          </a>
+
+          <a
+            class="popular-card"
+            href="calculators/cagr-calculator.html"
+          >
+            <span class="popular-icon">%</span>
+            <span>
+              <strong>CAGR Calculator</strong>
+              <span>Annualized returns</span>
+            </span>
+          </a>
+
+          <a
+            class="popular-card"
+            href="#all-calculators"
+            data-search-term="gst"
+          >
+            <span class="popular-icon">GST</span>
+            <span>
+              <strong>GST Calculator</strong>
+              <span>Tax-inclusive pricing</span>
+            </span>
+          </a>
+
+          <a
+            class="popular-card"
+            href="calculators/ppf-calculator.html"
+          >
+            <span class="popular-icon">PPF</span>
+            <span>
+              <strong>PPF Calculator</strong>
+              <span>Long-term savings</span>
+            </span>
+          </a>
+
         </div>
+
       </section>
 
       <!-- Goals -->
+
       <section aria-labelledby="goals-title">
+
         <div class="section-heading">
+
           <div>
             <h2 id="goals-title">Explore by Goal</h2>
             <p>Choose what you are trying to achieve.</p>
           </div>
+
         </div>
 
         <div class="goal-grid">
-          <a class="goal-card" href="calculators/sip-calculator.html"><span class="goal-icon">↗</span><span><h3>💰 Grow My Money</h3><p>SIP, lumpsum, CAGR and compounding</p></span></a>
-          <a class="goal-card" href="#all-calculators" data-search-term="emi"><span class="goal-icon">⌂</span><span><h3>🏠 Buy a Home</h3><p>Estimate loans and monthly affordability</p></span></a>
-          <a class="goal-card" href="calculators/emi-calculator.html"><span class="goal-icon">EMI</span><span><h3>💳 Manage My Loans</h3><p>Understand EMI, interest and repayment</p></span></a>
-          <a class="goal-card" href="#all-calculators" data-search-term="tax"><span class="goal-icon">₹</span><span><h3>🧾 Calculate My Tax</h3><p>Explore tax-related money calculations</p></span></a>
-          <a class="goal-card" href="#all-calculators" data-search-term="salary"><span class="goal-icon">₹</span><span><h3>💼 Understand My Salary</h3><p>Turn CTC into a clearer money picture</p></span></a>
-          <a class="goal-card" href="calculators/nps-calculator.html"><span class="goal-icon">65</span><span><h3>👴 Plan My Retirement</h3><p>NPS, PPF, SWP and long-term planning</p></span></a>
+
+          <a
+            class="goal-card"
+            href="calculators/sip-calculator.html"
+          >
+            <span class="goal-icon">↗</span>
+
+            <span>
+              <h3>💰 Grow My Money</h3>
+              <p>SIP, lumpsum, CAGR and compounding</p>
+            </span>
+          </a>
+
+          <a
+            class="goal-card"
+            href="#all-calculators"
+            data-search-term="emi"
+          >
+            <span class="goal-icon">⌂</span>
+
+            <span>
+              <h3>🏠 Buy a Home</h3>
+              <p>Estimate loans and monthly affordability</p>
+            </span>
+          </a>
+
+          <a
+            class="goal-card"
+            href="calculators/emi-calculator.html"
+          >
+            <span class="goal-icon">EMI</span>
+
+            <span>
+              <h3>💳 Manage My Loans</h3>
+              <p>Understand EMI, interest and repayment</p>
+            </span>
+          </a>
+
+          <a
+            class="goal-card"
+            href="#all-calculators"
+            data-search-term="tax"
+          >
+            <span class="goal-icon">₹</span>
+
+            <span>
+              <h3>🧾 Calculate My Tax</h3>
+              <p>Explore tax-related money calculations</p>
+            </span>
+          </a>
+
+          <a
+            class="goal-card"
+            href="#all-calculators"
+            data-search-term="salary"
+          >
+            <span class="goal-icon">₹</span>
+
+            <span>
+              <h3>💼 Understand My Salary</h3>
+              <p>Turn CTC into a clearer money picture</p>
+            </span>
+          </a>
+
+          <a
+            class="goal-card"
+            href="calculators/nps-calculator.html"
+          >
+            <span class="goal-icon">65</span>
+
+            <span>
+              <h3>👴 Plan My Retirement</h3>
+              <p>NPS, PPF, SWP and long-term planning</p>
+            </span>
+          </a>
+
         </div>
+
       </section>
 
       <!-- Featured -->
+
       <section aria-labelledby="featured-title">
+
         <div class="section-heading">
-          <div><h2 id="featured-title">Featured Tool</h2></div>
+          <div>
+            <h2 id="featured-title">Featured Tool</h2>
+          </div>
         </div>
 
         <div class="featured">
+
           <div class="featured-copy">
-            <span class="featured-label">Plan before you borrow</span>
+
+            <span class="featured-label">
+              Plan before you borrow
+            </span>
+
             <h2>🏠 Home Affordability</h2>
-            <p>Understand how loan EMI, interest and repayment period can affect your home-buying budget. Start with the EMI calculator and use the result as a planning baseline.</p>
-            <a class="primary-btn" href="calculators/emi-calculator.html">Calculate →</a>
+
+            <p>
+              Understand how loan EMI, interest and repayment period
+              can affect your home-buying budget. Start with the EMI
+              calculator and use the result as a planning baseline.
+            </p>
+
+            <a
+              class="primary-btn"
+              href="calculators/emi-calculator.html"
+            >
+              Calculate →
+            </a>
+
           </div>
-          <div class="featured-visual" aria-hidden="true">🏠</div>
+
+          <div
+            class="featured-visual"
+            aria-hidden="true"
+          >
+            🏠
+          </div>
+
         </div>
+
       </section>
 
       <!-- Categories -->
+
       <section aria-labelledby="categories-title">
+
         <div class="section-heading">
+
           <div>
             <h2 id="categories-title">Calculator Categories</h2>
-            <p>More tools can be added without overcrowding the homepage.</p>
+            <p>
+              More tools can be added without overcrowding the homepage.
+            </p>
           </div>
-          <a class="section-link" href="#all-calculators">All calculators →</a>
+
+          <a
+            class="section-link"
+            href="#all-calculators"
+          >
+            All calculators →
+          </a>
+
         </div>
 
         <div class="category-grid">
-          <a class="category-card" href="#all-calculators" data-filter-target="investing"><span class="category-icon">↗</span><h3>Investment</h3><p>SIP, FD, CAGR, lumpsum & more</p></a>
-          <a class="category-card" href="#all-calculators" data-filter-target="loans"><span class="category-icon">EMI</span><h3>Loans</h3><p>EMI and borrowing tools</p></a>
-          <a class="category-card" href="#all-calculators" data-search-term="tax"><span class="category-icon">₹</span><h3>Tax</h3><p>Tax and GST planning tools</p></a>
-          <a class="category-card" href="#all-calculators" data-search-term="salary"><span class="category-icon">₹</span><h3>Salary</h3><p>CTC, take-home and income tools</p></a>
-          <a class="category-card" href="#all-calculators" data-filter-target="retirement"><span class="category-icon">65</span><h3>Retirement</h3><p>NPS, PPF, SWP and pension planning</p></a>
-          <a class="category-card" href="#all-calculators" data-search-term="insurance"><span class="category-icon">✓</span><h3>Insurance</h3><p>Insurance planning tools</p></a>
-          <a class="category-card" href="#all-calculators" data-search-term="home"><span class="category-icon">⌂</span><h3>Real Estate</h3><p>Home-buying and property tools</p></a>
-          <a class="category-card" href="#all-calculators" data-search-term="fd"><span class="category-icon">₹</span><h3>Banking</h3><p>FD and savings calculations</p></a>
+
+          <a
+            class="category-card"
+            href="#all-calculators"
+            data-filter-target="investing"
+          >
+            <span class="category-icon">↗</span>
+            <h3>Investment</h3>
+            <p>SIP, FD, CAGR, lumpsum & more</p>
+          </a>
+
+          <a
+            class="category-card"
+            href="#all-calculators"
+            data-filter-target="loans"
+          >
+            <span class="category-icon">EMI</span>
+            <h3>Loans</h3>
+            <p>EMI and borrowing tools</p>
+          </a>
+
+          <a
+            class="category-card"
+            href="#all-calculators"
+            data-search-term="tax"
+          >
+            <span class="category-icon">₹</span>
+            <h3>Tax</h3>
+            <p>Tax and GST planning tools</p>
+          </a>
+
+          <a
+            class="category-card"
+            href="#all-calculators"
+            data-search-term="salary"
+          >
+            <span class="category-icon">₹</span>
+            <h3>Salary</h3>
+            <p>CTC, take-home and income tools</p>
+          </a>
+
+          <a
+            class="category-card"
+            href="#all-calculators"
+            data-filter-target="retirement"
+          >
+            <span class="category-icon">65</span>
+            <h3>Retirement</h3>
+            <p>NPS, PPF, SWP and pension planning</p>
+          </a>
+
+          <a
+            class="category-card"
+            href="#all-calculators"
+            data-search-term="insurance"
+          >
+            <span class="category-icon">✓</span>
+            <h3>Insurance</h3>
+            <p>Insurance planning tools</p>
+          </a>
+
+          <a
+            class="category-card"
+            href="#all-calculators"
+            data-search-term="home"
+          >
+            <span class="category-icon">⌂</span>
+            <h3>Real Estate</h3>
+            <p>Home-buying and property tools</p>
+          </a>
+
+          <a
+            class="category-card"
+            href="#all-calculators"
+            data-search-term="fd"
+          >
+            <span class="category-icon">₹</span>
+            <h3>Banking</h3>
+            <p>FD and savings calculations</p>
+          </a>
+
         </div>
+
       </section>
 
       <!-- Guides -->
+
       <section aria-labelledby="guides-title">
+
         <div class="section-heading">
+
           <div>
             <h2 id="guides-title">Latest Guides</h2>
-            <p>Learn the calculation before making a money decision.</p>
+            <p>
+              Learn the calculation before making a money decision.
+            </p>
           </div>
+
         </div>
 
         <div class="guide-grid">
-          <a class="guide-card" href="calculators/sip-calculator.html">
+
+          <a
+            class="guide-card"
+            href="calculators/sip-calculator.html"
+          >
             <span class="guide-tag">Investment</span>
-            <h3>SIP Calculator: How Much Can Your Monthly Investment Grow?</h3>
-            <p>Use the calculator to explore investment amount, expected return, time and compounding.</p>
-            <span class="read-more">Explore SIP →</span>
+
+            <h3>
+              SIP Calculator: How Much Can Your Monthly Investment Grow?
+            </h3>
+
+            <p>
+              Use the calculator to explore investment amount,
+              expected return, time and compounding.
+            </p>
+
+            <span class="read-more">
+              Explore SIP →
+            </span>
           </a>
-          <a class="guide-card" href="calculators/emi-calculator.html">
+
+          <a
+            class="guide-card"
+            href="calculators/emi-calculator.html"
+          >
             <span class="guide-tag">Loans</span>
-            <h3>How Is Loan EMI Calculated?</h3>
-            <p>Understand the relationship between principal, interest rate, tenure and monthly EMI.</p>
-            <span class="read-more">Calculate EMI →</span>
+
+            <h3>
+              How Is Loan EMI Calculated?
+            </h3>
+
+            <p>
+              Understand the relationship between principal,
+              interest rate, tenure and monthly EMI.
+            </p>
+
+            <span class="read-more">
+              Calculate EMI →
+            </span>
           </a>
-          <a class="guide-card" href="calculators/cagr-calculator.html">
+
+          <a
+            class="guide-card"
+            href="calculators/cagr-calculator.html"
+          >
             <span class="guide-tag">Returns</span>
-            <h3>CAGR vs Absolute Return: What Is the Difference?</h3>
-            <p>See why annualized return is useful when comparing investments held for different periods.</p>
-            <span class="read-more">Calculate CAGR →</span>
+
+            <h3>
+              CAGR vs Absolute Return: What Is the Difference?
+            </h3>
+
+            <p>
+              See why annualized return is useful when comparing
+              investments held for different periods.
+            </p>
+
+            <span class="read-more">
+              Calculate CAGR →
+            </span>
           </a>
+
         </div>
+
       </section>
 
-      <!-- All calculators -->
-      <section class="all-tools" id="all-calculators" aria-labelledby="all-title">
+      <!-- All Calculators -->
+
+      <section
+        class="all-tools"
+        id="all-calculators"
+        aria-labelledby="all-title"
+      >
+
         <div class="section-heading">
+
           <div>
             <h2 id="all-title">All Calculators</h2>
-            <p>Search or filter the complete KitnaPaisa tool collection.</p>
+            <p>
+              Search or filter the complete KitnaPaisa tool collection.
+            </p>
           </div>
+
         </div>
 
         <div class="toolbar">
-          <input type="search" id="allSearch" class="search-input" placeholder="Search all calculators..." aria-label="Search all calculators">
-          <div class="filter-pills" id="categoryFilters" role="group" aria-label="Filter calculators by category">
-            <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-            <button type="button" class="filter-btn" data-filter="investing" aria-pressed="false">Investment</button>
-            <button type="button" class="filter-btn" data-filter="retirement" aria-pressed="false">Retirement</button>
-            <button type="button" class="filter-btn" data-filter="loans" aria-pressed="false">Loans</button>
+
+          <input
+            type="search"
+            id="allSearch"
+            class="search-input"
+            placeholder="Search all calculators..."
+            aria-label="Search all calculators"
+            autocomplete="off"
+          >
+
+          <div
+            class="filter-pills"
+            id="categoryFilters"
+            role="group"
+            aria-label="Filter calculators by category"
+          >
+
+            <button
+              type="button"
+              class="filter-btn active"
+              data-filter="all"
+              aria-pressed="true"
+            >
+              All
+            </button>
+
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="investing"
+              aria-pressed="false"
+            >
+              Investment
+            </button>
+
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="retirement"
+              aria-pressed="false"
+            >
+              Retirement
+            </button>
+
+            <button
+              type="button"
+              class="filter-btn"
+              data-filter="loans"
+              aria-pressed="false"
+            >
+              Loans
+            </button>
+
           </div>
+
         </div>
 
-        <div class="calc-grid" id="calcGrid">
-          <a href="calculators/sip-calculator.html" class="calc-card" data-category="investing" data-title="SIP Systematic Investment Plan Mutual Funds">
-            <div class="card-top"><span class="card-icon">SIP</span><span class="badge badge-popular">Popular</span></div>
-            <h3>SIP Calculator</h3><p>Calculate systematic investment plan returns with annual step-up and inflation adjustments.</p>
+        <div
+          class="calc-grid"
+          id="calcGrid"
+        >
+
+          <a
+            href="calculators/sip-calculator.html"
+            class="calc-card"
+            data-category="investing"
+            data-title="SIP Systematic Investment Plan Mutual Funds"
+          >
+            <div class="card-top">
+              <span class="card-icon">SIP</span>
+              <span class="badge badge-popular">Popular</span>
+            </div>
+
+            <h3>SIP Calculator</h3>
+
+            <p>
+              Calculate systematic investment plan returns with annual
+              step-up and inflation adjustments.
+            </p>
           </a>
-          <a href="calculators/lumpsum-calculator.html" class="calc-card" data-category="investing" data-title="Lumpsum Mutual Funds One Time Investment">
-            <div class="card-top"><span class="card-icon">↗</span><span class="badge badge-viewed">Most Viewed</span></div>
-            <h3>Lumpsum Calculator</h3><p>Estimate long-term wealth creation from one-time investments in mutual funds or equities.</p>
+
+          <a
+            href="calculators/lumpsum-calculator.html"
+            class="calc-card"
+            data-category="investing"
+            data-title="Lumpsum Mutual Funds One Time Investment"
+          >
+            <div class="card-top">
+              <span class="card-icon">↗</span>
+              <span class="badge badge-viewed">Most Viewed</span>
+            </div>
+
+            <h3>Lumpsum Calculator</h3>
+
+            <p>
+              Estimate long-term wealth creation from one-time
+              investments in mutual funds or equities.
+            </p>
           </a>
-          <a href="calculators/swp-calculator.html" class="calc-card" data-category="investing" data-title="SWP Systematic Withdrawal Plan Regular Income">
-            <div class="card-top"><span class="card-icon">₹</span><span class="badge badge-trending">Trending</span></div>
-            <h3>SWP Calculator</h3><p>Plan monthly cash flow and balance growth for systematic withdrawals.</p>
+
+          <a
+            href="calculators/swp-calculator.html"
+            class="calc-card"
+            data-category="investing"
+            data-title="SWP Systematic Withdrawal Plan Regular Income"
+          >
+            <div class="card-top">
+              <span class="card-icon">₹</span>
+              <span class="badge badge-trending">Trending</span>
+            </div>
+
+            <h3>SWP Calculator</h3>
+
+            <p>
+              Plan monthly cash flow and balance growth for
+              systematic withdrawals.
+            </p>
           </a>
-          <a href="calculators/emi-calculator.html" class="calc-card" data-category="loans" data-title="Loan EMI Home Loan Car Loan Personal Loan Interest">
-            <div class="card-top"><span class="card-icon">EMI</span><span class="badge badge-popular">Popular</span></div>
-            <h3>Loan EMI Calculator</h3><p>Break down monthly loan installments and principal versus interest repayment.</p>
+
+          <a
+            href="calculators/emi-calculator.html"
+            class="calc-card"
+            data-category="loans"
+            data-title="Loan EMI Home Loan Car Loan Personal Loan Interest"
+          >
+            <div class="card-top">
+              <span class="card-icon">EMI</span>
+              <span class="badge badge-popular">Popular</span>
+            </div>
+
+            <h3>Loan EMI Calculator</h3>
+
+            <p>
+              Break down monthly loan installments and principal
+              versus interest repayment.
+            </p>
           </a>
-          <a href="calculators/ppf-calculator.html" class="calc-card" data-category="retirement" data-title="PPF Public Provident Fund Tax Free 15 Year">
-            <div class="card-top"><span class="card-icon">PPF</span></div>
-            <h3>PPF Calculator</h3><p>Plan Public Provident Fund growth with long-term compounding and contribution rules.</p>
+
+          <a
+            href="calculators/ppf-calculator.html"
+            class="calc-card"
+            data-category="retirement"
+            data-title="PPF Public Provident Fund Tax Free 15 Year"
+          >
+            <div class="card-top">
+              <span class="card-icon">PPF</span>
+            </div>
+
+            <h3>PPF Calculator</h3>
+
+            <p>
+              Plan Public Provident Fund growth with long-term
+              compounding and contribution rules.
+            </p>
           </a>
-          <a href="calculators/fd-calculator.html" class="calc-card" data-category="investing" data-title="FD RD Fixed Deposit Recurring Deposit Bank Interest">
-            <div class="card-top"><span class="card-icon">FD</span></div>
-            <h3>FD & RD Calculator</h3><p>Calculate fixed-deposit and recurring-deposit maturity values and interest.</p>
+
+          <a
+            href="calculators/fd-calculator.html"
+            class="calc-card"
+            data-category="investing"
+            data-title="FD RD Fixed Deposit Recurring Deposit Bank Interest"
+          >
+            <div class="card-top">
+              <span class="card-icon">FD</span>
+            </div>
+
+            <h3>FD & RD Calculator</h3>
+
+            <p>
+              Calculate fixed-deposit and recurring-deposit maturity
+              values and interest.
+            </p>
           </a>
-          <a href="calculators/nps-calculator.html" class="calc-card" data-category="retirement" data-title="NPS National Pension System Retirement Annuity">
-            <div class="card-top"><span class="card-icon">65</span></div>
-            <h3>NPS Calculator</h3><p>Model pension corpus growth, lump-sum payout and annuity income.</p>
+
+          <a
+            href="calculators/nps-calculator.html"
+            class="calc-card"
+            data-category="retirement"
+            data-title="NPS National Pension System Retirement Annuity"
+          >
+            <div class="card-top">
+              <span class="card-icon">65</span>
+            </div>
+
+            <h3>NPS Calculator</h3>
+
+            <p>
+              Model pension corpus growth, lump-sum payout and
+              annuity income.
+            </p>
           </a>
-          <a href="calculators/cagr-calculator.html" class="calc-card" data-category="investing" data-title="CAGR Compound Annual Growth Rate Stock Returns Absolute Multiplier">
-            <div class="card-top"><span class="card-icon">%</span></div>
-            <h3>CAGR Calculator</h3><p>Determine annualized compounded returns, absolute profit and wealth multiplier.</p>
+
+          <a
+            href="calculators/cagr-calculator.html"
+            class="calc-card"
+            data-category="investing"
+            data-title="CAGR Compound Annual Growth Rate Stock Returns Absolute Multiplier"
+          >
+            <div class="card-top">
+              <span class="card-icon">%</span>
+            </div>
+
+            <h3>CAGR Calculator</h3>
+
+            <p>
+              Determine annualized compounded returns, absolute
+              profit and wealth multiplier.
+            </p>
           </a>
-          <a href="calculators/ssy-calculator.html" class="calc-card" data-category="retirement" data-title="SSY Sukanya Samriddhi Yojana Girl Child 21 Year Tax Free 80C">
-            <div class="card-top"><span class="card-icon">SSY</span></div>
-            <h3>SSY Calculator</h3><p>Estimate Sukanya Samriddhi Yojana maturity corpus and long-term contributions.</p>
+
+          <a
+            href="calculators/ssy-calculator.html"
+            class="calc-card"
+            data-category="retirement"
+            data-title="SSY Sukanya Samriddhi Yojana Girl Child 21 Year Tax Free 80C"
+          >
+            <div class="card-top">
+              <span class="card-icon">SSY</span>
+            </div>
+
+            <h3>SSY Calculator</h3>
+
+            <p>
+              Estimate Sukanya Samriddhi Yojana maturity corpus
+              and long-term contributions.
+            </p>
           </a>
-          <a href="calculators/pomis-calculator.html" class="calc-card" data-category="investing" data-title="POMIS Post Office MIS Monthly Income Scheme Guaranteed Interest India Post">
-            <div class="card-top"><span class="card-icon">MIS</span></div>
-            <h3>Post Office MIS</h3><p>Calculate monthly income from the Post Office Monthly Income Scheme.</p>
+
+          <a
+            href="calculators/pomis-calculator.html"
+            class="calc-card"
+            data-category="investing"
+            data-title="POMIS Post Office MIS Monthly Income Scheme Guaranteed Interest India Post"
+          >
+            <div class="card-top">
+              <span class="card-icon">MIS</span>
+            </div>
+
+            <h3>Post Office MIS</h3>
+
+            <p>
+              Calculate monthly income from the Post Office
+              Monthly Income Scheme.
+            </p>
           </a>
-          <a href="calculators/compound-interest-calculator.html" class="calc-card" data-category="investing" data-title="Compound Interest Daily Monthly Yearly APY">
-            <div class="card-top"><span class="card-icon">CI</span></div>
-            <h3>Compound Interest Calculator</h3><p>Calculate compound interest with different compounding frequencies.</p>
+
+          <a
+            href="calculators/compound-interest-calculator.html"
+            class="calc-card"
+            data-category="investing"
+            data-title="Compound Interest Daily Monthly Yearly APY"
+          >
+            <div class="card-top">
+              <span class="card-icon">CI</span>
+            </div>
+
+            <h3>Compound Interest Calculator</h3>
+
+            <p>
+              Calculate compound interest with different
+              compounding frequencies.
+            </p>
           </a>
-          <a href="calculators/driver-income-calculator.html" class="calc-card" data-category="investing" data-title="Cab Driver Income Rapido Uber Ola Auto Taxi Profit Fuel Expenses Salary">
-            <div class="card-top"><span class="card-icon">₹</span></div>
-            <h3>Driver Earnings Calculator</h3><p>Estimate net daily or monthly driver earnings after fuel, commissions and expenses.</p>
+
+          <a
+            href="calculators/driver-income-calculator.html"
+            class="calc-card"
+            data-category="investing"
+            data-title="Cab Driver Income Rapido Uber Ola Auto Taxi Profit Fuel Expenses Salary"
+          >
+            <div class="card-top">
+              <span class="card-icon">₹</span>
+            </div>
+
+            <h3>Driver Earnings Calculator</h3>
+
+            <p>
+              Estimate net daily or monthly driver earnings after
+              fuel, commissions and expenses.
+            </p>
           </a>
+
         </div>
 
-        <div class="no-results" id="noResults">No calculators match your search. Try another keyword.</div>
+        <div
+          class="no-results"
+          id="noResults"
+          role="status"
+          aria-live="polite"
+        >
+          No calculators match your search. Try another keyword.
+        </div>
+
       </section>
 
       <!-- Trust -->
-      <div class="trust-strip" aria-label="Why use KitnaPaisa">
-        <div class="trust-item"><strong>Free to use</strong><span>No registration required</span></div>
-        <div class="trust-item"><strong>India-focused</strong><span>Designed for Indian users</span></div>
-        <div class="trust-item"><strong>Transparent</strong><span>Clear calculation methods</span></div>
-        <div class="trust-item"><strong>Private</strong><span>Calculations run in your browser</span></div>
+
+      <div
+        class="trust-strip"
+        aria-label="Why use KitnaPaisa"
+      >
+
+        <div class="trust-item">
+          <strong>Free to use</strong>
+          <span>No registration required</span>
+        </div>
+
+        <div class="trust-item">
+          <strong>India-focused</strong>
+          <span>Designed for Indian users</span>
+        </div>
+
+        <div class="trust-item">
+          <strong>Transparent</strong>
+          <span>Clear calculation methods</span>
+        </div>
+
+        <div class="trust-item">
+          <strong>Private</strong>
+          <span>Calculations run in your browser</span>
+        </div>
+
       </div>
 
     </div>
+
   </main>
 
   <footer>
+
     <div class="container footer-content">
-      <p><strong>KitnaPaisa</strong> — Free, privacy-first personal finance tools built for Indian users.</p>
-      <p>Disclaimer: Calculations are for educational and simulation purposes only and should not be considered financial advice.</p>
-      <p>&copy; 2026 <strong>KitnaPaisa</strong>. All rights reserved.</p>
+
+      <p>
+        <strong>KitnaPaisa</strong> —
+        Free, privacy-first personal finance tools built for Indian users.
+      </p>
+
+      <p>
+        Disclaimer: Calculations are for educational and simulation
+        purposes only and should not be considered financial advice.
+      </p>
+
+      <p>
+        &copy; 2026 <strong>KitnaPaisa</strong>. All rights reserved.
+      </p>
+
       <div class="footer-links">
+
         <a href="/">Home</a>
-        <a href="/about.html">About & Contact</a>
-        <a href="/privacy-policy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms & Disclaimer</a>
-        <a href="/sitemap.xml">Sitemap</a>
+
+        <a href="/about.html">
+          About & Contact
+        </a>
+
+        <a href="/privacy-policy.html">
+          Privacy Policy
+        </a>
+
+        <a href="/terms.html">
+          Terms & Disclaimer
+        </a>
+
+        <a href="/sitemap.xml">
+          Sitemap
+        </a>
+
       </div>
+
     </div>
+
   </footer>
+
+  <!-- Optimized JavaScript -->
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      /* Theme */
-      const themeToggle = document.getElementById('themeToggle');
-      const themeIcon = document.getElementById('themeIcon');
-      const themeText = document.getElementById('themeText');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      let currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+      /* =========================================
+         THEME
+      ========================================= */
+
+      const themeToggle =
+        document.getElementById('themeToggle');
+
+      const themeIcon =
+        document.getElementById('themeIcon');
+
+      const themeText =
+        document.getElementById('themeText');
+
+      const prefersDark =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      let currentTheme =
+        localStorage.getItem('theme') ||
+        (prefersDark ? 'dark' : 'light');
+
 
       function applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
+
         const dark = theme === 'dark';
-        themeIcon.textContent = dark ? '☀️' : '🌙';
-        themeText.textContent = dark ? 'Light' : 'Dark';
-        themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
-        themeToggle.setAttribute('aria-pressed', String(dark));
-        localStorage.setItem('theme', theme);
+
+        document.documentElement.setAttribute(
+          'data-theme',
+          theme
+        );
+
+        themeIcon.textContent =
+          dark ? '☀️' : '🌙';
+
+        themeText.textContent =
+          dark ? 'Light' : 'Dark';
+
+        themeToggle.setAttribute(
+          'aria-label',
+          dark
+            ? 'Switch to light mode'
+            : 'Switch to dark mode'
+        );
+
+        themeToggle.setAttribute(
+          'aria-pressed',
+          String(dark)
+        );
+
+        try {
+          localStorage.setItem('theme', theme);
+        } catch (error) {
+          /* Ignore storage errors */
+        }
       }
+
 
       applyTheme(currentTheme);
 
-      themeToggle.addEventListener('click', function () {
-        currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        applyTheme(currentTheme);
-      });
 
-      /* Calculator search + filters */
-      const allSearch = document.getElementById('allSearch');
-      const homeSearch = document.getElementById('homeSearch');
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const cards = document.querySelectorAll('.calc-card');
-      const noResults = document.getElementById('noResults');
+      themeToggle.addEventListener(
+        'click',
+        function () {
+
+          currentTheme =
+            document.documentElement.getAttribute(
+              'data-theme'
+            ) === 'dark'
+              ? 'light'
+              : 'dark';
+
+          applyTheme(currentTheme);
+        }
+      );
+
+
+      /* =========================================
+         CALCULATOR SEARCH + FILTER
+      ========================================= */
+
+      const allSearch =
+        document.getElementById('allSearch');
+
+      const homeSearch =
+        document.getElementById('homeSearch');
+
+      const filterButtons =
+        Array.from(
+          document.querySelectorAll('.filter-btn')
+        );
+
+      const cards =
+        Array.from(
+          document.querySelectorAll('.calc-card')
+        );
+
+      const noResults =
+        document.getElementById('noResults');
+
       let activeFilter = 'all';
 
+
+      /*
+       * Cache calculator data once.
+       *
+       * IMPORTANT:
+       * We deliberately do NOT use card.innerText.
+       * innerText can force the browser to calculate
+       * layout.
+       */
+
+      const calculatorData =
+        cards.map(function (card) {
+
+          return {
+            element: card,
+
+            category:
+              card.dataset.category || '',
+
+            title:
+              (card.dataset.title || '').toLowerCase()
+          };
+
+        });
+
+
       function filterCards(query) {
-        const search = (query || '').trim().toLowerCase();
+
+        const search =
+          (query || '').trim().toLowerCase();
+
         let visible = 0;
 
-        cards.forEach(function (card) {
-          const category = card.getAttribute('data-category') || '';
-          const searchable = ((card.getAttribute('data-title') || '') + ' ' + card.innerText).toLowerCase();
-          const categoryMatch = activeFilter === 'all' || category === activeFilter;
-          const searchMatch = !search || searchable.includes(search);
-          const show = categoryMatch && searchMatch;
-          card.style.display = show ? 'flex' : 'none';
-          if (show) visible++;
+
+        calculatorData.forEach(function (item) {
+
+          const categoryMatch =
+            activeFilter === 'all' ||
+            item.category === activeFilter;
+
+          const searchMatch =
+            !search ||
+            item.title.includes(search);
+
+          const show =
+            categoryMatch &&
+            searchMatch;
+
+
+          item.element.classList.toggle(
+            'is-hidden',
+            !show
+          );
+
+
+          if (show) {
+            visible++;
+          }
+
         });
 
-        noResults.style.display = visible ? 'none' : 'block';
+
+        noResults.classList.toggle(
+          'is-visible',
+          visible === 0
+        );
       }
 
-      allSearch.addEventListener('input', function () {
-        filterCards(allSearch.value);
-      });
 
-      homeSearch.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-          document.getElementById('all-calculators').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          allSearch.value = homeSearch.value;
-          activeFilter = 'all';
-          filterButtons.forEach(function (btn) {
-            btn.classList.toggle('active', btn.dataset.filter === 'all');
-            btn.setAttribute('aria-pressed', btn.dataset.filter === 'all' ? 'true' : 'false');
-          });
-          filterCards(allSearch.value);
+      /* All calculator search */
+
+      allSearch.addEventListener(
+        'input',
+        function () {
+
+          filterCards(
+            allSearch.value
+          );
+
         }
-      });
+      );
 
-      filterButtons.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          activeFilter = btn.dataset.filter;
-          filterButtons.forEach(function (b) {
-            const active = b === btn;
-            b.classList.toggle('active', active);
-            b.setAttribute('aria-pressed', active ? 'true' : 'false');
-          });
-          filterCards(allSearch.value);
-        });
-      });
 
-      /* Homepage shortcut cards */
-      document.querySelectorAll('[data-search-term]').forEach(function (link) {
-        link.addEventListener('click', function () {
-          const term = link.getAttribute('data-search-term') || '';
-          setTimeout(function () {
-            allSearch.value = term;
-            activeFilter = 'all';
-            filterButtons.forEach(function (btn) {
-              btn.classList.toggle('active', btn.dataset.filter === 'all');
-              btn.setAttribute('aria-pressed', btn.dataset.filter === 'all' ? 'true' : 'false');
-            });
-            filterCards(term);
-          }, 0);
-        });
-      });
+      /* Homepage search */
 
-      document.querySelectorAll('[data-filter-target]').forEach(function (link) {
-        link.addEventListener('click', function () {
-          const target = link.getAttribute('data-filter-target') || 'all';
-          setTimeout(function () {
-            allSearch.value = '';
-            activeFilter = target;
-            filterButtons.forEach(function (btn) {
-              const active = btn.dataset.filter === target;
-              btn.classList.toggle('active', active);
-              btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-            });
-            filterCards('');
-          }, 0);
-        });
-      });
+      homeSearch.addEventListener(
+        'keydown',
+        function (event) {
+
+          if (event.key !== 'Enter') {
+            return;
+          }
+
+
+          const target =
+            document.getElementById(
+              'all-calculators'
+            );
+
+
+          /*
+           * Set search/filter state first.
+           * Then perform scrolling.
+           */
+
+          allSearch.value =
+            homeSearch.value;
+
+          activeFilter = 'all';
+
+
+          filterButtons.forEach(
+            function (button) {
+
+              const active =
+                button.dataset.filter === 'all';
+
+              button.classList.toggle(
+                'active',
+                active
+              );
+
+              button.setAttribute(
+                'aria-pressed',
+                active ? 'true' : 'false'
+              );
+
+            }
+          );
+
+
+          filterCards(
+            allSearch.value
+          );
+
+
+          /*
+           * Scroll after the DOM state has been
+           * updated. Browser handles the layout
+           * calculation during the scroll operation.
+           */
+
+          requestAnimationFrame(
+            function () {
+
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+
+            }
+          );
+
+        }
+      );
+
+
+      /* Category filter buttons */
+
+      filterButtons.forEach(
+        function (button) {
+
+          button.addEventListener(
+            'click',
+            function () {
+
+              activeFilter =
+                button.dataset.filter;
+
+
+              filterButtons.forEach(
+                function (otherButton) {
+
+                  const active =
+                    otherButton === button;
+
+                  otherButton.classList.toggle(
+                    'active',
+                    active
+                  );
+
+                  otherButton.setAttribute(
+                    'aria-pressed',
+                    active
+                      ? 'true'
+                      : 'false'
+                  );
+
+                }
+              );
+
+
+              filterCards(
+                allSearch.value
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+      /* =========================================
+         HOMEPAGE SHORTCUTS
+      ========================================= */
+
+      const searchShortcuts =
+        document.querySelectorAll(
+          '[data-search-term]'
+        );
+
+
+      searchShortcuts.forEach(
+        function (link) {
+
+          link.addEventListener(
+            'click',
+            function () {
+
+              const term =
+                link.dataset.searchTerm || '';
+
+
+              /*
+               * Let the anchor navigate to the
+               * #all-calculators section first.
+               */
+
+              requestAnimationFrame(
+                function () {
+
+                  allSearch.value = term;
+
+                  activeFilter = 'all';
+
+
+                  filterButtons.forEach(
+                    function (button) {
+
+                      const active =
+                        button.dataset.filter === 'all';
+
+                      button.classList.toggle(
+                        'active',
+                        active
+                      );
+
+                      button.setAttribute(
+                        'aria-pressed',
+                        active
+                          ? 'true'
+                          : 'false'
+                      );
+
+                    }
+                  );
+
+
+                  filterCards(term);
+
+                }
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+      /* =========================================
+         CATEGORY SHORTCUTS
+      ========================================= */
+
+      const filterShortcuts =
+        document.querySelectorAll(
+          '[data-filter-target]'
+        );
+
+
+      filterShortcuts.forEach(
+        function (link) {
+
+          link.addEventListener(
+            'click',
+            function () {
+
+              const target =
+                link.dataset.filterTarget ||
+                'all';
+
+
+              requestAnimationFrame(
+                function () {
+
+                  allSearch.value = '';
+
+                  activeFilter = target;
+
+
+                  filterButtons.forEach(
+                    function (button) {
+
+                      const active =
+                        button.dataset.filter === target;
+
+                      button.classList.toggle(
+                        'active',
+                        active
+                      );
+
+                      button.setAttribute(
+                        'aria-pressed',
+                        active
+                          ? 'true'
+                          : 'false'
+                      );
+
+                    }
+                  );
+
+
+                  filterCards('');
+
+                }
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+      /* Initial state */
 
       filterCards('');
+
     });
   </script>
+
 </body>
 </html>
