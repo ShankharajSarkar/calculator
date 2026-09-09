@@ -12,53 +12,20 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Cab & Bike Taxi Driver Earnings Calculator — Dead-KM, Commission & Tax-Aware | KitnaPaisa</title>
-
-  <meta
-    name="description"
-    content="Calculate real net daily and monthly earnings for Ola, Uber, Rapido and other ride-hailing drivers. Include productive KM, dead KM, platform commission, fuel or EV charging costs, EMI and maintenance."
-  >
-
-  <link
-    rel="canonical"
-    href="https://kitnapaisa.in/calculators/driver-income-calculator.html"
-  >
-
+  <meta name="description" content="Calculate real net daily and monthly earnings for Ola, Uber, and Rapido drivers with separate productive vs dead-km modeling, platform commissions, fuel costs, vehicle EMI, maintenance, and presumptive tax awareness.">
+  <link rel="canonical" href="https://kitnapaisa.in/calculators/driver-income-calculator.html">
   <meta name="theme-color" content="#000000">
 
-  <meta
-    property="og:type"
-    content="website"
-  >
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kitnapaisa.in/calculators/driver-income-calculator.html">
+  <meta property="og:title" content="Driver Earnings Calculator — Dead-KM, Commission & Tax-Aware | KitnaPaisa">
+  <meta property="og:description" content="Model real net take-home for ride-hailing drivers with dead-km tracking, commission, fuel, EMI, and tax awareness.">
+  <meta property="og:image" content="https://kitnapaisa.in/assets/og-cover.png">
 
-  <meta
-    property="og:url"
-    content="https://kitnapaisa.in/calculators/driver-income-calculator.html"
-  >
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-  <meta
-    property="og:title"
-    content="Driver Earnings Calculator — Dead-KM, Commission & Tax-Aware | KitnaPaisa"
-  >
-
-  <meta
-    property="og:description"
-    content="Calculate real net take-home income for ride-hailing drivers after commission, fuel or EV charging, dead KM, EMI and maintenance."
-  >
-
-  <meta
-    property="og:image"
-    content="https://kitnapaisa.in/assets/og-cover.png"
-  >
-
-  <!-- Chart.js -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
-    defer
-  ></script>
-
-  <!-- Structured Data -->
+  <!-- FAQPage questions below are kept word-for-word identical to the visible FAQ accordion -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -69,12 +36,8 @@
         "url": "https://kitnapaisa.in/calculators/driver-income-calculator.html",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "All",
-        "dateModified": "2026-09-09",
-        "author": {
-          "@type": "Organization",
-          "name": "KitnaPaisa Research Team",
-          "url": "https://kitnapaisa.in/"
-        }
+        "dateModified": "2026-09-01",
+        "author": { "@type": "Organization", "name": "KitnaPaisa Research Team", "url": "https://kitnapaisa.in/" }
       },
       {
         "@type": "FAQPage",
@@ -82,34 +45,22 @@
           {
             "@type": "Question",
             "name": "Why is my real hourly wage lower than my app earnings?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Your driver partner app may show gross collections or earnings after platform deductions, but your real take-home income can be lower after fuel or electricity, maintenance, vehicle EMI or rental costs and other operating expenses."
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "Your driver partner app only reports gross collections minus platform commissions. It does not subtract the money spent daily on petrol/CNG/electricity, wear and tear on tyres/engine oil, and vehicle loan interest." }
           },
           {
             "@type": "Question",
-            "name": "What are dead kilometers in ride-hailing?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Dead kilometers are kilometers driven without a paying passenger, such as travelling to a pickup location, searching for rides or returning after a drop. They consume fuel or electricity but generate no direct fare."
-            }
+            "name": "What are dead kilometers (dry runs) in ride-hailing?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Dead kilometers are the distance driven without a paying passenger — such as driving to pickup points, cruising for ride requests, or returning home after a drop. This fuel burn significantly reduces net hourly profit and this calculator lets you enter it separately from your paid, productive kilometers." }
           },
           {
             "@type": "Question",
-            "name": "How much can an EV reduce driver running costs?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "An EV can have a lower energy cost per kilometre than petrol or CNG depending on the vehicle, electricity tariff and charging method. Home charging may be substantially cheaper than public fast charging."
-            }
+            "name": "How much difference does an Electric Vehicle (EV) make to driver profits?",
+            "acceptedAnswer": { "@type": "Answer", "text": "For cabs driving 150+ km daily, EV running costs are typically cheaper per km than Petrol/Diesel and somewhat cheaper than CNG, though the exact saving depends heavily on whether you charge at home (cheaper) or at public fast-charging stations (often 2x the cost)." }
           },
           {
             "@type": "Question",
-            "name": "Do ride-hailing drivers have to pay income tax?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ride-hailing income may be taxable as business or self-employment income. Drivers should determine the applicable tax treatment and deductions with a qualified tax professional based on their circumstances."
-            }
+            "name": "Do ride-hailing drivers need to pay income tax on their earnings?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Most driver-partners are treated as self-employed and can opt for presumptive taxation under Section 44AD, where 8% (or 6% for digital receipts) of gross turnover is deemed taxable profit, rather than tracking every expense separately. Very high-turnover drivers registered as e-commerce participants on aggregator platforms should also check GST registration requirements with a tax professional." }
           }
         ]
       }
@@ -118,4736 +69,626 @@
   </script>
 
   <style>
-    :root {
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --surface-subtle: #f1f5f9;
-      --border: #e2e8f0;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --primary: #2563eb;
-      --primary-light: #eff6ff;
-      --accent: #10b981;
-      --amber: #f59e0b;
-      --danger: #ef4444;
-      --card-shadow: 0 4px 6px -1px rgba(0,0,0,.05);
-      --chart-text: #64748b;
-      --chart-grid: #e2e8f0;
-      --chart-invested: #94a3b8;
-    }
-
-    [data-theme="dark"] {
-      --bg: #000000;
-      --surface: #111111;
-      --surface-subtle: #1c1c1c;
-      --border: #262626;
-      --text: #f5f5f5;
-      --text-muted: #a3a3a3;
-      --primary: #3b82f6;
-      --primary-light: rgba(59,130,246,.15);
-      --accent: #34d399;
-      --amber: #fbbf24;
-      --danger: #f87171;
-      --card-shadow: 0 4px 12px rgba(0,0,0,.7);
-      --chart-text: #a3a3a3;
-      --chart-grid: #262626;
-      --chart-invested: #525252;
-    }
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-      overflow-x: hidden;
-    }
-
-    body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      transition:
-        background-color .2s ease,
-        color .2s ease;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    /* =========================
-       HEADER
-    ========================== */
-
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      width: 100%;
-    }
-
-    .nav-wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 60px;
-      gap: 1rem;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      min-width: 0;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 700;
-      font-size: 1.1rem;
-      white-space: nowrap;
-    }
-
-    .logo-badge {
-      background: var(--primary);
-      color: #fff;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-      flex-shrink: 0;
-      font-size: .95rem;
-      font-weight: 800;
-    }
-
-    .nav-link {
-      text-decoration: none;
-      font-size: .85rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .nav-link:hover {
-      color: var(--primary);
-    }
-
-    .theme-toggle {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: .35rem .75rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: .85rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: .3rem;
-      white-space: nowrap;
-    }
-
-    /* =========================
-       ADS
-    ========================== */
-
-    .ad-banner {
-      background: var(--surface);
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: .8rem;
-      margin: 1rem auto;
-      width: 100%;
-    }
-
-    .ad-728x90 {
-      min-height: 90px;
-      max-width: 728px;
-    }
-
-    .ad-300x250 {
-      min-height: 250px;
-    }
-
-    /* =========================
-       PAGE HEADER
-    ========================== */
-
-    .page-head {
-      text-align: center;
-      margin: 1rem 0 1.5rem;
-    }
-
-    .page-head h1 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      margin-bottom: .4rem;
-    }
-
-    .page-head p {
-      color: var(--text-muted);
-      font-size: .9rem;
-      max-width: 850px;
-      margin: 0 auto;
-    }
-
-    .trust-badge-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .6rem;
-      flex-wrap: wrap;
-      font-size: .78rem;
-      color: var(--text-muted);
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      padding: .4rem .85rem;
-      border-radius: 9999px;
-      width: fit-content;
-      max-width: 100%;
-      margin: .75rem auto 1.25rem;
-    }
-
-    .trust-badge-bar strong {
-      color: var(--text);
-    }
-
-    /* =========================
-       MAIN CALCULATOR LAYOUT
-    ========================== */
-
-    .calc-layout {
-      display: grid;
-      grid-template-columns:
-        minmax(0, 440px)
-        minmax(0, 1fr);
-      gap: 1.5rem;
-      align-items: start;
-      width: 100%;
-    }
-
-    .input-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      box-shadow: var(--card-shadow);
-      width: 100%;
-    }
-
-    /* =========================
-       VEHICLE TABS
-    ========================== */
-
-    .tab-group {
-      display: flex;
-      background: var(--surface-subtle);
-      padding: 4px;
-      border-radius: 8px;
-      margin-bottom: 1.25rem;
-      width: 100%;
-      gap: 4px;
-    }
-
-    .tab-btn {
-      flex: 1;
-      padding: .45rem .2rem;
-      border: none;
-      background: transparent;
-      font-weight: 600;
-      font-size: .75rem;
-      border-radius: 6px;
-      cursor: pointer;
-      color: var(--text-muted);
-      min-height: 38px;
-      transition:
-        background-color .2s ease,
-        color .2s ease,
-        box-shadow .2s ease,
-        transform .15s ease;
-    }
-
-    .tab-btn:hover {
-      color: var(--primary);
-    }
-
-    .tab-btn:active {
-      transform: scale(.98);
-    }
-
-    .tab-btn.active {
-      background: var(--surface);
-      color: var(--primary);
-      box-shadow: 0 1px 3px rgba(0,0,0,.1);
-    }
-
-    /* =========================
-       INPUTS
-    ========================== */
-
-    .section-title {
-      font-size: .8rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      color: var(--primary);
-      margin: 1rem 0 .5rem;
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-    }
-
-    .input-group {
-      margin-bottom: 1rem;
-    }
-
-    .input-label-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: .4rem;
-      gap: .5rem;
-    }
-
-    .input-label-row label {
-      font-weight: 600;
-      font-size: .85rem;
-    }
-
-    .input-box-wrap {
-      display: flex;
-      align-items: center;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: .25rem .5rem;
-      background: var(--surface-subtle);
-      max-width: 160px;
-      min-width: 120px;
-    }
-
-    .input-box-wrap:focus-within {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px var(--primary-light);
-    }
-
-    .input-box-wrap input,
-    .input-box-wrap select {
-      width: 100%;
-      border: none;
-      background: transparent;
-      color: var(--text);
-      font-weight: 700;
-      text-align: right;
-      outline: none;
-      font-size: .9rem;
-    }
-
-    .input-box-wrap span {
-      color: var(--text-muted);
-      font-size: .8rem;
-      margin-left: 4px;
-      white-space: nowrap;
-    }
-
-    .range-slider {
-      width: 100%;
-      accent-color: var(--primary);
-      cursor: pointer;
-      display: block;
-    }
-
-    .word-preview {
-      font-size: .75rem;
-      color: var(--primary);
-      font-weight: 600;
-      margin-top: .25rem;
-    }
-
-    .field-note {
-      font-size: .72rem;
-      color: var(--text-muted);
-      margin-top: .3rem;
-      line-height: 1.4;
-    }
-
-    /* =========================
-       DASHBOARD
-    ========================== */
-
-    .dashboard {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .summary-cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: .75rem;
-      width: 100%;
-    }
-
-    .summary-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem;
-      text-align: center;
-      min-width: 0;
-    }
-
-    .summary-card.highlight {
-      border-color: var(--accent);
-      background: rgba(16,185,129,.08);
-    }
-
-    .summary-title {
-      font-size: .75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: .25rem;
-    }
-
-    .summary-val {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--text);
-      word-break: break-word;
-    }
-
-    .summary-words {
-      font-size: .7rem;
-      color: var(--accent);
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .negative-value {
-      color: var(--danger) !important;
-    }
-
-    .metrics-strip {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: .75rem;
-      width: 100%;
-    }
-
-    .metric-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: .85rem;
-      text-align: center;
-    }
-
-    .tax-notice-card {
-      background: rgba(37,99,235,.08);
-      border: 1px solid var(--primary);
-      border-radius: 10px;
-      padding: .85rem 1rem;
-      font-size: .82rem;
-      color: var(--text-muted);
-    }
-
-    .tax-notice-card strong {
-      color: var(--primary);
-    }
-
-    /* =========================
-       ACTIONS
-    ========================== */
-
-    .action-bar {
-      display: flex;
-      gap: .5rem;
-      flex-wrap: wrap;
-    }
-
-    .action-btn {
-      flex: 1;
-      min-width: 140px;
-      padding: .55rem .85rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-size: .8rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .4rem;
-      transition: all .2s;
-    }
-
-    .action-btn.whatsapp {
-      background: #25d36615;
-      border-color: #25d366;
-      color: #25d366;
-    }
-
-    .action-btn.whatsapp:hover {
-      background: #25d366;
-      color: #fff;
-    }
-
-    .action-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
-    /* =========================
-       CHARTS
-    ========================== */
-
-    .charts-grid {
-      display: grid;
-      grid-template-columns:
-        minmax(0, 260px)
-        minmax(0, 1fr);
-      gap: 1rem;
-      width: 100%;
-    }
-
-    .chart-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .chart-card h3 {
-      font-size: .85rem;
-      margin-bottom: .5rem;
-    }
-
-    .donut-wrap,
-    .growth-wrap,
-    .bench-wrap {
-      position: relative;
-      width: 100%;
-      height: 200px;
-    }
-
-    /* =========================
-       TABLE
-    ========================== */
-
-    .table-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .table-head-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: .75rem;
-      gap: .5rem;
-      flex-wrap: wrap;
-    }
-
-    .table-head-bar h3 {
-      font-size: .95rem;
-    }
-
-    .btn-action {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border);
-      padding: .35rem .65rem;
-      border-radius: 6px;
-      font-size: .75rem;
-      font-weight: 600;
-      color: var(--text);
-      cursor: pointer;
-    }
-
-    .btn-action:hover {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      max-height: 380px;
-    }
-
-    table {
-      width: 100%;
-      min-width: 580px;
-      border-collapse: collapse;
-      font-size: .8rem;
-      text-align: right;
-    }
-
-    th,
-    td {
-      padding: .5rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th:first-child,
-    td:first-child {
-      text-align: left;
-    }
-
-    th {
-      background: var(--surface-subtle);
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-
-    /* =========================
-       METHODOLOGY
-    ========================== */
-
-    .methodology-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin: 1.5rem 0;
-    }
-
-    .methodology-card h3 {
-      font-size: 1rem;
-      margin-bottom: .75rem;
-      font-weight: 700;
-    }
-
-    .methodology-card ul {
-      padding-left: 1.2rem;
-      color: var(--text-muted);
-      font-size: .85rem;
-      line-height: 1.6;
-    }
-
-    .formula-box {
-      background: var(--surface-subtle);
-      padding: .75rem;
-      border-radius: 6px;
-      margin: .75rem 0;
-      font-family: monospace;
-      font-size: .82rem;
-      overflow-x: auto;
-    }
-
-    /* =========================
-       AUTHOR
-    ========================== */
-
-    .author-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-      margin: 2rem 0;
-    }
-
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .author-info h4 {
-      font-size: .9rem;
-      margin-bottom: .2rem;
-      font-weight: 700;
-    }
-
-    .author-info p {
-      font-size: .8rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      margin: 0;
-    }
-
-    /* =========================
-       ARTICLE
-    ========================== */
-
-    .content-article {
-      margin: 2rem 0;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      width: 100%;
-    }
-
-    .content-article h2 {
-      font-size: 1.2rem;
-      margin: 1.2rem 0 .5rem;
-      font-weight: 700;
-    }
-
-    .content-article h2:first-child {
-      margin-top: 0;
-    }
-
-    .content-article p {
-      color: var(--text-muted);
-      font-size: .85rem;
-      line-height: 1.6;
-      margin-bottom: .5rem;
-    }
-
-   /* =========================
-   FAQ ACCORDION
-   ========================= */
-
-.faq-item {
-  border-bottom: 1px solid var(--border);
-  padding: 0;
-}
-
-.faq-q {
-  font-weight: 600;
-  font-size: .9rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: .9rem 0;
-  line-height: 1.4;
-  user-select: none;
-}
-
-.faq-q span {
-  flex: 0 0 auto;
-  font-size: .75rem;
-  transition: transform .25s ease;
-  transform: rotate(0deg);
-}
-
-.faq-item.open .faq-q span {
-  transform: rotate(180deg);
-}
-
-.faq-a {
-  margin: 0;
-  padding: 0 0 .9rem;
-  color: var(--text-muted);
-  font-size: .85rem;
-  line-height: 1.55;
-  display: none;
-}
-
-.faq-item.open .faq-a {
-  display: block;
-}
-
-    /* =========================
-       TOAST
-    ========================== */
-
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--surface);
-      border: 1px solid var(--primary);
-      color: var(--text);
-      padding: .6rem 1.2rem;
-      border-radius: 8px;
-      font-size: .85rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,.3);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s ease;
-      z-index: 100;
-    }
-
-    .toast.show {
-      opacity: 1;
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================== */
-
-    @media (max-width: 840px) {
-      .calc-layout,
-      .charts-grid,
-      .summary-cards,
-      .metrics-strip {
-        grid-template-columns: 100%;
-      }
-
-      .page-head h1 {
-        font-size: 1.4rem;
-      }
-
-      .container {
-        padding: 0 .75rem;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .nav-left {
-        gap: .6rem;
-      }
-
-      .nav-link {
-        display: none;
-      }
-
-      .tab-group {
-        flex-wrap: wrap;
-      }
-
-      .tab-btn {
-        flex: 1 1 calc(50% - 4px);
-      }
-
-      .input-label-row {
-        align-items: flex-start;
-      }
-
-      .input-box-wrap {
-        max-width: 145px;
-      }
-
-      .trust-badge-bar {
-        border-radius: 10px;
-      }
-
-      .action-btn {
-        flex: 1 1 100%;
-      }
-    }
-
-    /* =========================
-       PRINT
-    ========================== */
-
-    @media print {
-      header,
-      .ad-banner,
-      .action-bar,
-      .input-panel,
-      .theme-toggle,
-      .toast {
-        display: none !important;
-      }
-
-      body {
-        background: #fff !important;
-        color: #000 !important;
-      }
-
-      .container {
-        max-width: 100%;
-        padding: 0;
-      }
-
-      .calc-layout {
-        display: block;
-      }
-
-      .dashboard {
-        display: block;
-      }
-
-      .dashboard > * {
-        margin-bottom: 15px;
-      }
-
-      .summary-card,
-      .metric-box,
-      .chart-card,
-      .table-card,
-      .methodology-card,
-      .author-card,
-      .content-article {
-        box-shadow: none;
-        break-inside: avoid;
-      }
+    :root { --bg:#f8fafc; --surface:#fff; --surface-subtle:#f1f5f9; --border:#e2e8f0; --text:#0f172a; --text-muted:#64748b; --primary:#2563eb; --primary-light:#eff6ff; --accent:#10b981; --amber:#f59e0b; --danger:#ef4444; --card-shadow:0 4px 6px -1px rgba(0,0,0,.05); --chart-text:#64748b; --chart-grid:#e2e8f0; --chart-invested:#94a3b8; }
+    [data-theme="dark"] { --bg:#000; --surface:#111; --surface-subtle:#1c1c1c; --border:#262626; --text:#f5f5f5; --text-muted:#a3a3a3; --primary:#3b82f6; --primary-light:rgba(59,130,246,.15); --accent:#34d399; --amber:#fbbf24; --danger:#f87171; --card-shadow:0 4px 12px rgba(0,0,0,.7); --chart-text:#a3a3a3; --chart-grid:#262626; --chart-invested:#525252; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html,body { width:100%; min-height:100%; overflow-x:hidden; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background-color:var(--bg); color:var(--text); line-height:1.5; transition:background-color .2s ease,color .2s ease; }
+    .container { width:100%; max-width:1200px; margin:0 auto; padding:0 1rem; }
+
+    header { background:var(--surface); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20; width:100%; }
+    .nav-wrap { display:flex; justify-content:space-between; align-items:center; height:60px; }
+    .nav-left { display:flex; align-items:center; gap:1rem; }
+    .logo { display:flex; align-items:center; gap:.5rem; text-decoration:none; color:var(--text); font-weight:700; font-size:1.1rem; }
+    .logo-badge { background:var(--primary); color:#fff; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border-radius:6px; flex-shrink:0; font-size:.95rem; font-weight:800; }
+    .nav-link { text-decoration:none; font-size:.85rem; color:var(--text-muted); font-weight:500; }
+    .nav-link:hover { color:var(--primary); }
+    .theme-toggle { background:var(--surface-subtle); border:1px solid var(--border); color:var(--text); padding:.35rem .75rem; border-radius:8px; cursor:pointer; font-size:.85rem; font-weight:600; display:flex; align-items:center; gap:.3rem; }
+
+    .ad-banner { background:var(--surface); border:1px dashed var(--border); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:.8rem; margin:1rem auto; width:100%; }
+    .ad-728x90 { min-height:90px; max-width:728px; }
+    .ad-300x250 { min-height:250px; }
+
+    .page-head { text-align:center; margin:1rem 0 1.5rem; }
+    .page-head h1 { font-size:1.6rem; font-weight:800; margin-bottom:.4rem; }
+    .page-head p { color:var(--text-muted); font-size:.9rem; }
+    .trust-badge-bar { display:flex; align-items:center; justify-content:center; gap:.6rem; flex-wrap:wrap; font-size:.78rem; color:var(--text-muted); background:var(--surface-subtle); border:1px solid var(--border); padding:.4rem .85rem; border-radius:9999px; width:fit-content; margin:.5rem auto 1.25rem; }
+    .trust-badge-bar strong { color:var(--text); }
+
+    .calc-layout { display:grid; grid-template-columns:minmax(0,440px) minmax(0,1fr); gap:1.5rem; align-items:start; width:100%; }
+    .input-panel { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; box-shadow:var(--card-shadow); width:100%; }
+
+    .tab-group { display:flex; background:var(--surface-subtle); padding:4px; border-radius:8px; margin-bottom:1.25rem; width:100%; gap:4px; }
+    .tab-btn { flex:1; padding:.45rem .2rem; border:none; background:transparent; font-weight:600; font-size:.75rem; border-radius:6px; cursor:pointer; color:var(--text-muted); min-height:36px; }
+    .tab-btn.active { background:var(--surface); color:var(--primary); box-shadow:0 1px 3px rgba(0,0,0,.1); }
+
+    .section-title { font-size:.8rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--primary); margin:1rem 0 .5rem; display:flex; align-items:center; gap:.4rem; }
+    .input-group { margin-bottom:1rem; }
+    .input-label-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem; gap:.5rem; }
+    .input-label-row label { font-weight:600; font-size:.85rem; }
+    .input-box-wrap { display:flex; align-items:center; border:1px solid var(--border); border-radius:6px; padding:.25rem .5rem; background:var(--surface-subtle); max-width:145px; }
+    .input-box-wrap input, .input-box-wrap select { width:100%; border:none; background:transparent; color:var(--text); font-weight:700; text-align:right; outline:none; font-size:.9rem; }
+    .input-box-wrap span { color:var(--text-muted); font-size:.8rem; margin-left:4px; }
+    .range-slider { width:100%; accent-color:var(--primary); cursor:pointer; display:block; }
+    .word-preview { font-size:.75rem; color:var(--primary); font-weight:600; margin-top:.25rem; }
+    .field-note { font-size:.72rem; color:var(--text-muted); margin-top:.3rem; line-height:1.4; }
+
+    .toggle-row { display:flex; justify-content:space-between; align-items:center; padding:.65rem 0; border-top:1px solid var(--border); }
+    .toggle-label { font-size:.85rem; font-weight:600; display:flex; align-items:center; gap:.4rem; }
+
+    .dashboard { display:flex; flex-direction:column; gap:1.25rem; width:100%; min-width:0; }
+    .summary-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; width:100%; }
+    .summary-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem; text-align:center; min-width:0; }
+    .summary-card.highlight { border-color:var(--accent); background:rgba(16,185,129,.08); }
+    .summary-title { font-size:.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:600; margin-bottom:.25rem; }
+    .summary-val { font-size:1.25rem; font-weight:800; color:var(--text); word-break:break-word; }
+    .summary-words { font-size:.7rem; color:var(--accent); font-weight:600; margin-top:2px; }
+
+    .metrics-strip { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; width:100%; }
+    .metric-box { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:.85rem; text-align:center; }
+
+    .tax-notice-card { background:rgba(37,99,235,.08); border:1px solid var(--primary); border-radius:10px; padding:.85rem 1rem; font-size:.82rem; color:var(--text-muted); }
+    .tax-notice-card strong { color:var(--primary); }
+
+    .action-bar { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .action-btn { flex:1; min-width:140px; padding:.55rem .85rem; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-size:.8rem; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:.4rem; transition:all .2s; }
+    .action-btn.whatsapp { background:#25d36615; border-color:#25d366; color:#25d366; }
+    .action-btn.whatsapp:hover { background:#25d366; color:#fff; }
+    .action-btn:hover { border-color:var(--primary); color:var(--primary); }
+
+    .charts-grid { display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:1rem; width:100%; }
+    .chart-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem; width:100%; min-width:0; }
+    .chart-card h3 { font-size:.85rem; margin-bottom:.5rem; }
+    .donut-wrap,.growth-wrap,.bench-wrap { position:relative; width:100%; height:200px; }
+
+    .table-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem; width:100%; min-width:0; }
+    .table-head-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:.75rem; gap:.5rem; flex-wrap:wrap; }
+    .btn-action { background:var(--surface-subtle); border:1px solid var(--border); padding:.35rem .65rem; border-radius:6px; font-size:.75rem; font-weight:600; color:var(--text); cursor:pointer; }
+    .btn-action:hover { background:var(--primary); color:#fff; }
+    .table-container { width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; max-height:380px; }
+    table { width:100%; min-width:580px; border-collapse:collapse; font-size:.8rem; text-align:right; }
+    th,td { padding:.5rem; border-bottom:1px solid var(--border); }
+    th:first-child,td:first-child { text-align:left; }
+    th { background:var(--surface-subtle); position:sticky; top:0; }
+
+    .methodology-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; margin:1.5rem 0; }
+    .methodology-card h3 { font-size:1rem; margin-bottom:.75rem; font-weight:700; }
+    .methodology-card ul { padding-left:1.2rem; color:var(--text-muted); font-size:.85rem; line-height:1.6; }
+    .formula-box { background:var(--surface-subtle); padding:.75rem; border-radius:6px; margin:.75rem 0; font-family:monospace; font-size:.82rem; overflow-x:auto; }
+
+    .author-card { display:flex; align-items:center; gap:1rem; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1rem 1.25rem; margin:2rem 0; }
+    .author-avatar { width:44px; height:44px; border-radius:50%; background:var(--primary); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .author-info h4 { font-size:.9rem; margin-bottom:.2rem; font-weight:700; }
+    .author-info p { font-size:.8rem; color:var(--text-muted); line-height:1.4; margin:0; }
+
+    .content-article { margin:2rem 0; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.25rem; width:100%; }
+    .content-article h2 { font-size:1.2rem; margin:1.2rem 0 .5rem; font-weight:700; }
+    .content-article p { color:var(--text-muted); font-size:.85rem; line-height:1.5; margin-bottom:.5rem; }
+    .faq-item { border-bottom:1px solid var(--border); padding:0; }
+    .faq-q { font-weight:600; font-size:.9rem; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.9rem 0; line-height:1.4; user-select:none; transform:none !important; rotate:none !important; }
+    .faq-question-text { flex:1; transform:none !important; rotate:none !important; }
+    .faq-arrow { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; font-size:.75rem; line-height:1; transition:transform .25s ease; transform:rotate(0deg); }
+    .faq-item.open .faq-q, .faq-item.open .faq-question-text { transform:none !important; rotate:none !important; }
+    .faq-item.open .faq-arrow { transform:rotate(180deg); }
+    .faq-a { margin:0; padding:0 0 .9rem; color:var(--text-muted); font-size:.85rem; line-height:1.55; display:none; }
+    .faq-item.open .faq-a { display:block; }
+
+    .toast { position:fixed; bottom:20px; right:20px; background:var(--surface); border:1px solid var(--primary); color:var(--text); padding:.6rem 1.2rem; border-radius:8px; font-size:.85rem; box-shadow:0 4px 12px rgba(0,0,0,.3); opacity:0; pointer-events:none; transition:opacity .3s ease; z-index:100; }
+    .toast.show { opacity:1; }
+
+    @media (max-width:840px) {
+      .calc-layout,.charts-grid,.summary-cards,.metrics-strip { grid-template-columns:100%; }
+      .page-head h1 { font-size:1.4rem; }
+      .container { padding:0 .75rem; }
     }
   </style>
 </head>
-
 <body>
-
-  <!-- =========================
-       HEADER
-  ========================== -->
 
   <header>
     <div class="container nav-wrap">
-
       <div class="nav-left">
-
-        <a href="../index.html" class="logo">
-          <span class="logo-badge">₹</span>
-          <span>KitnaPaisa</span>
-        </a>
-
-        <a href="../index.html" class="nav-link">
-          ← All Calculators
-        </a>
-
+        <a href="../index.html" class="logo"><span class="logo-badge">₹</span><span>KitnaPaisa</span></a>
+        <a href="../index.html" class="nav-link">← All Calculators</a>
       </div>
-
-      <button
-        class="theme-toggle"
-        id="themeToggle"
-        type="button"
-        aria-label="Toggle dark mode"
-      >
-        <span id="themeIcon">🌙</span>
-        <span id="themeText">Dark</span>
-      </button>
-
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode"><span id="themeIcon">🌙</span> <span id="themeText">Dark</span></button>
     </div>
   </header>
 
-
   <main class="container">
-
-    <!-- TOP AD -->
-
-    <div
-      class="ad-banner ad-728x90"
-      aria-label="Advertisement"
-    >
-      Ad Slot — Top Responsive (728x90)
-    </div>
-
-
-    <!-- PAGE HEADER -->
+    <div class="ad-banner ad-728x90" aria-label="Top Banner Ad">Ad Slot — Top Responsive (728x90)</div>
 
     <div class="page-head">
-
-      <h1>
-        Ola, Uber & Rapido Driver Earnings Calculator
-      </h1>
-
-      <p>
-        Calculate real net take-home pay after platform commissions,
-        fuel or EV charging costs, dead kilometers,
-        vehicle maintenance and EMI.
-      </p>
-
+      <h1>Ola, Uber & Rapido Driver Earnings Calculator</h1>
+      <p>Calculate real net take-home pay after platform commissions, fuel costs, dead kilometers, vehicle maintenance, and tax awareness.</p>
       <div class="trust-badge-bar">
-
-        <span>
-          📅 <strong>Updated:</strong> September 2026
-        </span>
-
+        <span>📅 <strong>Updated:</strong> September 2026</span>
         <span>•</span>
-
-        <span>
-          📐 <strong>Method:</strong> Gross-Minus-Outflow P&amp;L
-        </span>
-
+        <span>📐 <strong>Standard:</strong> Gross-Minus-Outflow P&L</span>
         <span>•</span>
-
-        <span>
-          🔍 <strong>Verified by:</strong> KitnaPaisa Research Team
-        </span>
-
+        <span>🔍 <strong>Verified by:</strong> KitnaPaisa Research Team</span>
       </div>
-
     </div>
-
-
-    <!-- =========================
-         CALCULATOR
-    ========================== -->
 
     <div class="calc-layout">
-
-
-      <!-- =========================
-           INPUT PANEL
-      ========================== -->
-
       <aside class="input-panel">
-
-        <!-- VEHICLE TABS -->
-
-        <div
-          class="tab-group"
-          role="tablist"
-          aria-label="Select vehicle type"
-        >
-
-          <button
-            class="tab-btn active"
-            id="btnBike"
-            type="button"
-            role="tab"
-            aria-selected="true"
-            onclick="applyVehiclePreset('bike')"
-          >
-            🏍️ Bike Taxi
-          </button>
-
-          <button
-            class="tab-btn"
-            id="btnAuto"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            onclick="applyVehiclePreset('auto')"
-          >
-            🛺 Auto
-          </button>
-
-          <button
-            class="tab-btn"
-            id="btnCab"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            onclick="applyVehiclePreset('cab')"
-          >
-            🚗 Cab
-          </button>
-
-          <button
-            class="tab-btn"
-            id="btnEV"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            onclick="applyVehiclePreset('ev')"
-          >
-            ⚡ EV Cab
-          </button>
-
+        <div class="tab-group">
+          <button class="tab-btn active" id="btnBike" onclick="applyVehiclePreset('bike')">🏍️ Bike Taxi</button>
+          <button class="tab-btn" id="btnAuto" onclick="applyVehiclePreset('auto')">🛺 Auto</button>
+          <button class="tab-btn" id="btnCab" onclick="applyVehiclePreset('cab')">🚗 Cab (CNG/Petrol)</button>
+          <button class="tab-btn" id="btnEV" onclick="applyVehiclePreset('ev')">⚡ EV Cab</button>
         </div>
 
-
-        <!-- SECTION 1 -->
-
-        <div class="section-title">
-          1. Daily Trip &amp; Earnings Data
+        <div class="section-title">1. Daily Trip & Earnings Data</div>
+        <div class="input-group">
+          <div class="input-label-row"><label for="ridesInput">Daily Rides Completed</label>
+            <div class="input-box-wrap"><input type="number" id="ridesInput" value="14" min="1" max="40" step="1"><span>Rides</span></div>
+          </div>
+          <input type="range" id="ridesSlider" class="range-slider" min="1" max="40" step="1" value="14">
         </div>
-
-
-        <!-- RIDES -->
 
         <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="ridesInput">
-              Daily Rides Completed
-            </label>
-
-            <div class="input-box-wrap">
-              <input
-                type="number"
-                id="ridesInput"
-                value="14"
-                min="1"
-                max="40"
-                step="1"
-                inputmode="numeric"
-              >
-              <span>Rides</span>
-            </div>
-
+          <div class="input-label-row"><label for="fareInput">Average Fare per Ride</label>
+            <div class="input-box-wrap"><span>₹</span><input type="number" id="fareInput" value="120" min="20" max="1500" step="10"></div>
           </div>
-
-          <input
-            type="range"
-            id="ridesSlider"
-            class="range-slider"
-            min="1"
-            max="40"
-            step="1"
-            value="14"
-            aria-label="Daily rides completed"
-          >
-
+          <input type="range" id="fareSlider" class="range-slider" min="20" max="1500" step="10" value="120">
         </div>
-
-
-        <!-- FARE -->
 
         <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="fareInput">
-              Average Fare per Ride
-            </label>
-
-            <div class="input-box-wrap">
-              <span>₹</span>
-
-              <input
-                type="number"
-                id="fareInput"
-                value="120"
-                min="20"
-                max="1500"
-                step="10"
-                inputmode="decimal"
-              >
-            </div>
-
+          <div class="input-label-row"><label for="hoursInput">Daily Duty Hours</label>
+            <div class="input-box-wrap"><input type="number" id="hoursInput" value="10" min="1" max="18" step="1"><span>Hrs/day</span></div>
           </div>
-
-          <input
-            type="range"
-            id="fareSlider"
-            class="range-slider"
-            min="20"
-            max="1500"
-            step="10"
-            value="120"
-            aria-label="Average fare per ride"
-          >
-
+          <input type="range" id="hoursSlider" class="range-slider" min="1" max="18" step="1" value="10">
         </div>
-
-
-        <!-- HOURS -->
 
         <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="hoursInput">
-              Daily Duty Hours
-            </label>
-
-            <div class="input-box-wrap">
-
-              <input
-                type="number"
-                id="hoursInput"
-                value="10"
-                min="1"
-                max="18"
-                step="1"
-                inputmode="decimal"
-              >
-
-              <span>Hrs/day</span>
-
-            </div>
-
+          <div class="input-label-row"><label for="daysInput">Monthly Working Days</label>
+            <div class="input-box-wrap"><input type="number" id="daysInput" value="26" min="10" max="31" step="1"><span>Days</span></div>
           </div>
-
-          <input
-            type="range"
-            id="hoursSlider"
-            class="range-slider"
-            min="1"
-            max="18"
-            step="1"
-            value="10"
-            aria-label="Daily duty hours"
-          >
-
+          <input type="range" id="daysSlider" class="range-slider" min="10" max="31" step="1" value="26">
         </div>
 
-
-        <!-- DAYS -->
+        <div class="section-title">2. Platform Commission & Fuel</div>
+        <div class="input-group">
+          <div class="input-label-row"><label for="commInput">Platform Commission</label>
+            <div class="input-box-wrap"><input type="number" id="commInput" value="20" min="0" max="35" step="1"><span>%</span></div>
+          </div>
+          <input type="range" id="commSlider" class="range-slider" min="0" max="35" step="1" value="20">
+        </div>
 
         <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="daysInput">
-              Monthly Working Days
-            </label>
-
-            <div class="input-box-wrap">
-
-              <input
-                type="number"
-                id="daysInput"
-                value="26"
-                min="10"
-                max="31"
-                step="1"
-                inputmode="numeric"
-              >
-
-              <span>Days</span>
-
-            </div>
-
+          <div class="input-label-row"><label for="productiveKmInput">Productive (Paid-Ride) KM</label>
+            <div class="input-box-wrap"><input type="number" id="productiveKmInput" value="100" min="10" max="400" step="5"><span>KM</span></div>
           </div>
-
-          <input
-            type="range"
-            id="daysSlider"
-            class="range-slider"
-            min="10"
-            max="31"
-            step="1"
-            value="26"
-            aria-label="Monthly working days"
-          >
-
+          <input type="range" id="productiveKmSlider" class="range-slider" min="10" max="400" step="5" value="100">
         </div>
-
-
-        <!-- SECTION 2 -->
-
-        <div class="section-title">
-          2. Platform Commission &amp; Energy
-        </div>
-
-
-        <!-- COMMISSION -->
 
         <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="commInput">
-              Platform Commission
-            </label>
-
-            <div class="input-box-wrap">
-
-              <input
-                type="number"
-                id="commInput"
-                value="20"
-                min="0"
-                max="35"
-                step="1"
-                inputmode="decimal"
-              >
-
-              <span>%</span>
-
-            </div>
-
+          <div class="input-label-row"><label for="deadKmInput">Dead / Dry-Run KM</label>
+            <div class="input-box-wrap"><input type="number" id="deadKmInput" value="30" min="0" max="200" step="5"><span>KM</span></div>
           </div>
-
-          <input
-            type="range"
-            id="commSlider"
-            class="range-slider"
-            min="0"
-            max="35"
-            step="1"
-            value="20"
-            aria-label="Platform commission percentage"
-          >
-
+          <input type="range" id="deadKmSlider" class="range-slider" min="0" max="200" step="5" value="30">
+          <div class="word-preview" id="totalKmPreview">130 KM total driven</div>
+          <div class="field-note">Modeled separately per the FAQ below — dead KM burns the same fuel as productive KM but earns zero fare.</div>
         </div>
-
-
-        <!-- PRODUCTIVE KM -->
 
         <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="productiveKmInput">
-              Productive (Paid-Ride) KM
-            </label>
-
-            <div class="input-box-wrap">
-
-              <input
-                type="number"
-                id="productiveKmInput"
-                value="100"
-                min="10"
-                max="400"
-                step="5"
-                inputmode="decimal"
-              >
-
-              <span>KM</span>
-
-            </div>
-
+          <div class="input-label-row"><label for="mileageInput">Vehicle Real Mileage</label>
+            <div class="input-box-wrap"><input type="number" id="mileageInput" value="40" min="5" max="150" step="1"><span id="mileageUnit">km/L</span></div>
           </div>
-
-          <input
-            type="range"
-            id="productiveKmSlider"
-            class="range-slider"
-            min="10"
-            max="400"
-            step="5"
-            value="100"
-            aria-label="Productive paid ride kilometers"
-          >
-
+          <input type="range" id="mileageSlider" class="range-slider" min="5" max="150" step="1" value="40">
         </div>
-
-
-        <!-- DEAD KM -->
 
         <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="deadKmInput">
-              Dead / Dry-Run KM
-            </label>
-
-            <div class="input-box-wrap">
-
-              <input
-                type="number"
-                id="deadKmInput"
-                value="30"
-                min="0"
-                max="200"
-                step="5"
-                inputmode="decimal"
-              >
-
-              <span>KM</span>
-
-            </div>
-
+          <div class="input-label-row"><label for="fuelRateInput" id="fuelRateLabel">Fuel / Energy Price</label>
+            <div class="input-box-wrap"><span>₹</span><input type="number" id="fuelRateInput" value="98" min="5" max="150" step="1"></div>
           </div>
-
-          <input
-            type="range"
-            id="deadKmSlider"
-            class="range-slider"
-            min="0"
-            max="200"
-            step="5"
-            value="30"
-            aria-label="Dead kilometers"
-          >
-
-          <div
-            class="word-preview"
-            id="totalKmPreview"
-          >
-            130 KM total driven
-          </div>
-
-          <div class="field-note">
-            Dead KM are kilometres driven without a paying passenger.
-            They consume fuel or electricity but generate no direct fare.
-          </div>
-
+          <input type="range" id="fuelRateSlider" class="range-slider" min="5" max="150" step="1" value="98">
+          <div class="field-note">Petrol/CNG/electricity prices vary significantly by city and state, and change often — check today's local rate.</div>
         </div>
 
-
-        <!-- MILEAGE -->
+        <div class="section-title">3. Vehicle EMI, Maintenance & Fixed Costs</div>
+        <div class="input-group">
+          <div class="input-label-row"><label for="emiInput">Monthly Vehicle EMI / Rental</label>
+            <div class="input-box-wrap"><span>₹</span><input type="number" id="emiInput" value="3000" min="0" max="40000" step="500"></div>
+          </div>
+          <input type="range" id="emiSlider" class="range-slider" min="0" max="40000" step="500" value="3000">
+        </div>
 
         <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="mileageInput">
-              Vehicle Real Mileage
-            </label>
-
-            <div class="input-box-wrap">
-
-              <input
-                type="number"
-                id="mileageInput"
-                value="40"
-                min="5"
-                max="150"
-                step="1"
-                inputmode="decimal"
-              >
-
-              <span id="mileageUnit">
-                km/L
-              </span>
-
-            </div>
-
+          <div class="input-label-row"><label for="maintInput">Daily Maintenance Reserve</label>
+            <div class="input-box-wrap"><span>₹</span><input type="number" id="maintInput" value="75" min="0" max="1000" step="10"></div>
           </div>
-
-          <input
-            type="range"
-            id="mileageSlider"
-            class="range-slider"
-            min="5"
-            max="150"
-            step="1"
-            value="40"
-            aria-label="Vehicle mileage or efficiency"
-          >
-
+          <input type="range" id="maintSlider" class="range-slider" min="0" max="1000" step="10" value="75">
+          <div class="word-preview">Servicing, engine oil, insurance & tyre fund</div>
         </div>
 
-
-        <!-- FUEL / ENERGY PRICE -->
-
-        <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label
-              for="fuelRateInput"
-              id="fuelRateLabel"
-            >
-              Fuel Price
-            </label>
-
-            <div class="input-box-wrap">
-
-              <span>₹</span>
-
-              <input
-                type="number"
-                id="fuelRateInput"
-                value="98"
-                min="5"
-                max="150"
-                step="1"
-                inputmode="decimal"
-              >
-
-            </div>
-
-          </div>
-
-          <input
-            type="range"
-            id="fuelRateSlider"
-            class="range-slider"
-            min="5"
-            max="150"
-            step="1"
-            value="98"
-            aria-label="Fuel or electricity price"
-          >
-
-          <div
-            class="field-note"
-            id="fuelRateNote"
-          >
-            Petrol/CNG prices vary by city and change frequently.
-            Enter the price you actually pay.
-          </div>
-
-        </div>
-
-
-        <!-- SECTION 3 -->
-
-        <div class="section-title">
-          3. Vehicle EMI, Maintenance &amp; Fixed Costs
-        </div>
-
-
-        <!-- EMI -->
-
-        <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="emiInput">
-              Monthly Vehicle EMI / Rental
-            </label>
-
-            <div class="input-box-wrap">
-
-              <span>₹</span>
-
-              <input
-                type="number"
-                id="emiInput"
-                value="3000"
-                min="0"
-                max="40000"
-                step="500"
-                inputmode="decimal"
-              >
-
-            </div>
-
-          </div>
-
-          <input
-            type="range"
-            id="emiSlider"
-            class="range-slider"
-            min="0"
-            max="40000"
-            step="500"
-            value="3000"
-            aria-label="Monthly vehicle EMI or rental"
-          >
-
-        </div>
-
-
-        <!-- MAINTENANCE -->
-
-        <div class="input-group">
-
-          <div class="input-label-row">
-
-            <label for="maintInput">
-              Daily Maintenance Reserve
-            </label>
-
-            <div class="input-box-wrap">
-
-              <span>₹</span>
-
-              <input
-                type="number"
-                id="maintInput"
-                value="75"
-                min="0"
-                max="1000"
-                step="10"
-                inputmode="decimal"
-              >
-
-            </div>
-
-          </div>
-
-          <input
-            type="range"
-            id="maintSlider"
-            class="range-slider"
-            min="0"
-            max="1000"
-            step="10"
-            value="75"
-            aria-label="Daily maintenance reserve"
-          >
-
-          <div class="word-preview">
-            Servicing, engine oil, insurance &amp; tyre reserve
-          </div>
-
-        </div>
-
-
-        <!-- SIDEBAR AD -->
-
-        <div
-          class="ad-banner ad-300x250"
-          style="margin-top:1.5rem;"
-          aria-label="Advertisement"
-        >
-          Ad Slot — Sidebar (300x250)
-        </div>
-
+        <div class="ad-banner ad-300x250" style="margin-top:1.5rem;" aria-label="Sidebar Ad">Ad Slot — Sidebar (300x250)</div>
       </aside>
 
-
-      <!-- =========================
-           DASHBOARD
-      ========================== -->
-
       <section class="dashboard">
-
-
-        <!-- ACTIONS -->
-
         <div class="action-bar">
-
-          <button
-            class="action-btn whatsapp"
-            type="button"
-            onclick="shareWhatsApp()"
-          >
-            💬 Share Earnings on WhatsApp
-          </button>
-
-          <button
-            class="action-btn"
-            type="button"
-            onclick="copyShareableLink()"
-          >
-            🔗 Copy Link
-          </button>
-
-          <button
-            class="action-btn"
-            type="button"
-            onclick="window.print()"
-          >
-            🖨️ Print / Save PDF
-          </button>
-
+          <button class="action-btn whatsapp" onclick="shareWhatsApp()">💬 Share Earnings on WhatsApp</button>
+          <button class="action-btn" onclick="copyShareableLink()">🔗 Copy Link</button>
+          <button class="action-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
         </div>
-
-
-        <!-- TAX NOTICE -->
 
         <div class="tax-notice-card">
-
-          <strong>💡 Tax reminder:</strong>
-          this calculator estimates operating profit and is not a tax return.
-          Your actual tax treatment depends on your business structure,
-          turnover, applicable tax rules and other circumstances.
-          Consider consulting a qualified tax professional before filing.
-
+          <strong>💡 Tax reminder:</strong> this is taxable self-employment income. Most drivers qualify for presumptive taxation under Section 44AD (8%, or 6% for digital receipts, of gross turnover treated as taxable profit) instead of tracking every expense for filing — see the FAQ below for details.
         </div>
-
-
-        <!-- SUMMARY -->
 
         <div class="summary-cards">
-
-
           <div class="summary-card">
-
-            <div class="summary-title">
-              Gross Monthly Fares
-            </div>
-
-            <div
-              class="summary-val"
-              id="valGrossMonthly"
-            >
-              ₹0
-            </div>
-
-            <div
-              class="summary-words"
-              id="wordGrossDaily"
-            >
-              Before cuts
-            </div>
-
+            <div class="summary-title">Gross Monthly Fares</div>
+            <div class="summary-val" id="valGrossMonthly">₹0</div>
+            <div class="summary-words" id="wordGrossDaily">Before cuts</div>
           </div>
-
-
           <div class="summary-card">
-
-            <div class="summary-title">
-              Total Monthly Expenses
-            </div>
-
-            <div
-              class="summary-val"
-              id="valExpensesMonthly"
-            >
-              ₹0
-            </div>
-
-            <div
-              class="summary-words"
-              id="wordExpenses"
-            >
-              Fuel, commission &amp; EMI
-            </div>
-
+            <div class="summary-title">Total Monthly Expenses</div>
+            <div class="summary-val" id="valExpensesMonthly" style="color:var(--danger);">₹0</div>
+            <div class="summary-words" id="wordExpenses">Fuel, Comm & EMI</div>
           </div>
-
-
           <div class="summary-card highlight">
-
-            <div class="summary-title">
-              Net Take-Home Monthly
-            </div>
-
-            <div
-              class="summary-val"
-              id="valNetMonthly"
-            >
-              ₹0
-            </div>
-
-            <div
-              class="summary-words"
-              id="wordNetDaily"
-            >
-              Net operating income
-            </div>
-
+            <div class="summary-title">Net Take-Home Monthly</div>
+            <div class="summary-val" id="valNetMonthly" style="color:var(--accent);">₹0</div>
+            <div class="summary-words" id="wordNetDaily">Pure in-hand profit</div>
           </div>
-
         </div>
-
-
-        <!-- METRICS -->
 
         <div class="metrics-strip">
-
-
           <div class="metric-box">
-
-            <div class="summary-title">
-              Net Daily In-Hand
-            </div>
-
-            <div
-              class="summary-val"
-              id="valNetDaily"
-            >
-              ₹0
-            </div>
-
-            <div class="summary-words">
-              After operating costs
-            </div>
-
+            <div class="summary-title">Net Daily In-Hand</div>
+            <div class="summary-val" id="valNetDaily" style="color:var(--accent);">₹0</div>
+            <div class="summary-words">After daily cuts</div>
           </div>
-
-
           <div class="metric-box">
-
-            <div class="summary-title">
-              Real Hourly Wage
-            </div>
-
-            <div
-              class="summary-val"
-              id="valHourlyWage"
-            >
-              ₹0 /hr
-            </div>
-
-            <div class="summary-words">
-              Net per duty hour
-            </div>
-
+            <div class="summary-title">Real Hourly Wage</div>
+            <div class="summary-val" id="valHourlyWage" style="color:var(--primary);">₹0 /hr</div>
+            <div class="summary-words">Net per duty hour</div>
           </div>
-
-
           <div class="metric-box">
-
-            <div class="summary-title">
-              Dead-KM Energy Waste
-            </div>
-
-            <div
-              class="summary-val"
-              id="valDeadKmCost"
-            >
-              ₹0 /day
-            </div>
-
-            <div
-              class="summary-words"
-              id="wordDeadKmPct"
-            >
-              % of total energy spend
-            </div>
-
+            <div class="summary-title">Dead-KM Fuel Waste</div>
+            <div class="summary-val" id="valDeadKmCost" style="color:var(--danger);">₹0 /day</div>
+            <div class="summary-words" id="wordDeadKmPct">% of total fuel spend</div>
           </div>
-
         </div>
-
-
-        <!-- CHARTS -->
 
         <div class="charts-grid">
-
-
           <div class="chart-card">
-
-            <h3>
-              Revenue vs Outflow Split
-            </h3>
-
-            <div class="donut-wrap">
-              <canvas
-                id="ratioChart"
-                aria-label="Revenue versus outflow chart"
-              ></canvas>
-            </div>
-
+            <h3>Revenue vs Outflow Split</h3>
+            <div class="donut-wrap"><canvas id="ratioChart"></canvas></div>
           </div>
-
-
           <div class="chart-card">
-
-            <h3>
-              Daily Expense Breakdown
-            </h3>
-
-            <div class="growth-wrap">
-              <canvas
-                id="expenseChart"
-                aria-label="Daily expense breakdown chart"
-              ></canvas>
-            </div>
-
+            <h3>Daily Expense Breakdown</h3>
+            <div class="growth-wrap"><canvas id="expenseChart"></canvas></div>
           </div>
-
         </div>
-
-
-        <!-- VEHICLE BENCHMARK -->
 
         <div class="chart-card">
-
-          <h3>
-            Net Profit per KM by Vehicle Type
-          </h3>
-
-          <div class="bench-wrap">
-
-            <canvas
-              id="benchChart"
-              aria-label="Net profit per kilometre vehicle comparison"
-            ></canvas>
-
-          </div>
-
-          <div
-            class="field-note"
-            style="margin-top:.5rem;"
-          >
-            Illustrative comparison using each preset's default inputs.
-            Your actual numbers will vary by city, platform,
-            vehicle efficiency, charging/fuel price and operating costs.
-          </div>
-
+          <h3>Net Profit per KM by Vehicle Type</h3>
+          <div class="bench-wrap"><canvas id="benchChart"></canvas></div>
+          <div class="field-note" style="margin-top:.5rem;">Illustrative comparison using each preset's default inputs — your actual numbers will vary by city, platform, and vehicle condition.</div>
         </div>
-
-
-        <!-- FINANCIAL TABLE -->
 
         <div class="table-card">
-
           <div class="table-head-bar">
-
-            <h3>
-              Monthly Financial Statement (P&amp;L)
-            </h3>
-
-            <button
-              class="btn-action"
-              type="button"
-              onclick="exportTableToCSV()"
-            >
-              📥 Download CSV
-            </button>
-
+            <h3>Monthly Financial Statement (P&L)</h3>
+            <button class="btn-action" onclick="exportTableToCSV()">📥 Download CSV</button>
           </div>
-
           <div class="table-container">
-
             <table id="scheduleTable">
-
-              <thead>
-
-                <tr>
-                  <th>Particulars / Head</th>
-                  <th>Per Day (₹)</th>
-                  <th>Per Month (₹)</th>
-                  <th>% of Total Collection</th>
-                </tr>
-
-              </thead>
-
+              <thead><tr><th>Particulars / Head</th><th>Per Day (₹)</th><th>Per Month (₹)</th><th>% of Total Collection</th></tr></thead>
               <tbody id="scheduleBody"></tbody>
-
             </table>
-
           </div>
-
         </div>
-
       </section>
-
     </div>
-
-
-    <!-- =========================
-         METHODOLOGY
-    ========================== -->
 
     <section class="methodology-card">
-
-      <h3>
-        📐 Mathematical Methodology &amp; Verification
-      </h3>
-
+      <h3>📐 Mathematical Methodology & Verification</h3>
       <div class="formula-box">
-
         Total KM = Productive KM + Dead KM<br>
-
-        Daily Fuel / Energy Cost =
-        (Total KM ÷ Vehicle Efficiency)
-        × Fuel / Electricity Price<br>
-
-        Platform Commission =
-        Gross Daily Fares × Commission %<br>
-
-        Daily EMI Share =
-        Monthly EMI ÷ Working Days<br>
-
-        Net Take-Home =
-        Gross Fares − Commission − Energy Cost − EMI Share − Maintenance
-
+        Daily Fuel Cost = (Total KM ÷ Mileage) × Fuel Price — dead KM burns fuel but earns ₹0<br>
+        Net Take-Home = Gross Fares − (Commission + Fuel + Daily EMI Share + Maintenance)
       </div>
-
       <ul>
-
-        <li>
-          <strong>Dead-KM is modeled separately:</strong>
-          productive and dead kilometres are separate inputs,
-          allowing the energy cost of dry runs to be measured.
-        </li>
-
-        <li>
-          <strong>EV efficiency:</strong>
-          for an EV, the calculator interprets efficiency as
-          kilometres per kWh and the price input as rupees per kWh.
-        </li>
-
-        <li>
-          <strong>Fuel and electricity prices:</strong>
-          enter the actual price you pay because local fuel,
-          electricity and charging costs can vary significantly.
-        </li>
-
-        <li>
-          <strong>Client-side calculation:</strong>
-          the calculator performs calculations in your browser.
-          The entered calculator values are not sent to a KitnaPaisa server.
-        </li>
-
-        <li>
-          <strong>Important:</strong>
-          this is an estimate of operating income.
-          Actual earnings can differ because of incentives,
-          bonuses, cancellations, tolls, parking, downtime,
-          insurance, depreciation and other costs not explicitly entered.
-        </li>
-
+        <li><strong>Dead-KM now modeled explicitly:</strong> productive and dead kilometers are separate inputs, so the fuel-cost impact of dry runs is visible rather than buried in one flat distance number.</li>
+        <li><strong>Fuel/energy prices are local and volatile:</strong> unlike small-savings-scheme rates, there's no single national number for petrol, CNG, or EV charging tariffs — check today's local price for your city before relying on this projection.</li>
+        <li><strong>Client-Side Execution:</strong> All calculations run locally in your browser. No financial data is transmitted.</li>
       </ul>
-
     </section>
 
-
-    <!-- =========================
-         AUTHOR
-    ========================== -->
-
     <div class="author-card">
-
-      <div class="author-avatar">
-        KP
-      </div>
-
+      <div class="author-avatar">KP</div>
       <div class="author-info">
-
-        <h4>
-          Researched &amp; Maintained by the KitnaPaisa Financial Team
-        </h4>
-
-        <p>
-          KitnaPaisa provides free, transparent financial tools
-          designed to help users understand everyday financial
-          calculations and operating costs.
-        </p>
-
+        <h4>Researched & Maintained by the KitnaPaisa Financial Team</h4>
+        <p>KitnaPaisa provides free, transparent financial tools for Indian gig-economy workers and retail investors, adhering to standard cost-accounting principles.</p>
       </div>
-
     </div>
 
-
-    <!-- =========================
-         SEO ARTICLE + FAQ
-    ========================== -->
-
     <article class="content-article">
+      <h2>How Cab & Bike Taxi Driver Earnings Actually Work in India</h2>
+      <p>Driving on platforms like <strong>Uber, Ola, Rapido, and Namma Yatri</strong> provides instant daily payouts, but many driver-partners miscalculate their real net profit by focusing solely on gross fares without factoring in fuel inflation, dead kilometers, vehicle depreciation, and platform deductions.</p>
 
-      <h2>
-        How Cab &amp; Bike Taxi Driver Earnings Actually Work in India
-      </h2>
-
-      <p>
-        Driving on platforms such as Uber, Ola and Rapido can generate
-        substantial gross collections, but gross fares are not the same
-        as take-home income.
-      </p>
-
-      <p>
-        A driver also has to consider platform commissions,
-        petrol, CNG or electricity, kilometres driven without a passenger,
-        vehicle EMI or rental, maintenance and other operating expenses.
-      </p>
-
-      <p>
-        This calculator separates productive kilometres from dead
-        kilometres so that the energy cost of empty driving can be
-        understood more clearly.
-      </p>
-
-
-      <h2>
-        Frequently Asked Questions
-      </h2>
-
-
-      <!-- FAQ 1 -->
-
-      <div
-        class="faq-item"
-        id="faq1"
-      >
-
-        <div
-          class="faq-q"
-          role="button"
-          tabindex="0"
-          aria-expanded="false"
-          onclick="toggleFAQ(this)"
-          onkeydown="handleFAQKey(event,this)"
-        >
-
-          <span>
-            Why is my real hourly wage lower than my app earnings?
-          </span>
-
-          <span aria-hidden="true">
-            ▼
-          </span>
-
-        </div>
-
-        <div class="faq-a">
-
-          Your app earnings or gross collections do not necessarily
-          represent your final operating profit. Fuel or electricity,
-          platform commission, maintenance, EMI or rental and other
-          operating costs can reduce your real take-home amount.
-
-        </div>
-
-      </div>
-
-
-      <!-- FAQ 2 -->
-
-      <div
-        class="faq-item"
-        id="faq2"
-      >
-
-        <div
-          class="faq-q"
-          role="button"
-          tabindex="0"
-          aria-expanded="false"
-          onclick="toggleFAQ(this)"
-          onkeydown="handleFAQKey(event,this)"
-        >
-
-          <span>
-            What are dead kilometers (dry runs) in ride-hailing?
-          </span>
-
-          <span aria-hidden="true">
-            ▼
-          </span>
-
-        </div>
-
-        <div class="faq-a">
-
-          Dead kilometres are kilometres driven without a paying
-          passenger. Examples include travelling to a pickup point,
-          searching for ride requests, repositioning between busy areas
-          or returning home after completing a trip.
-          These kilometres consume fuel or electricity but do not
-          directly generate passenger fare.
-
-        </div>
-
-      </div>
-
-
-      <!-- FAQ 3 -->
-
-      <div
-        class="faq-item"
-        id="faq3"
-      >
-
-        <div
-          class="faq-q"
-          role="button"
-          tabindex="0"
-          aria-expanded="false"
-          onclick="toggleFAQ(this)"
-          onkeydown="handleFAQKey(event,this)"
-        >
-
-          <span>
-            How much difference does an Electric Vehicle make to driver profits?
-          </span>
-
-          <span aria-hidden="true">
-            ▼
-          </span>
-
-        </div>
-
-        <div class="faq-a">
-
-          EV operating costs can be lower than petrol or CNG on a
-          per-kilometre basis, but the actual difference depends on
-          vehicle efficiency, electricity price and charging method.
-          Home charging and public fast charging can have very different
-          costs per kWh.
-
-        </div>
-
-      </div>
-
-
-      <!-- FAQ 4 -->
-
-      <div
-        class="faq-item"
-        id="faq4"
-      >
-
-        <div
-          class="faq-q"
-          role="button"
-          tabindex="0"
-          aria-expanded="false"
-          onclick="toggleFAQ(this)"
-          onkeydown="handleFAQKey(event,this)"
-        >
-
-          <span>
-            Do ride-hailing drivers need to pay income tax on their earnings?
-          </span>
-
-          <span aria-hidden="true">
-            ▼
-          </span>
-
-        </div>
-
-        <div class="faq-a">
-
-          Ride-hailing income may be taxable depending on the driver's
-          circumstances and applicable tax rules. This calculator should
-          not be treated as a tax calculator or tax filing tool.
-          Drivers should check the current rules and consult a qualified
-          tax professional when necessary.
-
-        </div>
-
-      </div>
-
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span class="faq-question-text">Why is my real hourly wage lower than my app earnings?</span><span class="faq-arrow" aria-hidden="true">▼</span></div><div class="faq-a">Your driver partner app only reports gross collections minus platform commissions. It does not subtract the money spent daily on petrol/CNG/electricity, wear and tear on tyres/engine oil, and vehicle loan interest.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span class="faq-question-text">What are dead kilometers (dry runs) in ride-hailing?</span><span class="faq-arrow" aria-hidden="true">▼</span></div><div class="faq-a">Dead kilometers are the distance driven without a paying passenger — such as driving to pickup points, cruising for ride requests, or returning home after a drop. This fuel burn significantly reduces net hourly profit and this calculator lets you enter it separately from your paid, productive kilometers.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span class="faq-question-text">How much difference does an Electric Vehicle (EV) make to driver profits?</span><span class="faq-arrow" aria-hidden="true">▼</span></div><div class="faq-a">For cabs driving 150+ km daily, EV running costs are typically cheaper per km than Petrol/Diesel and somewhat cheaper than CNG, though the exact saving depends heavily on whether you charge at home (cheaper) or at public fast-charging stations (often 2x the cost).</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span class="faq-question-text">Do ride-hailing drivers need to pay income tax on their earnings?</span><span class="faq-arrow" aria-hidden="true">▼</span></div><div class="faq-a">Yes. Most driver-partners are treated as self-employed and can opt for presumptive taxation under Section 44AD, where 8% (or 6% for digital receipts) of gross turnover is deemed taxable profit, rather than tracking every expense separately. Very high-turnover drivers registered as e-commerce participants on aggregator platforms should also check GST registration requirements with a tax professional.</div></div>
     </article>
-
   </main>
 
-
-  <!-- TOAST -->
-
-  <div
-    id="toast"
-    class="toast"
-    role="status"
-    aria-live="polite"
-  >
-    Link copied to clipboard!
-  </div>
-
+  <div id="toast" class="toast">Link copied to clipboard!</div>
 
   <script>
-
-    /* =========================================================
-       GLOBAL STATE
-    ========================================================= */
-
-    let ratioChart = null;
-    let expenseChart = null;
-    let benchChart = null;
-
+    let ratioChart = null, expenseChart = null, benchChart = null;
+    let selectedVehicle = 'bike';
     let cachedStatement = [];
 
-    let selectedVehicle = 'bike';
-
-
-    /* =========================================================
-       VEHICLE PRESETS
-    ========================================================= */
-
     const VEHICLE_PRESETS = {
-
-      bike: {
-        rides: 16,
-        fare: 75,
-        productiveKm: 95,
-        deadKm: 25,
-        mileage: 45,
-        fuelRate: 98,
-        comm: 18,
-        emi: 2500,
-        maint: 40,
-        hours: 10,
-        days: 26,
-        label: 'Bike Taxi',
-        energyType: 'fuel'
-      },
-
-      auto: {
-        rides: 14,
-        fare: 110,
-        productiveKm: 85,
-        deadKm: 25,
-        mileage: 28,
-        fuelRate: 82,
-        comm: 15,
-        emi: 6500,
-        maint: 80,
-        hours: 10,
-        days: 26,
-        label: 'Auto',
-        energyType: 'fuel'
-      },
-
-      cab: {
-        rides: 10,
-        fare: 280,
-        productiveKm: 130,
-        deadKm: 40,
-        mileage: 22,
-        fuelRate: 82,
-        comm: 22,
-        emi: 12500,
-        maint: 150,
-        hours: 10,
-        days: 26,
-        label: 'Cab (CNG/Petrol)',
-        energyType: 'fuel'
-      },
-
-      ev: {
-        rides: 11,
-        fare: 290,
-        productiveKm: 140,
-        deadKm: 40,
-
-        /* EV efficiency = kilometres per kWh */
-        mileage: 8,
-
-        /* Electricity price = ₹ per kWh */
-        fuelRate: 12,
-
-        comm: 20,
-        emi: 15000,
-        maint: 60,
-        hours: 10,
-        days: 26,
-        label: 'EV Cab',
-        energyType: 'electricity'
-      }
-
+      bike: { rides: 16, fare: 75, productiveKm: 95, deadKm: 25, mileage: 45, fuelRate: 98, comm: 18, emi: 2500, maint: 40, hours: 10, days: 26, label: 'Bike Taxi' },
+      auto: { rides: 14, fare: 110, productiveKm: 85, deadKm: 25, mileage: 28, fuelRate: 82, comm: 15, emi: 6500, maint: 80, hours: 10, days: 26, label: 'Auto' },
+      cab: { rides: 10, fare: 280, productiveKm: 130, deadKm: 40, mileage: 22, fuelRate: 82, comm: 22, emi: 12500, maint: 150, hours: 10, days: 26, label: 'Cab (CNG/Petrol)' },
+      ev: { rides: 11, fare: 290, productiveKm: 140, deadKm: 40, mileage: 8, fuelRate: 12, comm: 20, emi: 15000, maint: 60, hours: 10, days: 26, label: 'EV Cab' }
     };
 
-
-    /* =========================================================
-       FORMATTING
-    ========================================================= */
-
-    function formatINR(val) {
-
-      if (
-        isNaN(val) ||
-        val === null ||
-        !isFinite(val)
-      ) {
-        return '₹0';
-      }
-
-      const rounded = Math.round(val);
-
-      const sign = rounded < 0 ? '-' : '';
-
-      return sign +
-        '₹' +
-        Math.abs(rounded).toLocaleString('en-IN');
-    }
-
-
+    function formatINR(val) { if (isNaN(val) || val === null) return '₹0'; return '₹' + Math.round(val).toLocaleString('en-IN'); }
     function formatToIndianWords(num) {
-
-      if (
-        isNaN(num) ||
-        !isFinite(num)
-      ) {
-        return '₹0';
-      }
-
-      const sign = num < 0 ? '-' : '';
-
-      const absolute = Math.abs(num);
-
-      if (absolute >= 10000000) {
-        return sign +
-          '₹' +
-          (absolute / 10000000).toFixed(2) +
-          ' Crore';
-      }
-
-      if (absolute >= 100000) {
-        return sign +
-          '₹' +
-          (absolute / 100000).toFixed(2) +
-          ' Lakh';
-      }
-
-      if (absolute >= 1000) {
-        return sign +
-          '₹' +
-          (absolute / 1000).toFixed(1) +
-          ' Thousand';
-      }
-
-      return sign +
-        '₹' +
-        Math.round(absolute);
+      if (isNaN(num) || num <= 0) return '₹0';
+      if (num >= 10000000) return '₹' + (num/10000000).toFixed(2) + ' Crore';
+      if (num >= 100000) return '₹' + (num/100000).toFixed(2) + ' Lakh';
+      if (num >= 1000) return '₹' + (num/1000).toFixed(1) + ' Thousand';
+      return '₹' + Math.round(num);
     }
-
-
-    function showToast(msg) {
-
-      const toast = document.getElementById('toast');
-
-      if (!toast) return;
-
-      toast.innerText = msg;
-
-      toast.classList.add('show');
-
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2500);
-
-    }
-
-
-    function clamp(el) {
-
-      if (!el) return;
-
-      const min = parseFloat(el.min);
-      const max = parseFloat(el.max);
-
-      let value = parseFloat(el.value);
-
-      if (isNaN(value)) return;
-
-      if (!isNaN(min) && value < min) {
-        value = min;
-      }
-
-      if (!isNaN(max) && value > max) {
-        value = max;
-      }
-
-      el.value = value;
-
-    }
-
-
-    /* =========================================================
-       THEME
-    ========================================================= */
+    function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+    function clamp(el) { if (!el) return; const min = parseFloat(el.min), max = parseFloat(el.max); let v = parseFloat(el.value); if (isNaN(v)) return; if (!isNaN(min) && v < min) v = min; if (!isNaN(max) && v > max) v = max; el.value = v; }
 
     function applyTheme(theme) {
-
-      document.documentElement.setAttribute(
-        'data-theme',
-        theme
-      );
-
-      const icon =
-        document.getElementById('themeIcon');
-
-      const text =
-        document.getElementById('themeText');
-
-      if (icon && text) {
-
-        if (theme === 'dark') {
-
-          icon.textContent = '☀️';
-          text.textContent = 'Light';
-
-        } else {
-
-          icon.textContent = '🌙';
-          text.textContent = 'Dark';
-
-        }
-
-      }
-
-      try {
-        localStorage.setItem('theme', theme);
-      } catch (error) {
-        /* Ignore storage errors */
-      }
-
-      updateChartTheme();
-
+      document.documentElement.setAttribute('data-theme', theme);
+      const icon = document.getElementById('themeIcon'), text = document.getElementById('themeText');
+      if (icon && text) { icon.textContent = theme === 'dark' ? '☀️' : '🌙'; text.textContent = theme === 'dark' ? 'Light' : 'Dark'; }
+      localStorage.setItem('theme', theme);
+      syncAndRecalculate();
     }
 
-
-    /* =========================================================
-       FIELD HELPERS
-    ========================================================= */
-
-    function setField(id, val) {
-
-      const input =
-        document.getElementById(id);
-
-      if (input) {
-        input.value = val;
-      }
-
-      const sliderId =
-        id.replace('Input', 'Slider');
-
-      const slider =
-        document.getElementById(sliderId);
-
-      if (slider) {
-        slider.value = val;
-      }
-
-    }
-
-
-    /* =========================================================
-       VEHICLE LABELS
-    ========================================================= */
-
-    function updateEnergyLabels(type) {
-
-      const preset =
-        VEHICLE_PRESETS[type];
-
-      if (!preset) return;
-
-      const mileageUnit =
-        document.getElementById('mileageUnit');
-
-      const fuelRateLabel =
-        document.getElementById('fuelRateLabel');
-
-      const fuelRateNote =
-        document.getElementById('fuelRateNote');
-
-      const deadKmTitle =
-        document.querySelector(
-          'label[for="deadKmInput"]'
-        );
-
-      if (preset.energyType === 'electricity') {
-
-        if (mileageUnit) {
-          mileageUnit.textContent = 'km/kWh';
-        }
-
-        if (fuelRateLabel) {
-          fuelRateLabel.textContent =
-            'Electricity Price';
-        }
-
-        if (fuelRateNote) {
-          fuelRateNote.textContent =
-            'Enter your charging cost in ₹ per kWh. Home, workplace and public fast charging can have different tariffs.';
-        }
-
-        if (deadKmTitle) {
-          deadKmTitle.textContent =
-            'Dead / Dry-Run KM';
-        }
-
-      } else {
-
-        if (mileageUnit) {
-          mileageUnit.textContent = 'km/L';
-        }
-
-        if (fuelRateLabel) {
-          fuelRateLabel.textContent =
-            'Fuel Price';
-        }
-
-        if (fuelRateNote) {
-          fuelRateNote.textContent =
-            'Enter the petrol or CNG price you actually pay. Prices vary by city and can change frequently.';
-        }
-
-        if (deadKmTitle) {
-          deadKmTitle.textContent =
-            'Dead / Dry-Run KM';
-        }
-
-      }
-
-    }
-
-
-    /* =========================================================
-       VEHICLE BUTTON STATE
-    ========================================================= */
-
-    function updateVehicleButtons(type) {
-
-      const buttonMap = {
-
-        bike: 'btnBike',
-        auto: 'btnAuto',
-        cab: 'btnCab',
-        ev: 'btnEV'
-
-      };
-
-      document
-        .querySelectorAll('.tab-btn')
-        .forEach(button => {
-
-          button.classList.remove('active');
-
-          button.setAttribute(
-            'aria-selected',
-            'false'
-          );
-
-        });
-
-
-      const activeButton =
-        document.getElementById(
-          buttonMap[type]
-        );
-
-
-      if (activeButton) {
-
-        activeButton.classList.add('active');
-
-        activeButton.setAttribute(
-          'aria-selected',
-          'true'
-        );
-
-      }
-
-    }
-
-
-    /* =========================================================
-       APPLY VEHICLE PRESET
-    ========================================================= */
+    function setField(id, val) { const el = document.getElementById(id); if (el) el.value = val; const slider = document.getElementById(id.replace('Input','Slider')); if (slider) slider.value = val; }
 
     function applyVehiclePreset(type) {
-
-      const preset =
-        VEHICLE_PRESETS[type];
-
-      if (!preset) {
-
-        console.error(
-          'Vehicle preset not found:',
-          type
-        );
-
-        return;
-
-      }
-
-
       selectedVehicle = type;
-
-
-      updateVehicleButtons(type);
-
-      updateEnergyLabels(type);
-
-
-      setField(
-        'ridesInput',
-        preset.rides
-      );
-
-      setField(
-        'fareInput',
-        preset.fare
-      );
-
-      setField(
-        'productiveKmInput',
-        preset.productiveKm
-      );
-
-      setField(
-        'deadKmInput',
-        preset.deadKm
-      );
-
-      setField(
-        'mileageInput',
-        preset.mileage
-      );
-
-      setField(
-        'fuelRateInput',
-        preset.fuelRate
-      );
-
-      setField(
-        'commInput',
-        preset.comm
-      );
-
-      setField(
-        'emiInput',
-        preset.emi
-      );
-
-      setField(
-        'maintInput',
-        preset.maint
-      );
-
-      setField(
-        'hoursInput',
-        preset.hours
-      );
-
-      setField(
-        'daysInput',
-        preset.days
-      );
-
-
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      const buttonIds = { bike:'btnBike', auto:'btnAuto', cab:'btnCab', ev:'btnEV' };
+      const activeButton = document.getElementById(buttonIds[type]);
+      if (activeButton) activeButton.classList.add('active');
+      const p = VEHICLE_PRESETS[type];
+      if (!p) return;
+      setField('ridesInput', p.rides);
+      setField('fareInput', p.fare);
+      setField('productiveKmInput', p.productiveKm);
+      setField('deadKmInput', p.deadKm);
+      setField('mileageInput', p.mileage);
+      setField('fuelRateInput', p.fuelRate);
+      setField('commInput', p.comm);
+      setField('emiInput', p.emi);
+      setField('maintInput', p.maint);
+      setField('hoursInput', p.hours);
+      setField('daysInput', p.days);
+      updateVehicleUnits(type);
       syncAndRecalculate();
-
     }
 
-
-    /* =========================================================
-       URL PARAMETERS
-    ========================================================= */
+    function updateVehicleUnits(type) {
+      const isEV = type === 'ev';
+      const unit = document.getElementById('mileageUnit');
+      const fuelLabel = document.getElementById('fuelRateLabel');
+      const fuelNote = document.querySelector('#fuelRateInput')?.closest('.input-group')?.querySelector('.field-note');
+      if (unit) unit.textContent = isEV ? 'km/kWh' : 'km/L';
+      if (fuelLabel) fuelLabel.textContent = isEV ? 'Electricity Price' : 'Fuel Price';
+      if (fuelNote) fuelNote.textContent = isEV ? 'Use your local electricity/charging cost per kWh. Public fast charging can cost more than home charging.' : 'Petrol/CNG prices vary significantly by city and state, and change often — check today\'s local rate.';
+    }
 
     function updateURLParams() {
-
-      const params =
-        new URLSearchParams();
-
-      params.set(
-        'vehicle',
-        selectedVehicle
-      );
-
-      params.set(
-        'rides',
-        document.getElementById(
-          'ridesInput'
-        )?.value || 14
-      );
-
-      params.set(
-        'fare',
-        document.getElementById(
-          'fareInput'
-        )?.value || 120
-      );
-
-      params.set(
-        'hrs',
-        document.getElementById(
-          'hoursInput'
-        )?.value || 10
-      );
-
-      params.set(
-        'days',
-        document.getElementById(
-          'daysInput'
-        )?.value || 26
-      );
-
-      params.set(
-        'comm',
-        document.getElementById(
-          'commInput'
-        )?.value || 20
-      );
-
-      params.set(
-        'pkm',
-        document.getElementById(
-          'productiveKmInput'
-        )?.value || 100
-      );
-
-      params.set(
-        'dkm',
-        document.getElementById(
-          'deadKmInput'
-        )?.value || 30
-      );
-
-      params.set(
-        'mil',
-        document.getElementById(
-          'mileageInput'
-        )?.value || 40
-      );
-
-      params.set(
-        'fuel',
-        document.getElementById(
-          'fuelRateInput'
-        )?.value || 98
-      );
-
-      params.set(
-        'emi',
-        document.getElementById(
-          'emiInput'
-        )?.value || 3000
-      );
-
-      params.set(
-        'maint',
-        document.getElementById(
-          'maintInput'
-        )?.value || 75
-      );
-
-
-      try {
-
-        window.history.replaceState(
-          {},
-          '',
-          `${window.location.pathname}?${params.toString()}`
-        );
-
-      } catch (error) {
-
-        /* Ignore URL update errors */
-
-      }
-
+      const p = new URLSearchParams();
+      p.set('rides', document.getElementById('ridesInput')?.value || 14);
+      p.set('fare', document.getElementById('fareInput')?.value || 120);
+      p.set('hrs', document.getElementById('hoursInput')?.value || 10);
+      p.set('days', document.getElementById('daysInput')?.value || 26);
+      p.set('comm', document.getElementById('commInput')?.value || 20);
+      p.set('pkm', document.getElementById('productiveKmInput')?.value || 100);
+      p.set('dkm', document.getElementById('deadKmInput')?.value || 30);
+      p.set('mil', document.getElementById('mileageInput')?.value || 40);
+      p.set('fuel', document.getElementById('fuelRateInput')?.value || 98);
+      p.set('emi', document.getElementById('emiInput')?.value || 3000);
+      p.set('maint', document.getElementById('maintInput')?.value || 75);
+      window.history.replaceState({}, '', `${window.location.pathname}?${p.toString()}`);
     }
 
-
-    /* =========================================================
-       LOAD URL PARAMETERS
-    ========================================================= */
-
-    function loadURLParams() {
-
-      const params =
-        new URLSearchParams(
-          window.location.search
-        );
-
-
-      const vehicle =
-        params.get('vehicle');
-
-
-      if (
-        vehicle &&
-        VEHICLE_PRESETS[vehicle]
-      ) {
-
-        selectedVehicle = vehicle;
-
-      }
-
-
-      const paramMap = {
-
-        rides: 'ridesInput',
-        fare: 'fareInput',
-        hrs: 'hoursInput',
-        days: 'daysInput',
-        comm: 'commInput',
-        pkm: 'productiveKmInput',
-        dkm: 'deadKmInput',
-        mil: 'mileageInput',
-        fuel: 'fuelRateInput',
-        emi: 'emiInput',
-        maint: 'maintInput'
-
-      };
-
-
-      Object.keys(paramMap)
-        .forEach(key => {
-
-          if (params.has(key)) {
-
-            setField(
-              paramMap[key],
-              params.get(key)
-            );
-
-          }
-
-        });
-
-
-      updateVehicleButtons(
-        selectedVehicle
-      );
-
-      updateEnergyLabels(
-        selectedVehicle
-      );
-
-    }
-
-
-    /* =========================================================
-       SHARE LINK
-    ========================================================= */
-
-    async function copyShareableLink() {
-
-      const url =
-        window.location.href;
-
-
-      try {
-
-        if (
-          navigator.clipboard &&
-          window.isSecureContext
-        ) {
-
-          await navigator.clipboard.writeText(
-            url
-          );
-
-        } else {
-
-          const textarea =
-            document.createElement('textarea');
-
-          textarea.value = url;
-
-          textarea.style.position = 'fixed';
-          textarea.style.opacity = '0';
-
-          document.body.appendChild(
-            textarea
-          );
-
-          textarea.focus();
-          textarea.select();
-
-          document.execCommand(
-            'copy'
-          );
-
-          textarea.remove();
-
-        }
-
-
-        showToast(
-          'Link copied with your exact calculator setup!'
-        );
-
-      } catch (error) {
-
-        showToast(
-          'Could not copy the link.'
-        );
-
-      }
-
-    }
-
-
-    /* =========================================================
-       WHATSAPP
-    ========================================================= */
-
+    function copyShareableLink() { navigator.clipboard.writeText(window.location.href); showToast('Link copied with your exact driver earnings setup!'); }
     function shareWhatsApp() {
-
-      const netMonthly =
-        document.getElementById(
-          'valNetMonthly'
-        )?.innerText || '';
-
-
-      const netDaily =
-        document.getElementById(
-          'valNetDaily'
-        )?.innerText || '';
-
-
-      const hourly =
-        document.getElementById(
-          'valHourlyWage'
-        )?.innerText || '';
-
-
-      const vehicleLabel =
-        VEHICLE_PRESETS[
-          selectedVehicle
-        ]?.label || 'Driver';
-
-
-      const text =
-        `My ${vehicleLabel} earnings estimate on KitnaPaisa:\n\n` +
-        `💰 Net Monthly: ${netMonthly}\n` +
-        `💵 Net Daily: ${netDaily}\n` +
-        `⏱️ Real Hourly Wage: ${hourly}\n\n` +
-        `Calculate yours:\n${window.location.href}`;
-
-
-      const whatsappURL =
-        `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-
-
-      window.open(
-        whatsappURL,
-        '_blank',
-        'noopener,noreferrer'
-      );
-
+      const netM = document.getElementById('valNetMonthly')?.innerText || '';
+      const netD = document.getElementById('valNetDaily')?.innerText || '';
+      const hr = document.getElementById('valHourlyWage')?.innerText || '';
+      const text = encodeURIComponent(`Check out my ride-hailing driver net earnings calculation:\n💰 Net Monthly In-Hand: ${netM}\n💵 Net Daily Profit: ${netD}\n⏱️ Real Hourly Wage: ${hr}\n\nCalculate yours on KitnaPaisa: ${window.location.href}`);
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     }
-
-
-    /* =========================================================
-       BENCHMARK CALCULATION
-    ========================================================= */
 
     function computeNetPerKm(preset) {
-
-      const totalKm =
-        preset.productiveKm +
-        preset.deadKm;
-
-
-      const grossDaily =
-        preset.rides *
-        preset.fare;
-
-
-      const commission =
-        grossDaily *
-        (preset.comm / 100);
-
-
-      const energyCost =
-        (totalKm / preset.mileage) *
-        preset.fuelRate;
-
-
-      const emiDaily =
-        preset.days > 0
-          ? preset.emi / preset.days
-          : 0;
-
-
-      const netDaily =
-        grossDaily -
-        commission -
-        energyCost -
-        emiDaily -
-        preset.maint;
-
-
-      return totalKm > 0
-        ? netDaily / totalKm
-        : 0;
-
+      const totalKm = preset.productiveKm + preset.deadKm;
+      const grossDaily = preset.rides * preset.fare;
+      const comm = grossDaily * (preset.comm / 100);
+      const fuel = (totalKm / preset.mileage) * preset.fuelRate;
+      const emiDaily = preset.emi / preset.days;
+      const netDaily = grossDaily - comm - fuel - emiDaily - preset.maint;
+      return totalKm > 0 ? netDaily / totalKm : 0;
     }
-
-
-    /* =========================================================
-       CHART THEME
-    ========================================================= */
-
-    function updateChartTheme() {
-
-      if (
-        typeof Chart === 'undefined'
-      ) {
-        return;
-      }
-
-
-      if (
-        ratioChart ||
-        expenseChart ||
-        benchChart
-      ) {
-
-        const data =
-          getCurrentCalculationData();
-
-        if (data) {
-
-          renderCharts(
-            data.gross,
-            data.net,
-            data.comm,
-            data.energy,
-            data.emi,
-            data.maint
-          );
-
-        }
-
-        renderBenchmarkChart();
-
-      }
-
-    }
-
-
-    /* =========================================================
-       BENCHMARK CHART
-    ========================================================= */
 
     function renderBenchmarkChart() {
-
-      const canvas =
-        document.getElementById(
-          'benchChart'
-        );
-
-
-      if (
-        !canvas ||
-        typeof Chart === 'undefined'
-      ) {
-        return;
-      }
-
-
-      const styles =
-        getComputedStyle(
-          document.documentElement
-        );
-
-
-      const textColor =
-        styles
-          .getPropertyValue(
-            '--chart-text'
-          )
-          .trim() ||
-        '#64748b';
-
-
-      const gridColor =
-        styles
-          .getPropertyValue(
-            '--chart-grid'
-          )
-          .trim() ||
-        '#e2e8f0';
-
-
-      const labels =
-        Object.values(
-          VEHICLE_PRESETS
-        ).map(
-          preset => preset.label
-        );
-
-
-      const data =
-        Object.values(
-          VEHICLE_PRESETS
-        ).map(
-          preset =>
-            computeNetPerKm(preset)
-        );
-
-
-      const colors = [
-        '#f59e0b',
-        '#8b5cf6',
-        '#2563eb',
-        '#10b981'
-      ];
-
-
-      if (benchChart) {
-        benchChart.destroy();
-      }
-
-
-      benchChart =
-        new Chart(
-          canvas.getContext('2d'),
-          {
-
-            type: 'bar',
-
-            data: {
-
-              labels,
-
-              datasets: [
-
-                {
-
-                  data:
-                    data.map(
-                      value =>
-                        Math.round(
-                          value * 100
-                        ) / 100
-                    ),
-
-                  backgroundColor:
-                    colors,
-
-                  borderRadius: 4
-
-                }
-
-              ]
-
-            },
-
-            options: {
-
-              responsive: true,
-
-              maintainAspectRatio: false,
-
-              plugins: {
-
-                legend: {
-                  display: false
-                },
-
-                tooltip: {
-
-                  callbacks: {
-
-                    label: context =>
-                      ` ₹${Number(context.raw).toFixed(2)}/km`
-
-                  }
-
-                }
-
-              },
-
-              scales: {
-
-                x: {
-
-                  grid: {
-                    display: false
-                  },
-
-                  ticks: {
-
-                    color: textColor,
-
-                    font: {
-                      size: 10
-                    }
-
-                  }
-
-                },
-
-                y: {
-
-                  grid: {
-
-                    color:
-                      gridColor,
-
-                    drawBorder: false
-
-                  },
-
-                  ticks: {
-
-                    color:
-                      textColor,
-
-                    callback:
-                      value =>
-                        '₹' + value
-
-                  }
-
-                }
-
-              }
-
-            }
-
-          }
-        );
-
+      const canvas = document.getElementById('benchChart');
+      if (!canvas || typeof Chart === 'undefined') return;
+      const cs = getComputedStyle(document.documentElement);
+      const textColor = cs.getPropertyValue('--chart-text').trim() || '#64748b';
+      const gridColor = cs.getPropertyValue('--chart-grid').trim() || '#e2e8f0';
+      const labels = Object.values(VEHICLE_PRESETS).map(p => p.label);
+      const data = Object.values(VEHICLE_PRESETS).map(p => computeNetPerKm(p));
+      const colors = ['#f59e0b', '#8b5cf6', '#2563eb', '#10b981'];
+      if (benchChart) benchChart.destroy();
+      benchChart = new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: { labels, datasets: [{ data: data.map(v => Math.round(v * 100) / 100), backgroundColor: colors, borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ₹${ctx.raw.toFixed(2)}/km` } } },
+          scales: { x: { grid: { display: false }, ticks: { color: textColor, font: { size: 10 } } }, y: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor, callback: v => '₹' + v } } } }
+      });
     }
-
-
-    /* =========================================================
-       GET CURRENT CALCULATION DATA
-    ========================================================= */
-
-    function getCurrentCalculationData() {
-
-      const rides =
-        parseInt(
-          document.getElementById(
-            'ridesInput'
-          )?.value
-        ) || 0;
-
-
-      const avgFare =
-        parseFloat(
-          document.getElementById(
-            'fareInput'
-          )?.value
-        ) || 0;
-
-
-      const workDays =
-        parseInt(
-          document.getElementById(
-            'daysInput'
-          )?.value
-        ) || 26;
-
-
-      const commPercent =
-        parseFloat(
-          document.getElementById(
-            'commInput'
-          )?.value
-        ) || 0;
-
-
-      const productiveKm =
-        parseFloat(
-          document.getElementById(
-            'productiveKmInput'
-          )?.value
-        ) || 0;
-
-
-      const deadKm =
-        parseFloat(
-          document.getElementById(
-            'deadKmInput'
-          )?.value
-        ) || 0;
-
-
-      const mileage =
-        Math.max(
-          0.1,
-          parseFloat(
-            document.getElementById(
-              'mileageInput'
-            )?.value
-          ) || 1
-        );
-
-
-      const energyRate =
-        parseFloat(
-          document.getElementById(
-            'fuelRateInput'
-          )?.value
-        ) || 0;
-
-
-      const monthlyEMI =
-        parseFloat(
-          document.getElementById(
-            'emiInput'
-          )?.value
-        ) || 0;
-
-
-      const dailyMaint =
-        parseFloat(
-          document.getElementById(
-            'maintInput'
-          )?.value
-        ) || 0;
-
-
-      const dutyHours =
-        parseFloat(
-          document.getElementById(
-            'hoursInput'
-          )?.value
-        ) || 1;
-
-
-      const dailyKm =
-        productiveKm +
-        deadKm;
-
-
-      const grossDaily =
-        rides *
-        avgFare;
-
-
-      const commission =
-        grossDaily *
-        (commPercent / 100);
-
-
-      const energyCost =
-        dailyKm > 0
-          ? (dailyKm / mileage) *
-            energyRate
-          : 0;
-
-
-      const deadKmEnergyCost =
-        deadKm > 0
-          ? (deadKm / mileage) *
-            energyRate
-          : 0;
-
-
-      const emiDaily =
-        workDays > 0
-          ? monthlyEMI / workDays
-          : 0;
-
-
-      const netDaily =
-        grossDaily -
-        commission -
-        energyCost -
-        emiDaily -
-        dailyMaint;
-
-
-      const hourly =
-        dutyHours > 0
-          ? netDaily / dutyHours
-          : 0;
-
-
-      return {
-
-        gross: grossDaily,
-
-        net: netDaily,
-
-        comm: commission,
-
-        energy: energyCost,
-
-        emi: emiDaily,
-
-        maint: dailyMaint,
-
-        deadEnergy: deadKmEnergyCost,
-
-        hourly,
-
-        workDays,
-
-        dailyKm,
-
-        deadKm,
-
-        mileage,
-
-        energyRate
-
-      };
-
-    }
-
-
-    /* =========================================================
-       MAIN CALCULATOR
-    ========================================================= */
 
     function syncAndRecalculate() {
-
-      const ridesInput =
-        document.getElementById(
-          'ridesInput'
-        );
-
-
-      if (!ridesInput) {
-        return;
-      }
-
-
-      const fields = [
-
-        'ridesInput',
-        'fareInput',
-        'hoursInput',
-        'daysInput',
-        'commInput',
-        'productiveKmInput',
-        'deadKmInput',
-        'mileageInput',
-        'fuelRateInput',
-        'emiInput',
-        'maintInput'
-
-      ];
-
-
-      fields.forEach(id => {
-
-        clamp(
-          document.getElementById(id)
-        );
-
-      });
-
-
-      const data =
-        getCurrentCalculationData();
-
-
-      if (!data) {
-        return;
-      }
-
-
-      /* =========================
-         PREVIEW
-      ========================== */
-
-      const deadPercentage =
-        data.dailyKm > 0
-          ? (
-              data.deadKm /
-              data.dailyKm
-            ) * 100
-          : 0;
-
-
-      const totalKmPreview =
-        document.getElementById(
-          'totalKmPreview'
-        );
-
-
-      if (totalKmPreview) {
-
-        totalKmPreview.innerText =
-          `${data.dailyKm} KM total driven ` +
-          `(${deadPercentage.toFixed(0)}% dead KM)`;
-
-      }
-
-
-      /* =========================
-         MONTHLY VALUES
-      ========================== */
-
-      const grossMonthly =
-        data.gross *
-        data.workDays;
-
-
-      const totalExpensesDaily =
-        data.comm +
-        data.energy +
-        data.emi +
-        data.maint;
-
-
-      const totalExpensesMonthly =
-        totalExpensesDaily *
-        data.workDays;
-
-
-      const netMonthly =
-        data.net *
-        data.workDays;
-
-
-      /* =========================
-         SUMMARY VALUES
-      ========================== */
-
-      const grossMonthlyEl =
-        document.getElementById(
-          'valGrossMonthly'
-        );
-
-
-      const expensesMonthlyEl =
-        document.getElementById(
-          'valExpensesMonthly'
-        );
-
-
-      const netMonthlyEl =
-        document.getElementById(
-          'valNetMonthly'
-        );
-
-
-      const netDailyEl =
-        document.getElementById(
-          'valNetDaily'
-        );
-
-
-      const hourlyEl =
-        document.getElementById(
-          'valHourlyWage'
-        );
-
-
-      const deadKmCostEl =
-        document.getElementById(
-          'valDeadKmCost'
-        );
-
-
-      if (grossMonthlyEl) {
-        grossMonthlyEl.innerText =
-          formatINR(grossMonthly);
-      }
-
-
-      if (expensesMonthlyEl) {
-
-        expensesMonthlyEl.innerText =
-          formatINR(
-            totalExpensesMonthly
-          );
-
-        expensesMonthlyEl.classList.toggle(
-          'negative-value',
-          totalExpensesMonthly < 0
-        );
-
-      }
-
-
-      if (netMonthlyEl) {
-
-        netMonthlyEl.innerText =
-          formatINR(netMonthly);
-
-        netMonthlyEl.classList.toggle(
-          'negative-value',
-          netMonthly < 0
-        );
-
-      }
-
-
-      if (netDailyEl) {
-
-        netDailyEl.innerText =
-          formatINR(data.net);
-
-        netDailyEl.classList.toggle(
-          'negative-value',
-          data.net < 0
-        );
-
-      }
-
-
-      if (hourlyEl) {
-
-        hourlyEl.innerText =
-          `${formatINR(data.hourly)} /hr`;
-
-        hourlyEl.classList.toggle(
-          'negative-value',
-          data.hourly < 0
-        );
-
-      }
-
-
-      if (deadKmCostEl) {
-
-        deadKmCostEl.innerText =
-          `${formatINR(data.deadEnergy)} /day`;
-
-      }
-
-
-      /* =========================
-         WORD DESCRIPTIONS
-      ========================== */
-
-      const wordGrossDaily =
-        document.getElementById(
-          'wordGrossDaily'
-        );
-
-
-      const wordExpenses =
-        document.getElementById(
-          'wordExpenses'
-        );
-
-
-      const wordNetDaily =
-        document.getElementById(
-          'wordNetDaily'
-        );
-
-
-      const wordDeadKmPct =
-        document.getElementById(
-          'wordDeadKmPct'
-        );
-
-
-      if (wordGrossDaily) {
-
-        wordGrossDaily.innerText =
-          `${formatINR(data.gross)} /day gross`;
-
-      }
-
-
-      if (wordExpenses) {
-
-        wordExpenses.innerText =
-          `${formatINR(totalExpensesDaily)} /day total cuts`;
-
-      }
-
-
-      if (wordNetDaily) {
-
-        wordNetDaily.innerText =
-          `${formatINR(data.net)} /day take-home`;
-
-      }
-
-
-      if (wordDeadKmPct) {
-
-        const percentage =
-          data.energy > 0
-            ? (
-                data.deadEnergy /
-                data.energy
-              ) * 100
-            : 0;
-
-
-        wordDeadKmPct.innerText =
-          `${percentage.toFixed(0)}% of total energy spend`;
-
-      }
-
-
-      /* =========================
-         FINANCIAL STATEMENT
-      ========================== */
-
-      const energyLabel =
-        VEHICLE_PRESETS[
-          selectedVehicle
-        ]?.energyType === 'electricity'
-          ? 'Electricity / Charging'
-          : 'Fuel';
-
+      const ridesInput = document.getElementById('ridesInput');
+      if (!ridesInput) return;
+      ['ridesInput','fareInput','hoursInput','daysInput','commInput','productiveKmInput','deadKmInput','mileageInput','fuelRateInput','emiInput','maintInput'].forEach(id => clamp(document.getElementById(id)));
+
+      const rides = parseInt(ridesInput.value) || 0;
+      const avgFare = parseFloat(document.getElementById('fareInput')?.value) || 0;
+      const dutyHours = parseFloat(document.getElementById('hoursInput')?.value) || 1;
+      const workDays = parseInt(document.getElementById('daysInput')?.value) || 26;
+      const commPercent = parseFloat(document.getElementById('commInput')?.value) || 0;
+      const productiveKm = parseFloat(document.getElementById('productiveKmInput')?.value) || 0;
+      const deadKm = parseFloat(document.getElementById('deadKmInput')?.value) || 0;
+      const dailyKm = productiveKm + deadKm;
+      const mileage = Math.max(0.1, parseFloat(document.getElementById('mileageInput')?.value) || 1);
+      const fuelRate = parseFloat(document.getElementById('fuelRateInput')?.value) || 0;
+      const monthlyEMI = parseFloat(document.getElementById('emiInput')?.value) || 0;
+      const dailyMaint = parseFloat(document.getElementById('maintInput')?.value) || 0;
+
+      document.getElementById('totalKmPreview').innerText = `${dailyKm} KM total driven (${((deadKm/Math.max(1,dailyKm))*100).toFixed(0)}% dead KM)`;
+
+      const grossDailyFare = rides * avgFare;
+      const dailyCommission = grossDailyFare * (commPercent / 100);
+      const dailyFuelCost = (dailyKm / mileage) * fuelRate;
+      const dailyDeadKmFuelCost = (deadKm / mileage) * fuelRate;
+      const dailyVehicleEMI = workDays > 0 ? (monthlyEMI / workDays) : 0;
+      const totalDailyExpenses = dailyCommission + dailyFuelCost + dailyVehicleEMI + dailyMaint;
+      const netDailyProfit = grossDailyFare - totalDailyExpenses;
+
+      const grossMonthlyFares = grossDailyFare * workDays;
+      const totalMonthlyExpenses = totalDailyExpenses * workDays;
+      const netMonthlyIncome = netDailyProfit * workDays;
+      const realHourlyWage = dutyHours > 0 ? (netDailyProfit / dutyHours) : 0;
+
+      document.getElementById('valGrossMonthly').innerText = formatINR(grossMonthlyFares);
+      document.getElementById('wordGrossDaily').innerText = `${formatINR(grossDailyFare)} /day gross`;
+      document.getElementById('valExpensesMonthly').innerText = formatINR(totalMonthlyExpenses);
+      document.getElementById('wordExpenses').innerText = `${formatINR(totalDailyExpenses)} /day total cuts`;
+      document.getElementById('valNetMonthly').innerText = formatINR(netMonthlyIncome);
+      document.getElementById('wordNetDaily').innerText = `${formatINR(netDailyProfit)} /day take-home`;
+      document.getElementById('valNetDaily').innerText = formatINR(netDailyProfit);
+      document.getElementById('valHourlyWage').innerText = `${formatINR(realHourlyWage)} /hr`;
+      document.getElementById('valDeadKmCost').innerText = formatINR(dailyDeadKmFuelCost) + ' /day';
+      document.getElementById('wordDeadKmPct').innerText = dailyFuelCost > 0 ? `${((dailyDeadKmFuelCost/dailyFuelCost)*100).toFixed(0)}% of total fuel spend` : '0% of total fuel spend';
 
       const statement = [
-
-        {
-          name:
-            'Gross Fares Collected',
-
-          daily:
-            data.gross,
-
-          monthly:
-            grossMonthly,
-
-          pct:
-            100
-
-        },
-
-        {
-          name:
-            `Platform Commission (${parseFloat(
-              document.getElementById(
-                'commInput'
-              )?.value
-            ) || 0}%)`,
-
-          daily:
-            -data.comm,
-
-          monthly:
-            -(data.comm *
-              data.workDays),
-
-          pct:
-            data.gross > 0
-              ? (
-                  data.comm /
-                  data.gross
-                ) * 100
-              : 0
-
-        },
-
-        {
-          name:
-            `${energyLabel} Outflow (incl. dead-KM)`,
-
-          daily:
-            -data.energy,
-
-          monthly:
-            -(data.energy *
-              data.workDays),
-
-          pct:
-            data.gross > 0
-              ? (
-                  data.energy /
-                  data.gross
-                ) * 100
-              : 0
-
-        },
-
-        {
-          name:
-            'Vehicle Loan EMI / Rental',
-
-          daily:
-            -data.emi,
-
-          monthly:
-            -(data.emi *
-              data.workDays),
-
-          pct:
-            data.gross > 0
-              ? (
-                  data.emi /
-                  data.gross
-                ) * 100
-              : 0
-
-        },
-
-        {
-          name:
-            'Maintenance, Tyres & Insurance Reserve',
-
-          daily:
-            -data.maint,
-
-          monthly:
-            -(data.maint *
-              data.workDays),
-
-          pct:
-            data.gross > 0
-              ? (
-                  data.maint /
-                  data.gross
-                ) * 100
-              : 0
-
-        },
-
-        {
-          name:
-            'Net In-Hand Driver Profit',
-
-          daily:
-            data.net,
-
-          monthly:
-            netMonthly,
-
-          pct:
-            data.gross > 0
-              ? (
-                  data.net /
-                  data.gross
-                ) * 100
-              : 0,
-
-          isNet:
-            true
-
-        }
-
+        { name: 'Gross Fares Collected', daily: grossDailyFare, monthly: grossMonthlyFares, pct: 100 },
+        { name: 'Platform Commission (' + commPercent + '%)', daily: -dailyCommission, monthly: -(dailyCommission * workDays), pct: grossDailyFare > 0 ? (dailyCommission / grossDailyFare * 100) : 0 },
+        { name: 'Fuel & Energy Outflow (incl. dead-KM)', daily: -dailyFuelCost, monthly: -(dailyFuelCost * workDays), pct: grossDailyFare > 0 ? (dailyFuelCost / grossDailyFare * 100) : 0 },
+        { name: 'Vehicle Loan EMI / Rental', daily: -dailyVehicleEMI, monthly: -monthlyEMI, pct: grossDailyFare > 0 ? (dailyVehicleEMI / grossDailyFare * 100) : 0 },
+        { name: 'Maintenance, Tyres & Insurance Reserve', daily: -dailyMaint, monthly: -(dailyMaint * workDays), pct: grossDailyFare > 0 ? (dailyMaint / grossDailyFare * 100) : 0 },
+        { name: 'Net In-Hand Driver Profit', daily: netDailyProfit, monthly: netMonthlyIncome, pct: grossDailyFare > 0 ? (netDailyProfit / grossDailyFare * 100) : 0, isNet: true }
       ];
 
-
-      cachedStatement =
-        statement;
-
-
-      renderTable(
-        statement
-      );
-
-
-      renderCharts(
-        data.gross,
-        data.net,
-        data.comm,
-        data.energy,
-        data.emi,
-        data.maint
-      );
-
-
+      cachedStatement = statement;
+      renderTable(statement);
+      renderCharts(grossDailyFare, netDailyProfit, dailyCommission, dailyFuelCost, dailyVehicleEMI, dailyMaint);
       renderBenchmarkChart();
-
-
       updateURLParams();
-
     }
 
-
-    /* =========================================================
-       RENDER TABLE
-    ========================================================= */
-
-    function renderTable(
-      statement
-    ) {
-
-      const tbody =
-        document.getElementById(
-          'scheduleBody'
-        );
-
-
-      if (!tbody) {
-        return;
-      }
-
-
+    function renderTable(statement) {
+      const tbody = document.getElementById('scheduleBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
-
-
       statement.forEach(row => {
-
-        const tr =
-          document.createElement(
-            'tr'
-          );
-
-
-        if (row.isNet) {
-
-          tr.style.fontWeight =
-            '800';
-
-        }
-
-
-        const dailyColor =
-          row.daily < 0
-            ? 'var(--danger)'
-            : row.isNet
-              ? 'var(--accent)'
-              : 'inherit';
-
-
-        const monthlyColor =
-          row.monthly < 0
-            ? 'var(--danger)'
-            : row.isNet
-              ? 'var(--accent)'
-              : 'inherit';
-
-
-        tr.innerHTML = `
-
-          <td>
-            ${escapeHTML(row.name)}
-          </td>
-
-          <td style="color:${dailyColor};">
-            ${formatINR(row.daily)}
-          </td>
-
-          <td style="color:${monthlyColor};">
-            ${formatINR(row.monthly)}
-          </td>
-
-          <td>
-            ${Number(row.pct).toFixed(1)}%
-          </td>
-
-        `;
-
-
-        tbody.appendChild(
-          tr
-        );
-
+        const tr = document.createElement('tr');
+        if (row.isNet) tr.style.fontWeight = '800';
+        tr.innerHTML = `<td>${row.name}</td><td style="color:${row.daily < 0 ? 'var(--danger)' : (row.isNet ? 'var(--accent)' : 'inherit')};">${formatINR(row.daily)}</td><td style="color:${row.monthly < 0 ? 'var(--danger)' : (row.isNet ? 'var(--accent)' : 'inherit')};">${formatINR(row.monthly)}</td><td>${row.pct.toFixed(1)}%</td>`;
+        tbody.appendChild(tr);
       });
-
     }
-
-
-    /* =========================================================
-       ESCAPE HTML
-    ========================================================= */
-
-    function escapeHTML(value) {
-
-      return String(value)
-        .replace(
-          /[&<>"']/g,
-          char => ({
-
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-
-          })[char]
-        );
-
-    }
-
-
-    /* =========================================================
-       CSV EXPORT
-    ========================================================= */
 
     function exportTableToCSV() {
+      if (!cachedStatement || !cachedStatement.length) return;
+      let csv = 'Particulars,Per Day (INR),Per Month (INR),Percent of Gross (%)\n';
+      cachedStatement.forEach(r => { csv += `"${r.name}",${Math.round(r.daily)},${Math.round(r.monthly)},${r.pct.toFixed(1)}%\n`; });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `Driver_Earnings_Statement_${new Date().getFullYear()}.csv`;
+      link.click();
+    }
 
-      if (
-        !cachedStatement ||
-        !cachedStatement.length
-      ) {
+    function renderCharts(gross, net, comm, fuel, emi, maint) {
+      const canvasDonut = document.getElementById('ratioChart'), canvasExpense = document.getElementById('expenseChart');
+      if (!canvasDonut || !canvasExpense || typeof Chart === 'undefined') return;
+      const cs = getComputedStyle(document.documentElement);
+      const textColor = cs.getPropertyValue('--chart-text').trim() || '#64748b';
+      const gridColor = cs.getPropertyValue('--chart-grid').trim() || '#e2e8f0';
+      const accentColor = cs.getPropertyValue('--accent').trim() || '#10b981';
+      const dangerColor = cs.getPropertyValue('--danger').trim() || '#ef4444';
+      const primaryColor = cs.getPropertyValue('--primary').trim() || '#2563eb';
+      const amberColor = cs.getPropertyValue('--amber').trim() || '#f59e0b';
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const borderColor = isDark ? '#111111' : '#ffffff';
 
-        return;
-
-      }
-
-
-      let csv =
-        'Particulars,Per Day (INR),Per Month (INR),Percent of Gross (%)\n';
-
-
-      cachedStatement.forEach(row => {
-
-        csv +=
-          `"${String(row.name).replace(/"/g, '""')}",` +
-          `${Math.round(row.daily)},` +
-          `${Math.round(row.monthly)},` +
-          `${Number(row.pct).toFixed(1)}%\n`;
-
+      if (ratioChart) ratioChart.destroy();
+      const totalOutflows = Math.max(0, comm + fuel + emi + maint);
+      const realProfit = Math.max(0, net);
+      ratioChart = new Chart(canvasDonut.getContext('2d'), {
+        type: 'doughnut',
+        data: { labels: ['Net In-Hand Profit', 'Total Operational Cuts'], datasets: [{ data: [Math.round(realProfit), Math.round(totalOutflows)], backgroundColor: [accentColor, dangerColor], borderColor, borderWidth: 2 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: textColor, font: { size: 11 } } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${formatINR(ctx.raw)} (${((ctx.raw/(realProfit+totalOutflows||1))*100).toFixed(1)}%)` } } } }
       });
 
-
-      const blob =
-        new Blob(
-          [csv],
-          {
-            type:
-              'text/csv;charset=utf-8;'
-          }
-        );
-
-
-      const link =
-        document.createElement(
-          'a'
-        );
-
-
-      const url =
-        URL.createObjectURL(
-          blob
-        );
-
-
-      link.href = url;
-
-      link.download =
-        `Driver_Earnings_Statement_${new Date().getFullYear()}.csv`;
-
-
-      document.body.appendChild(
-        link
-      );
-
-
-      link.click();
-
-
-      link.remove();
-
-
-      setTimeout(() => {
-
-        URL.revokeObjectURL(
-          url
-        );
-
-      }, 1000);
-
+      if (expenseChart) expenseChart.destroy();
+      expenseChart = new Chart(canvasExpense.getContext('2d'), {
+        type: 'bar',
+        data: { labels: ['Platform Comm', 'Fuel Burn', 'Vehicle EMI', 'Maintenance'], datasets: [{ label: 'Daily Outflow (₹)', data: [Math.round(comm), Math.round(fuel), Math.round(emi), Math.round(maint)], backgroundColor: [dangerColor, amberColor, primaryColor, '#94a3b8'], borderRadius: 6 }] },
+        options: { responsive: true, maintainAspectRatio: false, scales: { x: { grid: { display: false }, ticks: { color: textColor } }, y: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor, callback: v => '₹' + v } } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${formatINR(ctx.raw)}` } } } }
+      });
     }
 
-
-    /* =========================================================
-       CHARTS
-    ========================================================= */
-
-    function renderCharts(
-      gross,
-      net,
-      comm,
-      energy,
-      emi,
-      maint
-    ) {
-
-      const canvasDonut =
-        document.getElementById(
-          'ratioChart'
-        );
-
-
-      const canvasExpense =
-        document.getElementById(
-          'expenseChart'
-        );
-
-
-      if (
-        !canvasDonut ||
-        !canvasExpense ||
-        typeof Chart === 'undefined'
-      ) {
-
-        return;
-
-      }
-
-
-      const styles =
-        getComputedStyle(
-          document.documentElement
-        );
-
-
-      const textColor =
-        styles
-          .getPropertyValue(
-            '--chart-text'
-          )
-          .trim() ||
-        '#64748b';
-
-
-      const gridColor =
-        styles
-          .getPropertyValue(
-            '--chart-grid'
-          )
-          .trim() ||
-        '#e2e8f0';
-
-
-      const accentColor =
-        styles
-          .getPropertyValue(
-            '--accent'
-          )
-          .trim() ||
-        '#10b981';
-
-
-      const dangerColor =
-        styles
-          .getPropertyValue(
-            '--danger'
-          )
-          .trim() ||
-        '#ef4444';
-
-
-      const primaryColor =
-        styles
-          .getPropertyValue(
-            '--primary'
-          )
-          .trim() ||
-        '#2563eb';
-
-
-      const amberColor =
-        styles
-          .getPropertyValue(
-            '--amber'
-          )
-          .trim() ||
-        '#f59e0b';
-
-
-      const isDark =
-        document.documentElement
-          .getAttribute(
-            'data-theme'
-          ) === 'dark';
-
-
-      const borderColor =
-        isDark
-          ? '#111111'
-          : '#ffffff';
-
-
-      /* =========================
-         DONUT
-      ========================== */
-
-      if (ratioChart) {
-
-        ratioChart.destroy();
-
-      }
-
-
-      const totalOutflows =
-        Math.max(
-          0,
-          comm +
-          energy +
-          emi +
-          maint
-        );
-
-
-      const positiveProfit =
-        Math.max(
-          0,
-          net
-        );
-
-
-      let donutValues;
-
-
-      if (
-        positiveProfit === 0 &&
-        totalOutflows === 0
-      ) {
-
-        donutValues = [1, 0];
-
-      } else {
-
-        donutValues = [
-          positiveProfit,
-          totalOutflows
-        ];
-
-      }
-
-
-      ratioChart =
-        new Chart(
-          canvasDonut.getContext('2d'),
-          {
-
-            type: 'doughnut',
-
-            data: {
-
-              labels: [
-                'Net In-Hand Profit',
-                'Total Operational Cuts'
-              ],
-
-              datasets: [
-
-                {
-
-                  data:
-                    donutValues,
-
-                  backgroundColor: [
-                    accentColor,
-                    dangerColor
-                  ],
-
-                  borderColor:
-                    borderColor,
-
-                  borderWidth: 2
-
-                }
-
-              ]
-
-            },
-
-            options: {
-
-              responsive: true,
-
-              maintainAspectRatio: false,
-
-              plugins: {
-
-                legend: {
-
-                  position: 'bottom',
-
-                  labels: {
-
-                    color:
-                      textColor,
-
-                    font: {
-                      size: 11
-                    }
-
-                  }
-
-                },
-
-                tooltip: {
-
-                  callbacks: {
-
-                    label: context => {
-
-                      const total =
-                        positiveProfit +
-                        totalOutflows;
-
-                      const percentage =
-                        total > 0
-                          ? (
-                              context.raw /
-                              total
-                            ) * 100
-                          : 0;
-
-                      return (
-                        ` ${context.label}: ` +
-                        `${formatINR(context.raw)} ` +
-                        `(${percentage.toFixed(1)}%)`
-                      );
-
-                    }
-
-                  }
-
-                }
-
-              }
-
-            }
-
-          }
-        );
-
-
-      /* =========================
-         EXPENSE BAR
-      ========================== */
-
-      if (expenseChart) {
-
-        expenseChart.destroy();
-
-      }
-
-
-      expenseChart =
-        new Chart(
-          canvasExpense.getContext('2d'),
-          {
-
-            type: 'bar',
-
-            data: {
-
-              labels: [
-                'Platform Comm',
-                'Fuel / Charging',
-                'Vehicle EMI',
-                'Maintenance'
-              ],
-
-              datasets: [
-
-                {
-
-                  label:
-                    'Daily Outflow (₹)',
-
-                  data: [
-
-                    Math.round(comm),
-
-                    Math.round(energy),
-
-                    Math.round(emi),
-
-                    Math.round(maint)
-
-                  ],
-
-                  backgroundColor: [
-
-                    dangerColor,
-                    amberColor,
-                    primaryColor,
-                    '#94a3b8'
-
-                  ],
-
-                  borderRadius: 6
-
-                }
-
-              ]
-
-            },
-
-            options: {
-
-              responsive: true,
-
-              maintainAspectRatio: false,
-
-              scales: {
-
-                x: {
-
-                  grid: {
-                    display: false
-                  },
-
-                  ticks: {
-                    color: textColor
-                  }
-
-                },
-
-                y: {
-
-                  grid: {
-
-                    color:
-                      gridColor,
-
-                    drawBorder: false
-
-                  },
-
-                  ticks: {
-
-                    color:
-                      textColor,
-
-                    callback:
-                      value =>
-                        '₹' + value
-
-                  }
-
-                }
-
-              },
-
-              plugins: {
-
-                legend: {
-                  display: false
-                },
-
-                tooltip: {
-
-                  callbacks: {
-
-                    label:
-                      context =>
-                        ` ${context.dataset.label}: ${formatINR(context.raw)}`
-
-                  }
-
-                }
-
-              }
-
-            }
-
-          }
-        );
-
-    }
-
-
-    /* =========================================================
-       FAQ
-    ========================================================= */
-
-    function toggleFAQ(element) {
-
-      if (!element) return;
-
-      const item =
-        element.parentElement;
-
-
-      const currentlyOpen =
-        item.classList.contains(
-          'open'
-        );
-
-
-      item.classList.toggle(
-        'open',
-        !currentlyOpen
-      );
-
-
-      element.setAttribute(
-        'aria-expanded',
-        String(!currentlyOpen)
-      );
-
-    }
-
-
-    function handleFAQKey(
-      event,
-      element
-    ) {
-
-      if (
-        event.key === 'Enter' ||
-        event.key === ' '
-      ) {
-
-        event.preventDefault();
-
-        toggleFAQ(element);
-
-      }
-
-    }
-
-
-    /* =========================================================
-       INPUT SYNC
-    ========================================================= */
-
-    function bindInputSync(
-      numId,
-      sliderId
-    ) {
-
-      const num =
-        document.getElementById(
-          numId
-        );
-
-
-      const slider =
-        document.getElementById(
-          sliderId
-        );
-
-
-      if (!num || !slider) {
-        return;
-      }
-
-
-      num.addEventListener(
-        'input',
-        () => {
-
-          clamp(num);
-
-          slider.value =
-            num.value;
-
-          syncAndRecalculate();
-
+    document.addEventListener('DOMContentLoaded', () => {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light'));
+
+      document.getElementById('themeToggle')?.addEventListener('click', () => {
+        applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      });
+
+      function bindInputSync(numId, sliderId) {
+        const num = document.getElementById(numId), slider = document.getElementById(sliderId);
+        if (num && slider) {
+          num.addEventListener('input', () => { clamp(num); slider.value = num.value; syncAndRecalculate(); });
+          slider.addEventListener('input', () => { num.value = slider.value; syncAndRecalculate(); });
         }
-      );
-
-
-      slider.addEventListener(
-        'input',
-        () => {
-
-          num.value =
-            slider.value;
-
-          syncAndRecalculate();
-
-        }
-      );
-
-    }
-
-
-    /* =========================================================
-       INITIALIZATION
-    ========================================================= */
-
-    document.addEventListener(
-      'DOMContentLoaded',
-      () => {
-
-        /* =========================
-           THEME
-        ========================== */
-
-        let savedTheme = null;
-
-        try {
-
-          savedTheme =
-            localStorage.getItem(
-              'theme'
-            );
-
-        } catch (error) {
-
-          savedTheme = null;
-
-        }
-
-
-        const prefersDark =
-          window.matchMedia &&
-          window.matchMedia(
-            '(prefers-color-scheme: dark)'
-          ).matches;
-
-
-        applyTheme(
-          savedTheme ||
-          (prefersDark
-            ? 'dark'
-            : 'light')
-        );
-
-
-        /* =========================
-           THEME BUTTON
-        ========================== */
-
-        const themeToggle =
-          document.getElementById(
-            'themeToggle'
-          );
-
-
-        if (themeToggle) {
-
-          themeToggle.addEventListener(
-            'click',
-            () => {
-
-              const currentTheme =
-                document.documentElement
-                  .getAttribute(
-                    'data-theme'
-                  );
-
-
-              applyTheme(
-                currentTheme === 'dark'
-                  ? 'light'
-                  : 'dark'
-              );
-
-            }
-          );
-
-        }
-
-
-        /* =========================
-           INPUTS
-        ========================== */
-
-        bindInputSync(
-          'ridesInput',
-          'ridesSlider'
-        );
-
-        bindInputSync(
-          'fareInput',
-          'fareSlider'
-        );
-
-        bindInputSync(
-          'hoursInput',
-          'hoursSlider'
-        );
-
-        bindInputSync(
-          'daysInput',
-          'daysSlider'
-        );
-
-        bindInputSync(
-          'commInput',
-          'commSlider'
-        );
-
-        bindInputSync(
-          'productiveKmInput',
-          'productiveKmSlider'
-        );
-
-        bindInputSync(
-          'deadKmInput',
-          'deadKmSlider'
-        );
-
-        bindInputSync(
-          'mileageInput',
-          'mileageSlider'
-        );
-
-        bindInputSync(
-          'fuelRateInput',
-          'fuelRateSlider'
-        );
-
-        bindInputSync(
-          'emiInput',
-          'emiSlider'
-        );
-
-        bindInputSync(
-          'maintInput',
-          'maintSlider'
-        );
-
-
-        /* =========================
-           LOAD URL
-        ========================== */
-
-        loadURLParams();
-
-
-        /* =========================
-           CALCULATE
-        ========================== */
-
-        updateEnergyLabels(
-          selectedVehicle
-        );
-
-        updateVehicleButtons(
-          selectedVehicle
-        );
-
-        syncAndRecalculate();
-
       }
-    );
+      bindInputSync('ridesInput', 'ridesSlider');
+      bindInputSync('fareInput', 'fareSlider');
+      bindInputSync('hoursInput', 'hoursSlider');
+      bindInputSync('daysInput', 'daysSlider');
+      bindInputSync('commInput', 'commSlider');
+      bindInputSync('productiveKmInput', 'productiveKmSlider');
+      bindInputSync('deadKmInput', 'deadKmSlider');
+      bindInputSync('mileageInput', 'mileageSlider');
+      bindInputSync('fuelRateInput', 'fuelRateSlider');
+      bindInputSync('emiInput', 'emiSlider');
+      bindInputSync('maintInput', 'maintSlider');
 
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramMap = { rides: 'ridesInput', fare: 'fareInput', hrs: 'hoursInput', days: 'daysInput', comm: 'commInput', pkm: 'productiveKmInput', dkm: 'deadKmInput', mil: 'mileageInput', fuel: 'fuelRateInput', emi: 'emiInput', maint: 'maintInput' };
+      Object.keys(paramMap).forEach(key => {
+        if (urlParams.has(key)) setField(paramMap[key], urlParams.get(key));
+      });
+
+      updateVehicleUnits(selectedVehicle);
+      syncAndRecalculate();
+    });
   </script>
-
 </body>
 </html>
