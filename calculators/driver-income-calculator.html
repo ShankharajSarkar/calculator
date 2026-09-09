@@ -855,54 +855,51 @@
       margin-bottom: .5rem;
     }
 
-    /* =========================
-       FAQ
-    ========================== */
+   /* =========================
+   FAQ ACCORDION
+   ========================= */
 
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: .75rem 0;
-    }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
 
-    .faq-item:last-child {
-      border-bottom: none;
-    }
+.faq-q {
+  font-weight: 600;
+  font-size: .9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .9rem 0;
+  line-height: 1.4;
+  user-select: none;
+}
 
-    .faq-q {
-      font-weight: 600;
-      font-size: .9rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: .75rem;
-      list-style: none;
-    }
+.faq-q span {
+  flex: 0 0 auto;
+  font-size: .75rem;
+  transition: transform .25s ease;
+  transform: rotate(0deg);
+}
 
-    .faq-q::-webkit-details-marker {
-      display: none;
-    }
+.faq-item.open .faq-q span {
+  transform: rotate(180deg);
+}
 
-    .faq-q span {
-      flex-shrink: 0;
-      transition: transform .2s ease;
-    }
+.faq-a {
+  margin: 0;
+  padding: 0 0 .9rem;
+  color: var(--text-muted);
+  font-size: .85rem;
+  line-height: 1.55;
+  display: none;
+}
 
-    .faq-item.open .faq-q span {
-      transform: rotate(180deg);
-    }
-
-    .faq-a {
-      margin-top: .4rem;
-      color: var(--text-muted);
-      font-size: .85rem;
-      line-height: 1.6;
-      display: none;
-    }
-
-    .faq-item.open .faq-a {
-      display: block;
-    }
+.faq-item.open .faq-a {
+  display: block;
+}
 
     /* =========================
        TOAST
