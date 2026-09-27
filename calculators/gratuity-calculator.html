@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Adsense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3340354132198777" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Gratuity Calculator 2026 — Calculate Gratuity, Tax Exemption & 15/26 Formula | KitnaPaisa</title>
+  <meta name="description" content="Use the advanced KitnaPaisa Gratuity Calculator to calculate Indian gratuity using the 15/26 formula, revised wage definition from 21 November 2025, service rounding, statutory ceiling, future projections, and detailed Section 10(10) tax exemption breakdown.">
+  <link rel="canonical" href="https://kitnapaisa.in/calculators/gratuity-calculator.html">
+  <meta name="theme-color" content="#000000">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kitnapaisa.in/calculators/gratuity-calculator.html">
+  <meta property="og:title" content="Gratuity Calculator 2026 — 15/26 Formula & Tax Exemption | KitnaPaisa">
+  <meta property="og:description" content="Calculate gratuity, eligible service years, statutory wage, gratuity ceiling, future projections, and estimated tax-exempt gratuity.">
+  <meta property="og:image" content="https://kitnapaisa.in/assets/og-cover.png">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZPBH5KCD4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YZPBH5KCD4');
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"WebApplication",
+        "name":"KitnaPaisa Gratuity Calculator",
+        "url":"https://kitnapaisa.in/calculators/gratuity-calculator.html",
+        "applicationCategory":"FinanceApplication",
+        "operatingSystem":"All",
+        "dateModified":"2026-09-28",
+        "author":{"@type":"Organization","name":"KitnaPaisa Research Team","url":"https://kitnapaisa.in/"}
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"What is the gratuity calculation formula in India?",
+            "acceptedAnswer":{"@type":"Answer","text":"For a monthly-rated employee, gratuity is generally calculated as last drawn statutory wages multiplied by 15, divided by 26, and multiplied by the number of eligible years of service. A part of a year exceeding six months is counted as a completed year under the gratuity provisions."}
+          },
+          {
+            "@type":"Question",
+            "name":"What is the 15/26 gratuity formula?",
+            "acceptedAnswer":{"@type":"Answer","text":"The 15/26 formula means 15 days of wages for every eligible year of service. For a monthly-rated employee, the monthly wage is divided by 26 and multiplied by 15, then multiplied by the eligible years of service."}
+          },
+          {
+            "@type":"Question",
+            "name":"How is gratuity calculated after 21 November 2025?",
+            "acceptedAnswer":{"@type":"Answer","text":"The Ministry of Labour and Employment states that the revised definition of wages under the Labour Codes applies to gratuity from 21 November 2025. If excluded allowances exceed 50% of total remuneration, the excess is added back to wages for statutory calculations."}
+          },
+          {
+            "@type":"Question",
+            "name":"Is gratuity taxable in India?",
+            "acceptedAnswer":{"@type":"Answer","text":"Tax treatment depends on the employee category. For non-government employees, the tax-exempt amount is the least of: (1) Actual gratuity received, (2) ₹20,00,000, or (3) 15 days' salary × completed years of service. The excess is taxable."}
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{
+      --bg:#f8fafc;--surface:#fff;--surface-subtle:#f1f5f9;--border:#e2e8f0;
+      --text:#0f172a;--text-muted:#64748b;--primary:#2563eb;--primary-light:#eff6ff;
+      --accent:#10b981;--amber:#f59e0b;--danger:#ef4444;
+      --card-shadow:0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -1px rgba(0,0,0,.03);
+      --chart-text:#64748b;--chart-grid:#e2e8f0;
+    }
+    [data-theme="dark"]{
+      --bg:#000;--surface:#111;--surface-subtle:#1c1c1c;--border:#262626;
+      --text:#f5f5f5;--text-muted:#a3a3a3;--primary:#3b82f6;--primary-light:rgba(59,130,246,.15);
+      --accent:#34d399;--amber:#fbbf24;--danger:#f87171;--card-shadow:0 4px 12px rgba(0,0,0,.7);
+      --chart-text:#a3a3a3;--chart-grid:#262626;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{width:100%;min-height:100%;overflow-x:hidden}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;transition:background .3s, color .3s}
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 1rem}
+    header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20;width:100%;backdrop-filter:blur(8px);background:rgba(255,255,255,0.85)}
+    [data-theme="dark"] header{background:rgba(17,17,17,0.85)}
+    .nav-wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+    .nav-left{display:flex;align-items:center;gap:1rem}
+    .logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-weight:700;font-size:1.1rem}
+    .logo-badge{background:var(--primary);color:#fff;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px}
+    .nav-link{color:var(--text-muted);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
+    .nav-link:hover{color:var(--primary)}
+    .theme-toggle{background:var(--surface-subtle);border:1px solid var(--border);color:var(--text);padding:.35rem .75rem;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;transition:all .2s}
+    .theme-toggle:hover{border-color:var(--primary)}
+    .ad-banner{background:var(--surface);border:1px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:.8rem;margin:1rem auto;width:100%}
+    .ad-728x90{min-height:90px;max-width:728px}.ad-300x250{min-height:250px}
+    .page-head{text-align:center;margin:1.5rem 0 2rem}.page-head h1{font-size:1.85rem;font-weight:800;margin-bottom:.4rem;letter-spacing:-0.02em}
+    .page-head p{color:var(--text-muted);font-size:.95rem;max-width:600px;margin:0 auto}
+    .trust-badge-bar{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;font-size:.78rem;color:var(--text-muted);background:var(--surface-subtle);border:1px solid var(--border);padding:.5rem 1rem;border-radius:9999px;width:fit-content;margin:1rem auto 0}
+    .trust-badge-bar strong{color:var(--text)}
+    .calc-layout{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:1.5rem;align-items:start}
+    .input-panel,.chart-card,.table-card,.methodology-card,.content-article,.author-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--card-shadow)}
+    .input-panel{padding:1.5rem;position:sticky;top:76px}
+    .tab-group{display:flex;background:var(--surface-subtle);padding:4px;border-radius:8px;margin-bottom:1.25rem}
+    .tab-btn{flex:1;padding:.6rem;border:0;background:transparent;font-weight:600;font-size:.8rem;border-radius:6px;cursor:pointer;color:var(--text-muted);min-height:40px;transition:all .2s}
+    .tab-btn.active{background:var(--surface);color:var(--primary);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+    .input-group{margin-bottom:1.25rem}.input-label-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;gap:.5rem}
+    .input-label-row label{font-weight:600;font-size:.84rem;display:flex;align-items:center}
+    .input-box-wrap{display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;padding:.25rem .5rem;background:var(--surface-subtle);max-width:160px;transition:border-color .2s}
+    .input-box-wrap:focus-within{border-color:var(--primary)}
+    .input-box-wrap input{width:100%;border:0;background:transparent;color:var(--text);font-weight:700;text-align:right;outline:0;font-size:.88rem}
+    .input-box-wrap span{color:var(--text-muted);font-size:.78rem;margin-left:4px}
+    .range-slider{width:100%;accent-color:var(--primary);cursor:pointer;display:block;margin-top:.5rem}
+    .word-preview{font-size:.75rem;color:var(--primary);font-weight:600;margin-top:.35rem;min-height:1.2em}
+    .field-note{font-size:.72rem;color:var(--text-muted);margin-top:.4rem;line-height:1.45}
+    .preset-pills{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem}.preset-pill{border:1px solid var(--border);background:var(--surface-subtle);border-radius:4px;padding:.25rem .6rem;font-size:.73rem;cursor:pointer;color:var(--text-muted);transition:all .2s}
+    .preset-pill:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+    .toggle-row{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-top:1px solid var(--border);gap:.5rem}
+    .toggle-label{font-size:.82rem;font-weight:600;display:flex;align-items:center;gap:.5rem}
+    
+    /* Tooltip */
+    .tooltip {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 16px; height: 16px; border-radius: 50%; background: var(--text-muted);
+      color: var(--surface); font-size: 10px; font-weight: 700; cursor: help;
+      position: relative; margin-left: 4px; flex-shrink: 0;
+    }
+    .tooltip:hover::after {
+      content: attr(data-tip);
+      position: absolute; bottom: 130%; left: 50%; transform: translateX(-50%);
+      background: var(--text); color: var(--surface); padding: 6px 10px;
+      border-radius: 6px; font-size: 0.72rem; font-weight: 400; 
+      max-width: 260px; white-space: normal; z-index: 50; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      line-height: 1.4; pointer-events: none;
+    }
+    .tooltip:hover::before {
+      content: ''; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+      border: 5px solid transparent; border-top-color: var(--text); z-index: 50;
+    }
+
+    .dashboard{display:flex;flex-direction:column;gap:1.25rem;min-width:0}
+    .summary-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}
+    .summary-card,.pension-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.1rem;text-align:center;min-width:0;transition:transform .2s, box-shadow .2s}
+    .summary-card:hover, .pension-card:hover{transform:translateY(-2px);box-shadow:0 8px 16px -4px rgba(0,0,0,.08)}
+    .summary-card.highlight,.pension-card.highlight{border-color:var(--primary);background:var(--primary-light)}
+    .summary-title{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;margin-bottom:.35rem;letter-spacing:0.03em}
+    .summary-val{font-size:1.25rem;font-weight:800;word-break:break-word;letter-spacing:-0.02em}
+    .summary-words{font-size:.68rem;color:var(--primary);font-weight:600;margin-top:4px}
+    .pension-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}
+    
+    .tax-badge-card{background:rgba(16,185,129,.08);border:1px solid var(--accent);border-radius:10px;padding:1rem 1.1rem;display:flex;justify-content:space-between;align-items:center;font-size:.83rem;flex-wrap:wrap;gap:.75rem}
+    .tax-badge-title{font-weight:700;color:var(--accent);display:flex;align-items:center;gap:.4rem;font-size:.85rem}
+    .tax-badge-desc{color:var(--text-muted);font-size:.78rem;line-height:1.4;max-width:80%}
+    .notice{background:rgba(37,99,235,.08);border-color:var(--primary)}.notice .tax-badge-title{color:var(--primary)}
+    .warning{background:rgba(245,158,11,.10);border-color:var(--amber)}.warning .tax-badge-title{color:var(--amber)}
+    
+    .tax-breakdown-card{background:var(--surface-subtle);border:1px solid var(--border);border-radius:10px;padding:1.1rem;margin-top:.5rem}
+    .breakdown-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;font-size:.82rem;border-bottom:1px dashed var(--border)}
+    .breakdown-row:last-child{border-bottom:0}
+    .breakdown-row.highlight{background:rgba(16,185,129,.08);margin:0 -1.1rem -1.1rem -1.1rem;padding:.75rem 1.1rem;border-radius:0 0 10px 10px;border-top:2px solid var(--accent)}
+
+    .action-bar{display:flex;gap:.6rem;flex-wrap:wrap}.action-btn{flex:1;min-width:130px;padding:.65rem .8rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.4rem}
+    .action-btn:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-1px)}
+    .action-btn.whatsapp{background:#25d36615;border-color:#25d366;color:#128c7e}
+    .action-btn.whatsapp:hover{background:#25d36625}
+
+    .charts-grid{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:1rem}.chart-card{padding:1.25rem;min-width:0}
+    .chart-card h3{font-size:.88rem;margin-bottom:.75rem;font-weight:700}.donut-wrap,.growth-wrap,.bench-wrap{position:relative;width:100%;height:220px}
+    .table-card{padding:1.25rem}.table-head-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem;gap:.5rem;flex-wrap:wrap}
+    .btn-action{background:var(--surface-subtle);border:1px solid var(--border);padding:.4rem .75rem;border-radius:6px;font-size:.75rem;font-weight:600;color:var(--text);cursor:pointer;transition:all .2s}
+    .btn-action:hover{border-color:var(--primary);color:var(--primary)}
+    .table-container{width:100%;overflow-x:auto;max-height:400px;border-radius:8px;border:1px solid var(--border)}
+    table{width:100%;min-width:700px;border-collapse:collapse;font-size:.78rem;text-align:right}
+    th,td{padding:.65rem .75rem;border-bottom:1px solid var(--border)}th:first-child,td:first-child{text-align:left}
+    th{background:var(--surface-subtle);position:sticky;top:0;font-weight:700;color:var(--text-muted);text-transform:uppercase;font-size:.7rem;letter-spacing:0.03em}
+    tr:last-child td{border-bottom:0}
+    
+    .methodology-card{padding:1.5rem;margin:2rem 0}.methodology-card h3{font-size:1.05rem;margin-bottom:.85rem}
+    .methodology-card ul{padding-left:1.2rem;color:var(--text-muted);font-size:.84rem;line-height:1.7}.formula-box{background:var(--surface-subtle);padding:1rem;border-radius:8px;margin:1rem 0;font-family:'SF Mono',Monaco,monospace;font-size:.82rem;overflow-x:auto;border-left:3px solid var(--primary)}
+    .author-card{display:flex;align-items:center;gap:1rem;padding:1.25rem;margin:2rem 0;border-left:4px solid var(--primary)}
+    .author-avatar{width:48px;height:48px;border-radius:50%;background:var(--primary);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
+    .author-info h4{font-size:.95rem;margin-bottom:.25rem}.author-info p{font-size:.8rem;color:var(--text-muted);line-height:1.5}
+    .content-article{margin:2rem 0;padding:1.5rem}.content-article h2{font-size:1.25rem;margin:1.5rem 0 .6rem;font-weight:700}.content-article h3{font-size:1.05rem;margin:1.2rem 0 .5rem;font-weight:600}
+    .content-article p,.content-article li{color:var(--text-muted);font-size:.88rem;line-height:1.7}.content-article ul{padding-left:1.2rem}
+    .faq-item{border-bottom:1px solid var(--border);padding:1rem 0}.faq-q{font-weight:600;font-size:.9rem;cursor:pointer;display:flex;justify-content:space-between;gap:.75rem;transition:color .2s}.faq-q:hover{color:var(--primary)}
+    .faq-a{margin-top:.6rem;color:var(--text-muted);font-size:.84rem;display:none;line-height:1.6}.faq-item.open .faq-a{display:block;animation:fadeIn .3s ease}
+    .source-box{background:var(--surface-subtle);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:1.5rem;font-size:.78rem;color:var(--text-muted);line-height:1.6}.source-box a{color:var(--primary);text-decoration:none;font-weight:500}
+    .source-box a:hover{text-decoration:underline}
+    
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--surface);padding:.75rem 1.5rem;border-radius:8px;font-size:.85rem;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .3s, transform .3s;transform:translateY(10px);z-index:100}
+    .toast.show{opacity:1;transform:translateY(0)}
+    .hidden{display:none!important}
+    
+    @keyframes popIn {
+      0% { transform: scale(0.95); opacity: 0.5; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-5px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .pop-in { animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+    @media(max-width:840px){
+      .calc-layout,.charts-grid,.summary-cards,.pension-cards{grid-template-columns:100%}
+      .page-head h1{font-size:1.5rem}
+      .container{padding:0 .85rem}
+      .input-panel{position:static}
+      .tax-badge-desc{max-width:100%}
+    }
+    @media print{
+      header,.ad-banner,.input-panel,.action-bar,.theme-toggle,.faq-q span,.source-box{display:none!important}
+      .calc-layout{display:block}
+      .dashboard{width:100%;box-shadow:none}
+      .summary-card,.pension-card,.tax-breakdown-card{break-inside:avoid;border:1px solid #ccc;box-shadow:none}
+      body{background:#fff;color:#000}
+      .content-article{margin:0;padding:0;border:none}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav-wrap">
+    <div class="nav-left">
+      <a href="../index.html" class="logo"><span class="logo-badge">₹</span><span>KitnaPaisa</span></a>
+      <a href="../index.html" class="nav-link">← All Calculators</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode"><span id="themeIcon">🌙</span> <span id="themeText">Dark</span></button>
+  </div>
+</header>
+
+<main class="container">
+  <div class="ad-banner ad-728x90" aria-label="Top Banner Ad">Ad Slot — Top Responsive (728x90)</div>
+
+  <div class="page-head">
+    <h1>Gratuity Calculator 2026</h1>
+    <p>Calculate your gratuity using the 15/26 formula, revised wage definition, service rounding, future projections, and detailed tax exemption breakdown.</p>
+    <div class="trust-badge-bar">
+      <span>📅 <strong>Updated:</strong> 28 Sep 2026</span><span>•</span>
+      <span>⚖️ <strong>Wage rule:</strong> From 21 Nov 2025</span><span>•</span>
+      <span>📐 <strong>Formula:</strong> 15/26</span><span>•</span>
+      <span>🔍 <strong>Verified:</strong> KitnaPaisa Research Team</span>
+    </div>
+  </div>
+
+  <div class="calc-layout">
+    <aside class="input-panel">
+      <div class="tab-group">
+        <button class="tab-btn active" id="btnPrivate" onclick="setEmployeeType('private')">Private / PSU</button>
+        <button class="tab-btn" id="btnGovt" onclick="setEmployeeType('govt')">Central / State Govt</button>
+      </div>
+      <div class="field-note" id="employeeNote" style="margin-bottom:1.25rem">Standard non-government gratuity and tax estimate. Employer schemes can provide better terms.</div>
+
+      <div class="input-group">
+        <div class="input-label-row">
+          <label for="basicInput">Basic Pay / Monthly Wage <span class="tooltip" data-tip="Your fixed monthly base salary before any allowances or deductions.">?</span></label>
+          <div class="input-box-wrap"><span>₹</span><input type="number" id="basicInput" value="40000" min="0" max="10000000" step="500"></div>
+        </div>
+        <input type="range" id="basicSlider" class="range-slider" min="0" max="300000" step="500" value="40000">
+        <div class="word-preview" id="basicPreview">₹40 Thousand /month</div>
+        <div class="preset-pills">
+          <button class="preset-pill" onclick="setVal('basic',25000)">₹25K</button>
+          <button class="preset-pill" onclick="setVal('basic',40000)">₹40K</button>
+          <button class="preset-pill" onclick="setVal('basic',50000)">₹50K</button>
+          <button class="preset-pill" onclick="setVal('basic',75000)">₹75K</button>
+          <button class="preset-pill" onclick="setVal('basic',100000)">₹1L</button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="input-label-row">
+          <label for="daInput">Dearness Allowance (DA) <span class="tooltip" data-tip="Dearness Allowance is fully included in the wage definition for gratuity calculations.">?</span></label>
+          <div class="input-box-wrap"><span>₹</span><input type="number" id="daInput" value="5000" min="0" max="5000000" step="500"></div>
+        </div>
+        <input type="range" id="daSlider" class="range-slider" min="0" max="100000" step="500" value="5000">
+      </div>
+
+      <div class="toggle-row">
+        <span class="toggle-label">Use revised 50% wage rule <span class="tooltip" data-tip="From Nov 2025, if excluded allowances exceed 50% of total remuneration, the excess is added back to statutory wages.">?</span></span>
+        <input type="checkbox" id="wageRuleToggle" checked>
+      </div>
+
+      <div class="input-group" id="allowanceGroup">
+        <div class="input-label-row">
+          <label for="allowanceInput">Other Allowances <span class="tooltip" data-tip="Enter HRA, special allowances, etc., that are not part of Basic + DA.">?</span></label>
+          <div class="input-box-wrap"><span>₹</span><input type="number" id="allowanceInput" value="25000" min="0" max="5000000" step="500"></div>
+        </div>
+        <input type="range" id="allowanceSlider" class="range-slider" min="0" max="300000" step="500" value="25000">
+      </div>
+
+      <div class="input-group">
+        <div class="input-label-row">
+          <label for="yearsInput">Completed Years of Service</label>
+          <div class="input-box-wrap"><input type="number" id="yearsInput" value="5" min="0" max="60" step="1"><span>Yrs</span></div>
+        </div>
+        <input type="range" id="yearsSlider" class="range-slider" min="0" max="60" step="1" value="5">
+      </div>
+
+      <div class="input-group">
+        <div class="input-label-row">
+          <label for="monthsInput">Additional Months <span class="tooltip" data-tip="A part of a year exceeding 6 months is rounded up to a full year for gratuity calculation.">?</span></label>
+          <div class="input-box-wrap"><input type="number" id="monthsInput" value="7" min="0" max="11" step="1"><span>Mo</span></div>
+        </div>
+        <input type="range" id="monthsSlider" class="range-slider" min="0" max="11" step="1" value="7">
+        <div class="word-preview" id="servicePreview">5 years 7 months → 6 years counted</div>
+      </div>
+
+      <div class="toggle-row">
+        <span class="toggle-label">Fixed-term / death / disablement exception <span class="tooltip" data-tip="The 5-year minimum service rule is waived in cases of death, disablement, or expiry of a fixed-term contract.">?</span></span>
+        <input type="checkbox" id="exceptionToggle">
+      </div>
+
+      <div class="input-group">
+        <div class="input-label-row">
+          <label for="ceilingInput">Statutory Gratuity Ceiling</label>
+          <div class="input-box-wrap"><span>₹</span><input type="number" id="ceilingInput" value="2000000" min="0" max="100000000" step="50000"></div>
+        </div>
+        <input type="range" id="ceilingSlider" class="range-slider" min="0" max="5000000" step="50000" value="2000000">
+      </div>
+
+      <div class="toggle-row">
+        <span class="toggle-label">Estimate Section 10(10) tax exemption</span>
+        <input type="checkbox" id="taxToggle" checked>
+      </div>
+
+      <div class="input-group" id="taxInputs">
+        <div class="input-label-row">
+          <label for="avgSalaryInput">Average Salary (Last 10 Months) <span class="tooltip" data-tip="Average of Basic + DA drawn over the last 10 months of employment. Used for the tax exemption limit test.">?</span></label>
+          <div class="input-box-wrap"><span>₹</span><input type="number" id="avgSalaryInput" value="45000" min="0" max="10000000" step="500"></div>
+        </div>
+        <input type="range" id="avgSalarySlider" class="range-slider" min="0" max="500000" step="500" value="45000">
+      </div>
+
+      <div class="input-group" style="margin-top: 1.5rem; border-top: 2px solid var(--border); padding-top: 1.25rem;">
+        <div class="input-label-row" style="margin-bottom:0.75rem">
+          <label style="font-size:0.95rem;color:var(--primary)">📈 Future Projection</label>
+        </div>
+        <div class="input-label-row">
+          <label for="incrementInput">Expected Annual Salary Hike</label>
+          <div class="input-box-wrap"><input type="number" id="incrementInput" value="5" min="0" max="50" step="1"><span>%</span></div>
+        </div>
+        <div class="input-label-row" style="margin-top: 0.5rem;">
+          <label for="projectYearsInput">Additional Years to Project</label>
+          <div class="input-box-wrap"><input type="number" id="projectYearsInput" value="3" min="1" max="20" step="1"><span>Yrs</span></div>
+        </div>
+        <div class="word-preview" id="projectionPreview" style="color:var(--accent)">Projected Gratuity in 3 years: ₹0</div>
+      </div>
+
+      <div class="ad-banner ad-300x250" style="margin-top:1.5rem" aria-label="Sidebar Ad">Ad Slot — Sidebar (300x250)</div>
+    </aside>
+
+    <section class="dashboard">
+      <div class="action-bar">
+        <button class="action-btn whatsapp" onclick="shareWhatsApp()">💬 Share</button>
+        <button class="action-btn" onclick="copyShareableLink()">🔗 Copy Link</button>
+        <button class="action-btn" onclick="window.print()">🖨️ Print Report</button>
+        <button class="action-btn" onclick="resetDefaults()" style="color:var(--danger);border-color:var(--danger)">↺ Reset</button>
+      </div>
+
+      <div class="tax-badge-card">
+        <div class="tax-badge-title">⚖️ Current Wage Definition</div>
+        <div class="tax-badge-desc">For calculations from 21 Nov 2025, the revised wage definition applies; excess allowances above the 50% threshold are added back to statutory wages.</div>
+      </div>
+
+      <div id="eligibilityNotice" class="tax-badge-card notice" style="display:none"></div>
+
+      <div class="summary-cards">
+        <div class="summary-card">
+          <div class="summary-title">Statutory Wage</div>
+          <div class="summary-val" id="valWage">₹0</div>
+          <div class="summary-words" id="wordWage"></div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-title">Eligible Service</div>
+          <div class="summary-val" id="valService">0 Years</div>
+          <div class="summary-words" id="wordService"></div>
+        </div>
+        <div class="summary-card highlight">
+          <div class="summary-title">Estimated Gratuity</div>
+          <div class="summary-val" id="valGratuity" style="color:var(--primary)">₹0</div>
+          <div class="summary-words" id="wordGratuity"></div>
+        </div>
+      </div>
+
+      <div class="pension-cards">
+        <div class="pension-card">
+          <div class="summary-title">15-Day Wage</div>
+          <div class="summary-val" id="val15Day">₹0</div>
+          <div class="summary-words">Wage ÷ 26 × 15</div>
+        </div>
+        <div class="pension-card">
+          <div class="summary-title">Statutory Ceiling</div>
+          <div class="summary-val" id="valCeiling">₹0</div>
+          <div class="summary-words" id="wordCeiling">Configured limit</div>
+        </div>
+        <div class="pension-card highlight">
+          <div class="summary-title">Est. Tax-Exempt</div>
+          <div class="summary-val" id="valTaxFree" style="color:var(--accent)">₹0</div>
+          <div class="summary-words" id="wordTaxable"></div>
+        </div>
+      </div>
+
+      <div id="taxBreakdownCard" class="tax-breakdown-card" style="display:none;">
+        <h4 style="font-size:0.88rem; margin-bottom:0.85rem; color:var(--text);font-weight:700">📊 Section 10(10) Tax Exemption Breakdown</h4>
+        <div class="breakdown-row"><span>1. Actual Gratuity Received</span><span id="taxLimit1">₹0</span></div>
+        <div class="breakdown-row"><span>2. Statutory Ceiling (IT Act)</span><span id="taxLimit2">₹20,00,000</span></div>
+        <div class="breakdown-row"><span>3. 15/26 × Avg Salary × Eligible Years</span><span id="taxLimit3">₹0</span></div>
+        <div class="breakdown-row highlight">
+          <span><strong>Least of the above (Tax Exempt)</strong></span><span id="taxExemptFinal" style="color:var(--accent); font-weight:800;">₹0</span>
+        </div>
+        <div class="breakdown-row" style="color:var(--danger);font-weight:600">
+          <span>Estimated Taxable Amount</span><span id="taxableFinal">₹0</span>
+        </div>
+      </div>
+
+      <div id="taxNotice" class="tax-badge-card warning" style="display:none"></div>
+
+      <div class="charts-grid">
+        <div class="chart-card"><h3>Gratuity by Service Year</h3><div class="donut-wrap"><canvas id="serviceChart"></canvas></div></div>
+        <div class="chart-card"><h3>Estimated Gratuity Growth</h3><div class="growth-wrap"><canvas id="growthChart"></canvas></div></div>
+      </div>
+
+      <div class="chart-card">
+        <h3>Wage Components Used in Calculation</h3>
+        <div class="bench-wrap"><canvas id="wageChart"></canvas></div>
+        <div class="field-note" style="margin-top:0.75rem">The chart compares Basic + DA, other entered allowances, and any allowance amount added back by the 50% wage rule.</div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-head-bar">
+          <h3>Year-by-Year Gratuity Schedule</h3>
+          <button class="btn-action" onclick="exportTableToCSV()">📥 Download CSV</button>
+        </div>
+        <div class="table-container">
+          <table id="scheduleTable">
+            <thead><tr><th>Service Year</th><th>Eligible Wage</th><th>15-Day Wage</th><th>Gratuity for Year</th><th>Cumulative Gratuity</th></tr></thead>
+            <tbody id="scheduleBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="methodology-card">
+    <h3>📐 Mathematical Methodology & Verification</h3>
+    <div class="formula-box">
+      Standard monthly-rated formula = (Statutory Monthly Wage ÷ 26) × 15 × Eligible Years<br>
+      Eligible years = Completed years + 1 (if additional service period > 6 months)<br>
+      Revised wage test = Basic + DA + [Excess of specified excluded allowances above 50% of total remuneration]<br>
+      Statutory gratuity = MIN(Formula Result, Applicable Gratuity Ceiling)
+    </div>
+    <ul>
+      <li><strong>15/26 rule:</strong> Section 53 of the Code on Social Security, 2020 expressly states that for a monthly-rated employee, 15 days' wages are calculated by dividing the last drawn monthly wage by 26 and multiplying by 15.</li>
+      <li><strong>Six-month rounding:</strong> The standard rule counts every completed year and a part of a year in excess of six months as a full year.</li>
+      <li><strong>Revised wages:</strong> The Ministry of Labour & Employment states that the revised definition of wages applies to gratuity from 21 November 2025. If specified allowances exceed 50% of total remuneration, the excess is added back to wages.</li>
+      <li><strong>Tax:</strong> The tax panel is an estimate. For non-government employees, exemption is the <em>least</em> of actual gratuity, ₹20,00,000, or the 15/26 formula based on 10-month average salary. This does not replace professional tax advice.</li>
+      <li><strong>Client-side execution:</strong> All calculations run locally in your browser. No financial inputs are sent to KitnaPaisa's servers.</li>
+    </ul>
+  </section>
+
+  <div class="author-card">
+    <div class="author-avatar">KP</div>
+    <div class="author-info">
+      <h4>Researched & Maintained by the KitnaPaisa Financial Team</h4>
+      <p>KitnaPaisa provides free, transparent financial calculators and explainers for Indian users, with formulas and assumptions shown clearly.</p>
+    </div>
+  </div>
+
+  <article class="content-article">
+    <h2>What Is Gratuity?</h2>
+    <p>Gratuity is a lump-sum employment benefit payable when an employee's employment ends in circumstances covered by the applicable gratuity provisions. The amount is linked to the employee's last drawn statutory wages and eligible service period.</p>
+
+    <h2>How Is Gratuity Calculated?</h2>
+    <p>For a monthly-rated employee, the standard statutory calculation is based on 15 days' wages for each eligible year of service. The monthly wage is divided by 26 and multiplied by 15.</p>
+    <div class="formula-box">Gratuity = (Last Drawn Monthly Statutory Wage ÷ 26) × 15 × Eligible Years</div>
+
+    <h2>What Changed for Gratuity From 21 November 2025?</h2>
+    <p>The Labour Ministry's Additional FAQs state that the revised definition of wages applies to gratuity from 21 November 2025. The definition includes a 50% test: when specified excluded allowances and benefits exceed 50% of remuneration, the excess is added back into wages for statutory calculations.</p>
+
+    <h2>Gratuity and Tax Exemption</h2>
+    <p>Gratuity's tax treatment depends on the employee's category. For non-government employees, the tax-exempt amount is the <strong>least</strong> of: (1) Actual gratuity received, (2) ₹20,00,000, or (3) 15 days' salary × completed years of service. The calculator's breakdown section shows exactly how this is derived.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the 15/26 gratuity formula? <span>▼</span></div><div class="faq-a">The 15/26 formula means 15 days of wages for every eligible year of service. For a monthly-rated employee, the monthly wage is divided by 26 and multiplied by 15, then multiplied by the eligible years of service.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does 4 years 7 months count as 5 years for gratuity? <span>▼</span></div><div class="faq-a">For the standard completed-year calculation, a part of a year in excess of six months is counted as a completed year. Therefore, 4 years and 7 months is normally treated as 5 years for the completed-year calculation, subject to eligibility and the applicable rules.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is gratuity available after 5 years of service? <span>▼</span></div><div class="faq-a">The standard gratuity entitlement generally requires five years of continuous service when employment ends by resignation, retirement or superannuation. The five-year condition does not apply in specified cases such as death, disablement and certain fixed-term employment situations.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does a fixed-term employee get gratuity before five years? <span>▼</span></div><div class="faq-a">The Labour Ministry's Labour Codes FAQ states that completion of five years is not necessary for expiry of a fixed-term employment contract, and fixed-term employment gratuity is paid on a pro-rata basis subject to the applicable provisions.</div></div>
+
+    <div class="source-box">
+      <strong>Primary references:</strong><br>
+      <a href="https://www.labour.gov.in/static/uploads/2025/06/23e3be0e31de495acd1698ed85007ec1.pdf" target="_blank" rel="noopener">Payment of Gratuity Act, 1972</a> · 
+      <a href="https://www.labour.gov.in/static/uploads/2026/03/a4ccf4c6d97c4f1f36a6d83f8c64213d.pdf" target="_blank" rel="noopener">Ministry of Labour Additional FAQs on Labour Codes</a> · 
+      <a href="https://www.incometax.gov.in/iec/foportal/sites/default/files/2026-06/CBDT_e-filing_ITR-3_Validation%20Rules_V1.0_AY%2026-27.pdf" target="_blank" rel="noopener">CBDT e-Filing Validation Rules AY 2026-27</a>
+    </div>
+  </article>
+</main>
+
+<div id="toast" class="toast">Link copied!</div>
+
+<script>
+  let serviceChart=null, growthChart=null, wageChart=null, cachedSchedule=[];
+  let employeeType='private';
+  let debounceTimer;
+
+  const inrFormatter = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+  function formatINR(v){ if(!isFinite(v) || v === null) return '₹0'; return inrFormatter.format(Math.round(v)); }
+  
+  function formatIndian(v){
+    if(!isFinite(v) || v <= 0) return '₹0';
+    if(v >= 10000000) return '₹' + (v / 10000000).toFixed(2) + ' Crore';
+    if(v >= 100000) return '₹' + (v / 100000).toFixed(2) + ' Lakh';
+    if(v >= 1000) return '₹' + (v / 1000).toFixed(1) + ' Thousand';
+    return '₹' + Math.round(v);
+  }
+
+  function clamp(el){
+    if(!el) return;
+    let v = parseFloat(el.value);
+    if(isNaN(v)) v = parseFloat(el.min) || 0;
+    const min = parseFloat(el.min), max = parseFloat(el.max);
+    if(isFinite(min) && v < min) v = min;
+    if(isFinite(max) && v > max) v = max;
+    el.value = v;
+  }
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.innerText = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  function setVal(key, val){
+    document.getElementById(key + 'Input').value = val;
+    const slider = document.getElementById(key + 'Slider');
+    if(slider) slider.value = val;
+    debouncedSync();
+  }
+
+  function toggleFaq(el){ el.parentElement.classList.toggle('open'); }
+
+  function setEmployeeType(type){
+    employeeType = type;
+    document.getElementById('btnPrivate').classList.toggle('active', type === 'private');
+    document.getElementById('btnGovt').classList.toggle('active', type === 'govt');
+    document.getElementById('employeeNote').innerText = type === 'govt'
+      ? 'Government employee mode: tax exemption treatment differs from the standard non-government estimate. Verify the service rules applicable to your cadre.'
+      : 'Standard non-government gratuity and tax estimate. Employer schemes can provide better terms.';
+    debouncedSync();
+  }
+
+  function applyTheme(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('themeIcon').textContent = theme === 'dark' ? '☀️' : '🌙';
+    document.getElementById('themeText').textContent = theme === 'dark' ? 'Light' : 'Dark';
+    localStorage.setItem('theme', theme);
+    syncCharts();
+  }
+
+  function syncCharts(){ setTimeout(() => debouncedSync(), 0); }
+
+  function debouncedSync(){
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(sync, 150);
+  }
+
+  function animateValue(id, value){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.remove('pop-in');
+    void el.offsetWidth; // trigger reflow
+    el.innerText = value;
+    el.classList.add('pop-in');
+  }
+
+  function calculate(){
+    const basic = +document.getElementById('basicInput').value || 0;
+    const da = +document.getElementById('daInput').value || 0;
+    const allowances = +document.getElementById('allowanceInput').value || 0;
+    const years = Math.max(0, +document.getElementById('yearsInput').value || 0);
+    const months = Math.min(11, Math.max(0, +document.getElementById('monthsInput').value || 0));
+    const ceiling = Math.max(0, +document.getElementById('ceilingInput').value || 0);
+    const useRule = document.getElementById('wageRuleToggle').checked;
+    const exception = document.getElementById('exceptionToggle').checked;
+    const taxOn = document.getElementById('taxToggle').checked;
+    const avgSalary = +document.getElementById('avgSalaryInput').value || 0;
+    const increment = +document.getElementById('incrementInput').value || 0;
+    const projYears = +document.getElementById('projectYearsInput').value || 0;
+
+    const remuneration = basic + da + allowances;
+    const half = remuneration * 0.5;
+    const baseWage = basic + da;
+    const excess = useRule ? Math.max(0, allowances - half) : 0;
+    const statutoryWage = baseWage + excess;
+
+    let eligibleYears = years + (months > 6 ? 1 : 0);
+    const standardEligible = exception ? eligibleYears : (eligibleYears >= 5 ? eligibleYears : 0);
+    
+    const day15 = (statutoryWage / 26) * 15;
+    let rawGratuity = day15 * standardEligible;
+    let gratuity = Math.min(rawGratuity, ceiling);
+
+    let exactService = years + (months / 12);
+
+    // Projection Logic
+    const futureExactYears = exactService + projYears;
+    const futureRoundedYears = Math.floor(futureExactYears) + (futureExactYears % 1 >= 0.5 ? 1 : 0);
+    const futureEligibleYears = exception ? futureRoundedYears : (futureRoundedYears >= 5 ? futureRoundedYears : 0);
+    const futureWage = statutoryWage * Math.pow(1 + (increment / 100), projYears);
+    const futureGratuityRaw = (futureWage / 26) * 15 * futureEligibleYears;
+    const futureGratuity = Math.min(futureGratuityRaw, ceiling);
+
+    // Tax estimate
+    let taxFree = 0, taxable = 0, limit3 = 0;
+    if(taxOn){
+      if(employeeType === 'govt'){
+        taxFree = gratuity;
+        taxable = 0;
+      } else {
+        limit3 = (avgSalary / 26) * 15 * eligibleYears;
+        taxFree = Math.min(gratuity, 2000000, Math.max(0, limit3));
+        taxable = Math.max(0, gratuity - taxFree);
+      }
+    }
+
+    return { basic, da, allowances, remuneration, half, baseWage, excess, statutoryWage, years, months, eligibleYears, exactService,
+      day15, rawGratuity, gratuity, ceiling, useRule, exception, taxOn, avgSalary, taxFree, taxable, limit3,
+      increment, projYears, futureWage, futureGratuity };
+  }
+
+  function sync(){
+    ['basic','da','allowance','years','months','ceiling','avgSalary','increment','projectYears'].forEach(k => {
+      clamp(document.getElementById(k + 'Input'));
+      const s = document.getElementById(k + 'Slider');
+      if(s) s.value = document.getElementById(k + 'Input').value;
+    });
+
+    document.getElementById('allowanceGroup').classList.toggle('hidden', !document.getElementById('wageRuleToggle').checked);
+    document.getElementById('taxInputs').classList.toggle('hidden', !document.getElementById('taxToggle').checked);
+
+    const d = calculate();
+
+    document.getElementById('basicPreview').innerText = formatIndian(d.basic) + ' /month';
+    document.getElementById('servicePreview').innerText = `${d.years} years ${d.months} months → ${d.eligibleYears} years counted`;
+    
+    animateValue('valWage', formatINR(d.statutoryWage));
+    document.getElementById('wordWage').innerText = formatIndian(d.statutoryWage) + ' /month';
+    
+    animateValue('valService', d.eligibleYears + ' Years');
+    document.getElementById('wordService').innerText = d.exactService.toFixed(2) + ' years entered';
+    
+    animateValue('valGratuity', formatINR(d.gratuity));
+    document.getElementById('wordGratuity').innerText = d.rawGratuity > d.ceiling ? formatIndian(d.rawGratuity) + ' before ceiling' : formatIndian(d.gratuity) + ' statutory estimate';
+    
+    animateValue('val15Day', formatINR(d.day15));
+    animateValue('valCeiling', formatINR(d.ceiling));
+    
+    animateValue('valTaxFree', d.taxOn ? formatINR(d.taxFree) : 'Off');
+    document.getElementById('wordTaxable').innerText = d.taxOn ? formatIndian(Math.max(0, d.gratuity - d.taxFree)) + ' estimated taxable' : 'Enable tax estimate';
+
+    // Eligibility Notice
+    const notice = document.getElementById('eligibilityNotice');
+    if(!d.exception && d.eligibleYears < 5){
+      notice.style.display = 'flex';
+      notice.innerHTML = '<div class="tax-badge-title">ℹ️ Five-Year Eligibility</div><div class="tax-badge-desc">You entered less than 5 years of eligible service. The standard resignation/retirement calculation therefore shows ₹0. Specified exceptions such as death, disablement and certain fixed-term employment can differ.</div>';
+    } else {
+      notice.style.display = 'none';
+    }
+
+    // Tax Breakdown
+    if(d.taxOn && employeeType !== 'govt'){
+      document.getElementById('taxBreakdownCard').style.display = 'block';
+      animateValue('taxLimit1', formatINR(d.gratuity));
+      animateValue('taxLimit2', formatINR(2000000));
+      animateValue('taxLimit3', formatINR(d.limit3));
+      animateValue('taxExemptFinal', formatINR(d.taxFree));
+      animateValue('taxableFinal', formatINR(d.taxable));
+      
+      const tn = document.getElementById('taxNotice');
+      tn.style.display = 'flex';
+      tn.innerHTML = '<div class="tax-badge-title">🧾 Tax Estimate</div><div class="tax-badge-desc">Estimated tax-exempt amount is the lower of actual gratuity, ₹20 lakh, and the 15/26 × 10-month-average-salary test. This is an estimate, not tax advice.</div>';
+    } else {
+      document.getElementById('taxBreakdownCard').style.display = 'none';
+      document.getElementById('taxNotice').style.display = 'none';
+    }
+
+    // Projection Preview
+    document.getElementById('projectionPreview').innerText = `Projected Gratuity in ${d.projYears} years: ${formatINR(d.futureGratuity)} (Wage: ${formatINR(d.futureWage)})`;
+
+    // Schedule Table
+    cachedSchedule = [];
+    for(let y = 1; y <= Math.max(1, d.eligibleYears); y++){
+      const g = d.day15 * y;
+      const capped = Math.min(g, d.ceiling);
+      cachedSchedule.push({ year: y, wage: d.statutoryWage, day15: d.day15, gratuity: capped });
+    }
+    renderTable();
+    renderCharts(d);
+    updateURL();
+  }
+
+  function renderTable(){
+    const body = document.getElementById('scheduleBody');
+    body.innerHTML = '';
+    cachedSchedule.forEach(r => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>Year ${r.year}</td><td>${formatINR(r.wage)}</td><td>${formatINR(r.day15)}</td><td style="color:var(--accent);font-weight:600">${formatINR(r.gratuity)}</td><td style="font-weight:700;color:var(--primary)">${formatINR(r.gratuity)}</td>`;
+      body.appendChild(tr);
+    });
+  }
+
+  function renderCharts(d){
+    if(typeof Chart === 'undefined') return;
+    const cs = getComputedStyle(document.documentElement);
+    const text = cs.getPropertyValue('--chart-text').trim() || '#64748b';
+    const grid = cs.getPropertyValue('--chart-grid').trim() || '#e2e8f0';
+    const primary = cs.getPropertyValue('--primary').trim() || '#2563eb';
+    const accent = cs.getPropertyValue('--accent').trim() || '#10b981';
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+    const chartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 600, easing: 'easeOutQuart' },
+      plugins: { legend: { position: 'bottom', labels: { color: text, font: { size: 11 } } } }
+    };
+
+    if(serviceChart) serviceChart.destroy();
+    serviceChart = new Chart(document.getElementById('serviceChart').getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Years Counted', 'Remaining to 10 Years'],
+        datasets: [{
+          data: [Math.min(d.eligibleYears, 10), Math.max(0, 10 - Math.min(d.eligibleYears, 10))],
+          backgroundColor: [primary, accent],
+          borderColor: isDark ? '#111' : '#fff',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        ...chartOptions,
+        plugins: {
+          ...chartOptions.plugins,
+          tooltip: { callbacks: { label: c => ` ${c.label}: ${c.raw} year(s)` } }
+        }
+      }
+    });
+
+    if(growthChart) growthChart.destroy();
+    const labels = Array.from({ length: Math.max(10, d.eligibleYears) }, (_, i) => 'Year ' + (i + 1));
+    const data = labels.map((_, i) => Math.min(d.day15 * (i + 1), d.ceiling));
+    growthChart = new Chart(document.getElementById('growthChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Estimated Gratuity',
+          data,
+          borderColor: primary,
+          backgroundColor: isDark ? 'rgba(59,130,246,.25)' : 'rgba(37,99,235,.15)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 3,
+          pointHoverRadius: 6
+        }]
+      },
+      options: {
+        ...chartOptions,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: { grid: { color: grid }, ticks: { color: text, font: { size: 10 } } },
+          y: { grid: { color: grid }, ticks: { color: text, callback: v => formatIndian(v), font: { size: 10 } } }
+        },
+        plugins: {
+          ...chartOptions.plugins,
+          tooltip: { callbacks: { label: c => ` ${formatINR(c.raw)}` } }
+        }
+      }
+    });
+
+    if(wageChart) wageChart.destroy();
+    wageChart = new Chart(document.getElementById('wageChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: ['Basic + DA', 'Entered Allowances', '50% Rule Add-back', 'Final Statutory Wage'],
+        datasets: [{
+          data: [d.baseWage, d.allowances, d.excess, d.statutoryWage],
+          backgroundColor: [primary, accent, '#f59e0b', primary],
+          borderRadius: 6,
+          barThickness: 40
+        }]
+      },
+      options: {
+        ...chartOptions,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${formatINR(c.raw)}` } } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: text, font: { size: 10 } } },
+          y: { grid: { color: grid }, ticks: { color: text, callback: v => formatIndian(v), font: { size: 10 } } }
+        }
+      }
+    });
+  }
+
+  function updateURL(){
+    const p = new URLSearchParams();
+    p.set('type', employeeType);
+    ['basic','da','allowance','years','months','ceiling','avgSalary','increment','projectYears'].forEach(k => {
+      const el = document.getElementById(k + 'Input');
+      if(el) p.set(k, el.value);
+    });
+    p.set('wageRule', document.getElementById('wageRuleToggle').checked ? '1' : '0');
+    p.set('exception', document.getElementById('exceptionToggle').checked ? '1' : '0');
+    p.set('tax', document.getElementById('taxToggle').checked ? '1' : '0');
+    history.replaceState({}, '', `${location.pathname}?${p.toString()}`);
+  }
+
+  function loadURL(){
+    const p = new URLSearchParams(location.search);
+    if(p.get('type') === 'govt') setEmployeeType('govt');
+    ['basic','da','allowance','years','months','ceiling','avgSalary','increment','projectYears'].forEach(k => {
+      if(p.has(k)){
+        document.getElementById(k + 'Input').value = p.get(k);
+        const s = document.getElementById(k + 'Slider');
+        if(s) s.value = p.get(k);
+      }
+    });
+    if(p.has('wageRule')) document.getElementById('wageRuleToggle').checked = p.get('wageRule') === '1';
+    if(p.has('exception')) document.getElementById('exceptionToggle').checked = p.get('exception') === '1';
+    if(p.has('tax')) document.getElementById('taxToggle').checked = p.get('tax') === '1';
+  }
+
+  function copyShareableLink(){
+    navigator.clipboard.writeText(location.href).then(() => showToast('Link copied with your gratuity parameters!'));
+  }
+
+  function shareWhatsApp(){
+    const d = calculate();
+    const text = encodeURIComponent(`My gratuity estimate on KitnaPaisa:\n💰 Statutory Wage: ${formatINR(d.statutoryWage)}\n📅 Eligible Service: ${d.eligibleYears} years\n🎁 Estimated Gratuity: ${formatINR(d.gratuity)}\n\nCalculate yours: ${location.href}`);
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  }
+
+  function resetDefaults(){
+    document.getElementById('basicInput').value = 40000; document.getElementById('basicSlider').value = 40000;
+    document.getElementById('daInput').value = 5000; document.getElementById('daSlider').value = 5000;
+    document.getElementById('allowanceInput').value = 25000; document.getElementById('allowanceSlider').value = 25000;
+    document.getElementById('yearsInput').value = 5; document.getElementById('yearsSlider').value = 5;
+    document.getElementById('monthsInput').value = 7; document.getElementById('monthsSlider').value = 7;
+    document.getElementById('ceilingInput').value = 2000000; document.getElementById('ceilingSlider').value = 2000000;
+    document.getElementById('avgSalaryInput').value = 45000; document.getElementById('avgSalarySlider').value = 45000;
+    document.getElementById('incrementInput').value = 5;
+    document.getElementById('projectYearsInput').value = 3;
+    document.getElementById('wageRuleToggle').checked = true;
+    document.getElementById('exceptionToggle').checked = false;
+    document.getElementById('taxToggle').checked = true;
+    setEmployeeType('private');
+    showToast('Calculator reset to defaults');
+  }
+
+  function exportTableToCSV(){
+    let csv = 'Service Year,Eligible Wage (INR),15-Day Wage (INR),Gratuity for Year (INR),Cumulative Gratuity (INR)\n';
+    cachedSchedule.forEach(r => csv += `${r.year},${Math.round(r.wage)},${Math.round(r.day15)},${Math.round(r.gratuity)},${Math.round(r.gratuity)}\n`);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Gratuity_Schedule_${new Date().getFullYear()}.csv`;
+    a.click();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light'));
+    loadURL();
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    ['basic','da','allowance','years','months','ceiling','avgSalary','increment','projectYears'].forEach(k => {
+      const n = document.getElementById(k + 'Input');
+      const s = document.getElementById(k + 'Slider');
+      if(n) n.addEventListener('input', () => { clamp(n); if(s) s.value = n.value; debouncedSync(); });
+      if(s) s.addEventListener('input', () => { n.value = s.value; debouncedSync(); });
+    });
+    
+    ['wageRuleToggle','exceptionToggle','taxToggle'].forEach(id => {
+      document.getElementById(id).addEventListener('change', debouncedSync);
+    });
+    
+    debouncedSync();
+  });
+</script>
+</body>
+</html>
