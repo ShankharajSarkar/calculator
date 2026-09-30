@@ -106,3 +106,31 @@ const FinanceUtils = (function () {
     CURRENCY_CONFIGS
   };
 })();
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Detect if we are on a calculator page
+  if (window.location.pathname.includes("/calculators/")) {
+    const pageTitle = document.title.split("-")[0].trim();
+    const mailSubject = encodeURIComponent(`Feedback / Request: ${pageTitle}`);
+    const mailBody = encodeURIComponent(`Page URL: ${window.location.href}\n\nType of Feedback:\n[ ] Irregularity / Bug\n[ ] Suggestion for this calculator\n[ ] Request for a new calculator\n\nDetails:\n`);
+
+    const banner = document.createElement("div");
+    banner.className = "feedback-banner";
+    banner.innerHTML = `
+      <div class="feedback-content">
+        <span class="feedback-icon">💬</span>
+        <div class="feedback-text">
+          <h4>Have a suggestion or found an irregularity?</h4>
+          <p>Let us know if numbers don't match or request a new calculator tool.</p>
+        </div>
+      </div>
+      <a href="mailto:support@kitnapaisa.in?subject=${mailSubject}&body=${mailBody}" class="feedback-btn">
+        Contact Us
+      </a>
+    `;
+
+    // Append right after the calculator container or before the footer
+    const targetContainer = document.querySelector(".calculator-container") || document.querySelector("main") || document.body;
+    targetContainer.appendChild(banner);
+  }
+});
