@@ -3,7 +3,7 @@
   <!-- KitnaPaisa Calculators Home Page -->
   <url>
     <loc>https://kitnapaisa.in/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,7 +11,7 @@
   <!-- KitnaPaisa Calculators -->
   <url>
     <loc>https://kitnapaisa.in/calculators/sip-calculator.html</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
